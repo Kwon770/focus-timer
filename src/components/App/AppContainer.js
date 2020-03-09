@@ -7,7 +7,7 @@ export default class AppContainer extends Component {
     super(props);
     this.state = {};
   }
-  rende() {
+  render() {
     return (
       <Store.Provider value={this.state}>
         <AppPresenter />
