@@ -1,11 +1,11 @@
 import React from "react";
-import Timer from "components/Timer";
+import DigitalTimer from "components/DigitalTimer";
 import Todo from "components/ToDo";
 import Player from "components/Player";
 
 const AppPresenter = () => (
   <>
-    <Timer />
+    <DigitalTimer />
   </>
 );
 
