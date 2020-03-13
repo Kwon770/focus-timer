@@ -63,8 +63,18 @@ class TimerPresenter extends React.Component {
             <ButtonColumn>
               <ButtonConatiner>
                 <Title>Clock Mode</Title>
-                <SettingButton>Time Timer</SettingButton>
-                <SettingButton>Digital Timer</SettingButton>
+                <SettingButton>
+                  Time Timer
+                  <SettingDescription Left>
+                    Intuitive analog clock
+                  </SettingDescription>
+                </SettingButton>
+                <SettingButton>
+                  Digital Timer
+                  <SettingDescription Left>
+                    Accurate digital clock
+                  </SettingDescription>
+                </SettingButton>
               </ButtonConatiner>
               <ButtonConatiner>
                 <Title>Time Mode</Title>
@@ -72,34 +82,58 @@ class TimerPresenter extends React.Component {
                   onClick={() => this.setState({ isCustomClick: false })}
                 >
                   Pomodoro
+                  <SettingDescription>
+                    1 long focus after 4 short focus with break
+                  </SettingDescription>
                 </SettingButton>
                 <SettingButton
                   onClick={() => this.setState({ isCustomClick: true })}
                 >
                   Custom
+                  <SettingDescription>Custom time set</SettingDescription>
                 </SettingButton>
               </ButtonConatiner>
             </ButtonColumn>
             <ButtonColumn>
               <ButtonConatiner>
                 <Title>Timer Mode</Title>
-                <SettingButton>Timer Auto Start</SettingButton>
-                <SettingButton>Over Counting</SettingButton>
+                <SettingButton>
+                  Timer Auto Start
+                  <SettingDescription Left>
+                    If focus or break is done, start next timer automatically
+                  </SettingDescription>
+                </SettingButton>
+                <SettingButton>
+                  Over Counting
+                  <SettingDescription Left>
+                    If you don't press next Button, It will count time till you
+                    press
+                  </SettingDescription>
+                </SettingButton>
               </ButtonConatiner>
               <ButtonConatiner>
                 <Title>Time Setting</Title>
                 <SettingButton>
-                  Long Focus Time
+                  Focus Time
                   <TimeInput />
+                  <SettingDescription>
+                    Time to focus on what you do (minute)
+                  </SettingDescription>
                 </SettingButton>
                 <SettingButton>
-                  Short Focus Time
+                  Short break Time
                   <TimeInput />
+                  <SettingDescription>
+                    Short break time after repeated focus (minute)
+                  </SettingDescription>
                 </SettingButton>
                 <SettingButton>
-                  Break Time
+                  Long Break Time
                   <TimeInput />
-                  <SettingDescription> Break</SettingDescription>
+                  <SettingDescription>
+                    Long break time after 2 repeated focus (4 repeated with
+                    Pomodoro) (minute)
+                  </SettingDescription>
                 </SettingButton>
               </ButtonConatiner>
             </ButtonColumn>
@@ -129,12 +163,15 @@ const ApplyButton = styled.div`
 `;
 
 const SettingDescription = styled.div`
-  top: 0;
-  ${props => (props.Left ? "left: 100px" : "right: 200px")}
+  display: none;
   position: absolute;
+  top: 0;
+  ${props => (props.Left ? "right: 155px;" : "left: 155px;")}
+  width: 200px;
   padding: 10px 20px;
   border-radius: 25px;
   background-color: white;
+  word-break: break-all;
 `;
 
 const TimeInput = styled.input.attrs(props => ({ type: `number` }))`
@@ -157,7 +194,12 @@ const SettingButton = styled.h4`
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 118px;
   font-weight: 300;
+
+  &:hover > ${SettingDescription} {
+    display: block;
+  }
 `;
 
 const Title = styled.h3`
@@ -188,9 +230,6 @@ const Panel = styled.div`
   border-radius: 25px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
-
-  /* transition: all 0.5s ease-in-out;
-  ${props => (props.isCustom ? "height: 400px;" : "height: 230px;")} */
 `;
 
 const CogBtn = styled.div`
@@ -209,7 +248,7 @@ const CogBtn = styled.div`
 const CurrentDoPanel = styled.div`
   width: 120px;
   height: 50px;
-  margin-right: 20px;
+  margin-right: 15px;
   background-color: white;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
