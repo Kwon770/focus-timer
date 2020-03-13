@@ -9,26 +9,42 @@ class SettingPanel extends Component {
   };
 
   _handleCustom = () => {
-    this.props.toggleCustom(true);
+    this.props.pressCustom(true);
+    console.log(this.props);
   };
   _handlePomo = () => {
-    this.props.toggleCustom(false);
+    this.props.pressCustom(false);
+    console.log(this.props);
+  };
+  _handleDigital = () => {
+    this.props.pressDigital(true);
+    console.log(this.props);
+  };
+  _handleTime = () => {
+    this.props.pressDigital(false);
+    console.log(this.props);
+  };
+  _handleAutoStart = () => {
+    this.props.toggleAutoStart();
+  };
+  _handleOverCount = () => {
+    this.props.toggleOverCount();
   };
 
   render() {
-    const { isCustom, isMenuClick } = this.props;
+    const { isCustom, isDigital, isAutoStart, isOverCount } = this.props;
     return (
       <Panel>
         <ButtonColumn>
           <ButtonConatiner>
             <Title>Clock Mode</Title>
-            <SettingButton>
+            <SettingButton onClick={this._handleTime} Digital={!isDigital}>
               Time Timer
               <SettingDescription Left>
                 Intuitive analog clock
               </SettingDescription>
             </SettingButton>
-            <SettingButton>
+            <SettingButton onClick={this._handleDigital} Digital={isDigital}>
               Digital Timer
               <SettingDescription Left>
                 Accurate digital clock
@@ -52,13 +68,13 @@ class SettingPanel extends Component {
         <ButtonColumn>
           <ButtonConatiner>
             <Title>Timer Mode</Title>
-            <SettingButton>
+            <SettingButton onClick={this._handleAutoStart} Auto={isAutoStart}>
               Timer Auto Start
               <SettingDescription Left>
                 If focus or break is done, start next timer automatically
               </SettingDescription>
             </SettingButton>
-            <SettingButton>
+            <SettingButton onClick={this._handleOverCount} Over={isOverCount}>
               Over Counting
               <SettingDescription Left>
                 If you don't press next Button, It will count time till you
@@ -99,6 +115,26 @@ class SettingPanel extends Component {
     );
   }
 }
+
+function mapStateToProps(state, ownProps) {
+  return {
+    isCustom: state,
+    isDigital: state,
+    isAutoStart: state,
+    isOverCount: state
+  };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    pressCustom: bool => dispatch(actionCreators.pressCustom(bool)),
+    pressDigital: bool => dispatch(actionCreators.pressDigital(bool)),
+    toggleAutoStart: bool => dispatch(actionCreators.toggleAutoStart(bool)),
+    toggleOverCount: bool => dispatch(actionCreators.toggleOverCount(bool))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingPanel);
 
 const ApplyButton = styled.div`
   position: absolute;
@@ -149,7 +185,11 @@ const SettingButton = styled.h4`
   position: relative;
   width: 118px;
   font-weight: 300;
-  color: ${props => (props.Custom ? "#ff8f70" : "black")};
+  color: black;
+  color: ${props => (props.Custom ? "#ff8f70" : "")};
+  color: ${props => (props.Digital ? "#ff8f70" : "")};
+  color: ${props => (props.Auto ? "#ff8f70" : "")};
+  color: ${props => (props.Over ? "#ff8f70" : "")};
 
   &:hover > ${SettingDescription} {
     display: block;
@@ -185,15 +225,3 @@ const Panel = styled.div`
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
 `;
-
-function mapStateToProps(state, ownProps) {
-  return { isCustom: state };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    toggleCustom: bool => dispatch(actionCreators.toggleCustom(bool))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingPanel);
