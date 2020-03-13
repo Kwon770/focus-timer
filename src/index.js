@@ -4,6 +4,8 @@ import App from "./components/App";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import "./typography";
+import { Provider } from "react-redux";
+import store from "store";
 
 createGlobalStyle`
     ${reset};
@@ -15,4 +17,9 @@ createGlobalStyle`
         background-color: #ecf0f1;
     }`;
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
