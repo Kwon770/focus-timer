@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
-import { actionCreators } from "store";
 
-class SettingPanel extends Component {
+export default class SettingPanel extends Component {
   state = {
     isMenuClick: this.props.MenuClick
   };
@@ -115,26 +113,6 @@ class SettingPanel extends Component {
     );
   }
 }
-
-function mapStateToProps(state, ownProps) {
-  return {
-    isCustom: state,
-    isDigital: state,
-    isAutoStart: state,
-    isOverCount: state
-  };
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    pressCustom: bool => dispatch(actionCreators.pressCustom(bool)),
-    pressDigital: bool => dispatch(actionCreators.pressDigital(bool)),
-    toggleAutoStart: bool => dispatch(actionCreators.toggleAutoStart(bool)),
-    toggleOverCount: bool => dispatch(actionCreators.toggleOverCount(bool))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingPanel);
 
 const ApplyButton = styled.div`
   position: absolute;
