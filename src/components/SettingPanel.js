@@ -1,117 +1,96 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-export default class SettingPanel extends Component {
-  _handleCustom = () => {
-    this.props.pressCustom(true);
-  };
-  _handlePomo = () => {
-    this.props.pressCustom(false);
-  };
-  _handleDigital = () => {
-    this.props.pressDigital(true);
-  };
-  _handleTime = () => {
-    this.props.pressDigital(false);
-  };
-  _handleAutoStart = () => {
-    this.props.toggleAutoStart();
-  };
-  _handleOverCount = () => {
-    this.props.toggleOverCount();
-  };
-
-  render() {
-    const {
-      isCustom,
-      isDigital,
-      isAutoStart,
-      isOverCount,
-      focusTime,
-      shortBreakTime,
-      longBreakTime
-    } = this.props;
-    return (
-      <Panel>
-        <ButtonColumn>
-          <ButtonConatiner>
-            <Title>Clock Mode</Title>
-            <SettingButton onClick={this._handleTime} Digital={!isDigital}>
-              Time Timer
-              <SettingDescription Left>
-                Intuitive analog clock
-              </SettingDescription>
-            </SettingButton>
-            <SettingButton onClick={this._handleDigital} Digital={isDigital}>
-              Digital Timer
-              <SettingDescription Left>
-                Accurate digital clock
-              </SettingDescription>
-            </SettingButton>
-          </ButtonConatiner>
-          <ButtonConatiner>
-            <Title>Time Mode</Title>
-            <SettingButton onClick={this._handlePomo} Custom={!isCustom}>
-              Pomodoro
-              <SettingDescription>
-                1 long focus after 4 short focus with break
-              </SettingDescription>
-            </SettingButton>
-            <SettingButton onClick={this._handleCustom} Custom={isCustom}>
-              Custom
-              <SettingDescription>Custom time set</SettingDescription>
-            </SettingButton>
-          </ButtonConatiner>
-        </ButtonColumn>
-        <ButtonColumn>
-          <ButtonConatiner>
-            <Title>Timer Mode</Title>
-            <SettingButton onClick={this._handleAutoStart} Auto={isAutoStart}>
-              Timer Auto Start
-              <SettingDescription Left>
-                If focus or break is done, start next timer automatically
-              </SettingDescription>
-            </SettingButton>
-            <SettingButton onClick={this._handleOverCount} Over={isOverCount}>
-              Over Counting
-              <SettingDescription Left>
-                If you don't press next Button, It will count time till you
-                press
-              </SettingDescription>
-            </SettingButton>
-          </ButtonConatiner>
-          <ButtonConatiner>
-            <Title>Time Setting</Title>
-            <SettingButton>
-              Focus Time
-              <TimeInput />
-              <SettingDescription>
-                Time to focus on what you do (minute)
-              </SettingDescription>
-            </SettingButton>
-            <SettingButton>
-              Short break Time
-              <TimeInput />
-              <SettingDescription>
-                Short break time after repeated focus (minute)
-              </SettingDescription>
-            </SettingButton>
-            <SettingButton>
-              Long Break Time
-              <TimeInput />
-              <SettingDescription>
-                Long break time after 2 repeated focus (4 repeated with
-                Pomodoro) (minute)
-              </SettingDescription>
-            </SettingButton>
-          </ButtonConatiner>
-        </ButtonColumn>
-        <ApplyButton onClick={() => this.setState({ isMenuClick: false })}>
-          Apply
-        </ApplyButton>
-      </Panel>
-    );
-  }
+export default function SettingPanel(props) {
+  const {
+    isCustom,
+    isDigital,
+    isAutoStart,
+    isOverCount,
+    focusTime,
+    shortBreakTime,
+    longBreakTime,
+    toggleSetting,
+    pressTimeTimer,
+    pressDigitalTimer,
+    pressPomo,
+    pressCustom,
+    toggleAutoStart,
+    toggleOverCount
+  } = props;
+  return (
+    <Panel>
+      <ButtonColumn>
+        <ButtonConatiner>
+          <Title>Clock Mode</Title>
+          <SettingButton onClick={pressTimeTimer} Digital={!isDigital}>
+            Time Timer
+            <SettingDescription Left>Intuitive analog clock</SettingDescription>
+          </SettingButton>
+          <SettingButton onClick={pressDigitalTimer} Digital={isDigital}>
+            Digital Timer
+            <SettingDescription Left>Accurate digital clock</SettingDescription>
+          </SettingButton>
+        </ButtonConatiner>
+        <ButtonConatiner>
+          <Title>Time Mode</Title>
+          <SettingButton onClick={pressPomo} Custom={!isCustom}>
+            Pomodoro
+            <SettingDescription>
+              1 long focus after 4 short focus with break
+            </SettingDescription>
+          </SettingButton>
+          <SettingButton onClick={pressCustom} Custom={isCustom}>
+            Custom
+            <SettingDescription>Custom time set</SettingDescription>
+          </SettingButton>
+        </ButtonConatiner>
+      </ButtonColumn>
+      <ButtonColumn>
+        <ButtonConatiner>
+          <Title>Timer Mode</Title>
+          <SettingButton onClick={toggleAutoStart} Auto={isAutoStart}>
+            Timer Auto Start
+            <SettingDescription Left>
+              If focus or break is done, start next timer automatically
+            </SettingDescription>
+          </SettingButton>
+          <SettingButton onClick={toggleOverCount} Over={isOverCount}>
+            Over Counting
+            <SettingDescription Left>
+              If you don't press next Button, It will count time till you press
+            </SettingDescription>
+          </SettingButton>
+        </ButtonConatiner>
+        <ButtonConatiner>
+          <Title>Time Setting</Title>
+          <SettingButton input>
+            Focus Time
+            <TimeInput />
+            <SettingDescription>
+              Time to focus on what you do (minute)
+            </SettingDescription>
+          </SettingButton>
+          <SettingButton input>
+            Short break Time
+            <TimeInput />
+            <SettingDescription>
+              Short break time after repeated focus (minute)
+            </SettingDescription>
+          </SettingButton>
+          <SettingButton input>
+            Long Break Time
+            <TimeInput />
+            <SettingDescription>
+              Long break time after 2 repeated focus (4 repeated with Pomodoro)
+              (minute)
+            </SettingDescription>
+          </SettingButton>
+        </ButtonConatiner>
+      </ButtonColumn>
+      <ApplyButton onClick={toggleSetting}>Apply</ApplyButton>
+    </Panel>
+  );
 }
 
 const ApplyButton = styled.div`
@@ -138,12 +117,15 @@ const SettingDescription = styled.div`
   padding: 10px 20px;
   border-radius: 25px;
   background-color: white;
+  color: black;
   word-break: break-all;
 `;
 
 const TimeInput = styled.input.attrs(props => ({ type: `number` }))`
   width: 35px;
-  padding: 3px 0px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  padding: 5px 0px;
   border: none;
   border-bottom: 1px solid #bdc3c7;
   text-align: center;
@@ -161,7 +143,8 @@ const SettingButton = styled.h4`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 118px;
+  width: 119px;
+  margin-bottom: ${props => (props.input ? "10px" : "23px")};
   font-weight: 300;
   color: black;
   color: ${props => (props.Custom ? "#ff8f70" : "")};

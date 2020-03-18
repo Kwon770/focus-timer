@@ -4,38 +4,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
 import PlayerPreview from "./PlayerPreview";
 
-export default class TimerPresenter extends React.Component {
-  state = {
-    isFocus: false,
-    isMenuClick: false
-  };
-  render() {
-    const { isMenuClick } = this.state;
-    return (
-      <Main isMenu={isMenuClick}>
-        <MenuConatiner></MenuConatiner>
-        <TimerContainer>
-          <DigitalTimer>25</DigitalTimer>
-          <DigitalTimer>
-            '<DigitalTimerDot>'</DigitalTimerDot>
-          </DigitalTimer>
-          <DigitalTimer>00</DigitalTimer>
-          <PlayerPreview />
-        </TimerContainer>
-        <TimerBtnContainer>
-          <TimerBtn>
-            <FontAwesomeIcon icon={faPlay} size="4x" color="white" />
-          </TimerBtn>
-          <TimerBtn>
-            <FontAwesomeIcon icon={faPause} size="4x" color="white" />
-          </TimerBtn>
-          <TimerBtn>
-            <FontAwesomeIcon icon={faStop} size="4x" color="white" />
-          </TimerBtn>
-        </TimerBtnContainer>
-      </Main>
-    );
-  }
+export default function TimerPresenter(props) {
+  return (
+    <Main isMenu={props.isSettingClick || props.isToDoClick}>
+      <MenuConatiner></MenuConatiner>
+      <TimerContainer>
+        <DigitalTimer>25</DigitalTimer>
+        <DigitalTimer>
+          '<DigitalTimerDot>'</DigitalTimerDot>
+        </DigitalTimer>
+        <DigitalTimer>00</DigitalTimer>
+        <PlayerPreview />
+      </TimerContainer>
+      <TimerBtnContainer>
+        <TimerBtn>
+          <FontAwesomeIcon icon={faPlay} size="4x" color="white" />
+        </TimerBtn>
+        <TimerBtn>
+          <FontAwesomeIcon icon={faPause} size="4x" color="white" />
+        </TimerBtn>
+        <TimerBtn>
+          <FontAwesomeIcon icon={faStop} size="4x" color="white" />
+        </TimerBtn>
+      </TimerBtnContainer>
+    </Main>
+  );
 }
 
 const MenuConatiner = styled.div`
