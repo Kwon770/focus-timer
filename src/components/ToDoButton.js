@@ -1,17 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 export default function ToDoButton() {
   return (
-    <ToDoButton onClick={this.props.toggleToDo}>
+    <Button onClick={this.props.toggleToDo}>
       <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
       {this.props.curDo}
-    </ToDoButton>
+    </Button>
   );
 }
 
-const ToDoButton = styled.div`
+const Button = styled.div`
   width: 120px;
   height: 50px;
   margin-right: 15px;

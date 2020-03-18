@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 export default class PlayerPreview extends Component {
   render() {
-    return <PlayerPreview>Soup Asmr - Tokyo Cafe Asmr</PlayerPreview>;
+    return <Preview>Soup Asmr - Tokyo Cafe Asmr</Preview>;
   }
 }
 
-const PlayerPreview = styled.div`
+const Preview = styled.div`
   position: absolute;
   top: 185px;
   width: 290px;

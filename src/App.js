@@ -28,15 +28,28 @@ export default class App extends Component {
   _toggleSetting = () => {};
 
   render() {
+    const {
+      curDo,
+      isSettingClick,
+      isToDoClick,
+      isCustom,
+      isDigital,
+      isAutoStart,
+      isOverCount,
+      focusTime,
+      shortBreakTime,
+      longBreakTime,
+      toDos
+    } = this.state;
     return (
       <>
-        <ToDoButton curDo={this.state.curDo} toggleToDo={this._toggleToDo} />
+        <ToDoButton curDo={curDo} toggleToDo={this._toggleToDo} />
         <SettingButton
-          isSettingClick={this.state.isSettingClick}
+          isSettingClick={isSettingClick}
           toggleSetting={this._toggleSetting}
         />
-        {isSettingClick ? <SettingPanel /> : ""}
-        {isToDoClick ? <ToDoPanel /> : ""}
+        {isSettingClick ? <SettingPanel {...isCustom, isDigital, isAutoStart, isOverCount, focusTime, shortBreakTime, longBreakTime} /> : ""}
+        {isToDoClick ? <ToDoPanel toDos={toDos} /> : ""}
         {isDigital ? <DigitalTimer /> : ""}
       </>
     );

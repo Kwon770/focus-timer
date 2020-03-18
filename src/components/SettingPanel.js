@@ -31,6 +31,7 @@ export default class SettingPanel extends Component {
 
   render() {
     const { isCustom, isDigital, isAutoStart, isOverCount } = this.props;
+    console.log(isCustom);
     return (
       <Panel>
         <ButtonColumn>
