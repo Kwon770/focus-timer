@@ -66,21 +66,21 @@ export default function SettingPanel(props) {
           <Title>Time Setting</Title>
           <SettingButton input>
             Focus Time
-            <TimeInput />
+            <TimeInput value={focusTime} />
             <SettingDescription>
               Time to focus on what you do (minute)
             </SettingDescription>
           </SettingButton>
           <SettingButton input>
             Short break Time
-            <TimeInput />
+            <TimeInput value={shortBreakTime} />
             <SettingDescription>
               Short break time after repeated focus (minute)
             </SettingDescription>
           </SettingButton>
           <SettingButton input>
             Long Break Time
-            <TimeInput />
+            <TimeInput value={longBreakTime} />
             <SettingDescription>
               Long break time after 2 repeated focus (4 repeated with Pomodoro)
               (minute)
