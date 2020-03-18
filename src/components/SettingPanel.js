@@ -2,25 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class SettingPanel extends Component {
-  state = {
-    isMenuClick: this.props.MenuClick
-  };
-
   _handleCustom = () => {
     this.props.pressCustom(true);
-    console.log(this.props);
   };
   _handlePomo = () => {
     this.props.pressCustom(false);
-    console.log(this.props);
   };
   _handleDigital = () => {
     this.props.pressDigital(true);
-    console.log(this.props);
   };
   _handleTime = () => {
     this.props.pressDigital(false);
-    console.log(this.props);
   };
   _handleAutoStart = () => {
     this.props.toggleAutoStart();
@@ -30,8 +22,15 @@ export default class SettingPanel extends Component {
   };
 
   render() {
-    const { isCustom, isDigital, isAutoStart, isOverCount } = this.props;
-    console.log(isCustom);
+    const {
+      isCustom,
+      isDigital,
+      isAutoStart,
+      isOverCount,
+      focusTime,
+      shortBreakTime,
+      longBreakTime
+    } = this.props;
     return (
       <Panel>
         <ButtonColumn>

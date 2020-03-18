@@ -3,12 +3,9 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
-export default function SettingButton() {
+export default function SettingButton(props) {
   return (
-    <Button
-      onClick={this.props.toggleSetting}
-      isPanel={this.props.isSettingClick}
-    >
+    <Button onClick={props.toggleSetting} isPanel={props.isSettingClick}>
       <FontAwesomeIcon icon={faCog} />
     </Button>
   );

@@ -12,7 +12,7 @@ export default class App extends Component {
     isCustom: false,
     isAutoStart: false,
     isOverCount: false,
-    isDigital: false,
+    isDigital: true,
     focusTime: 50,
     shortBreakTime: 10,
     longBreakTime: 30,
@@ -24,23 +24,15 @@ export default class App extends Component {
     isPlayerClick: false
   };
 
-  _toggleToDo = () => {};
-  _toggleSetting = () => {};
+  _toggleToDo = () => {
+    this.setState({ isToDoClick: !this.state.isToDoClick });
+  };
+  _toggleSetting = () => {
+    this.setState({ isSettingClick: !this.state.isSettingClick });
+  };
 
   render() {
-    const {
-      curDo,
-      isSettingClick,
-      isToDoClick,
-      isCustom,
-      isDigital,
-      isAutoStart,
-      isOverCount,
-      focusTime,
-      shortBreakTime,
-      longBreakTime,
-      toDos
-    } = this.state;
+    const { curDo, isSettingClick, isToDoClick, isDigital, toDos } = this.state;
     return (
       <>
         <ToDoButton curDo={curDo} toggleToDo={this._toggleToDo} />
@@ -48,7 +40,7 @@ export default class App extends Component {
           isSettingClick={isSettingClick}
           toggleSetting={this._toggleSetting}
         />
-        {isSettingClick ? <SettingPanel {...isCustom, isDigital, isAutoStart, isOverCount, focusTime, shortBreakTime, longBreakTime} /> : ""}
+        {isSettingClick ? <SettingPanel {...this.state} /> : ""}
         {isToDoClick ? <ToDoPanel toDos={toDos} /> : ""}
         {isDigital ? <DigitalTimer /> : ""}
       </>
