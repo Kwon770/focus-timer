@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
 import PlayerPreview from "./PlayerPreview";
+import TodaySetCounter from "./TodaySetCounter";
 
 export default function TimerPresenter(props) {
   return (
     <Main isMenu={props.isSettingClick || props.isToDoClick}>
-      <MenuConatiner></MenuConatiner>
       <TimerContainer>
+        <TodaySetCounter />
         <DigitalTimer>25</DigitalTimer>
         <DigitalTimer>
           '<DigitalTimerDot>'</DigitalTimerDot>
@@ -30,16 +31,6 @@ export default function TimerPresenter(props) {
     </Main>
   );
 }
-
-const MenuConatiner = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  margin-left: -95px;
-`;
 
 const TimerBtnContainer = styled.div`
   display: flex;

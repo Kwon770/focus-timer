@@ -22,7 +22,8 @@ export default class App extends Component {
     toDos: {},
     isBreak: false,
     isFocus: false,
-    isPlayerClick: false
+    isPlayerClick: false,
+    todaySet: 1
   };
 
   _toggleToDo = () => {
