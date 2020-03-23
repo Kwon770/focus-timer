@@ -5,31 +5,63 @@ import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
 import PlayerPreview from "./PlayerPreview";
 import TodaySetCounter from "./TodaySetCounter";
 
-export default function TimerPresenter(props) {
-  return (
-    <Main isMenu={props.isSettingClick || props.isToDoClick}>
-      <TimerContainer>
-        <TodaySetCounter sets={[{}, {}]} />
-        <DigitalTimer>25</DigitalTimer>
-        <DigitalTimer>
-          '<DigitalTimerDot>'</DigitalTimerDot>
-        </DigitalTimer>
-        <DigitalTimer>00</DigitalTimer>
-        <PlayerPreview />
-      </TimerContainer>
-      <TimerBtnContainer>
-        <TimerBtn>
-          <FontAwesomeIcon icon={faPlay} size="4x" color="white" />
-        </TimerBtn>
-        <TimerBtn>
-          <FontAwesomeIcon icon={faPause} size="4x" color="white" />
-        </TimerBtn>
-        <TimerBtn>
-          <FontAwesomeIcon icon={faStop} size="4x" color="white" />
-        </TimerBtn>
-      </TimerBtnContainer>
-    </Main>
-  );
+export default class TimerPresenter extends React.Component {
+  state = {
+    timerState: false,
+    minute: "1",
+    second: "1",
+    sets: []
+  };
+  render() {
+    const { minute, second, sets } = this.state;
+    const { isSettingClick, isToDoClick } = this.props;
+    return (
+      <Main isMenu={isSettingClick || isToDoClick}>
+        <TimerContainer>
+          <TodaySetCounter sets={sets} />
+          <DigitalTimer>{minute}</DigitalTimer>
+          <DigitalTimer>
+            '<DigitalTimerDot>'</DigitalTimerDot>
+          </DigitalTimer>
+          <DigitalTimer>{second}</DigitalTimer>
+          <PlayerPreview />
+        </TimerContainer>
+        <TimerBtnContainer>
+          <TimerBtn onClick={this._handlePlay}>
+            <FontAwesomeIcon icon={faPlay} size="5x" color="white" />
+          </TimerBtn>
+          <TimerBtn onClick={this._handlePause}>
+            <FontAwesomeIcon icon={faPause} size="5x" color="white" />
+          </TimerBtn>
+          <TimerBtn onClick={this._handleStop}>
+            <FontAwesomeIcon icon={faStop} size="5x" color="white" />
+          </TimerBtn>
+        </TimerBtnContainer>
+      </Main>
+    );
+  }
+  StartTimer = () => {
+    let time = parseInt(this.state.minute) * 60 + parseInt(this.state.second);
+    let timer = setInterval(() => {
+      const min =
+        time / 60 < 10 ? "0" + Math.floor(time / 60) : Math.floor(time / 60);
+      const sec = time % 60 < 10 ? "0" + (time % 60) : time % 60;
+      this.setState({ minute: String(min), second: String(sec) });
+
+      time--;
+
+      if (time <= 0) {
+        clearInterval(timer);
+        // timeout event
+      }
+    }, 1000);
+  };
+  _handlePlay = () => {
+    this.setState({ timerState: true });
+    this.StartTimer();
+  };
+  _handlePause = () => {};
+  _handleStop = () => {};
 }
 
 const TimerBtnContainer = styled.div`
