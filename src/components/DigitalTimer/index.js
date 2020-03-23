@@ -7,7 +7,7 @@ import TodaySetCounter from "./TodaySetCounter";
 
 export default class TimerPresenter extends React.Component {
   state = {
-    timerState: false,
+    intervalTimer: () => {},
     minute: "1",
     second: "1",
     sets: []
@@ -40,9 +40,9 @@ export default class TimerPresenter extends React.Component {
       </Main>
     );
   }
-  StartTimer = () => {
+  SetTimer = () => {
     let time = parseInt(this.state.minute) * 60 + parseInt(this.state.second);
-    let timer = setInterval(() => {
+    const timer = setInterval(() => {
       const min =
         time / 60 < 10 ? "0" + Math.floor(time / 60) : Math.floor(time / 60);
       const sec = time % 60 < 10 ? "0" + (time % 60) : time % 60;
@@ -55,13 +55,21 @@ export default class TimerPresenter extends React.Component {
         // timeout event
       }
     }, 1000);
+    this.setState({ intervalTimer: timer });
+  };
+  RemoveTimer = () => {
+    clearInterval(this.state.intervalTimer);
   };
   _handlePlay = () => {
     this.setState({ timerState: true });
-    this.StartTimer();
+    this.SetTimer();
   };
-  _handlePause = () => {};
-  _handleStop = () => {};
+  _handlePause = () => {
+    this.RemoveTimer();
+  };
+  _handleStop = () => {
+    this.RemoveTimer();
+  };
 }
 
 const TimerBtnContainer = styled.div`
