@@ -9,7 +9,7 @@ export default function TimerPresenter(props) {
   return (
     <Main isMenu={props.isSettingClick || props.isToDoClick}>
       <TimerContainer>
-        <TodaySetCounter />
+        <TodaySetCounter sets={[{}, {}]} />
         <DigitalTimer>25</DigitalTimer>
         <DigitalTimer>
           '<DigitalTimerDot>'</DigitalTimerDot>
