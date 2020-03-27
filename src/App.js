@@ -52,7 +52,17 @@ export default class App extends Component {
   };
 
   render() {
-    const { curDo, isSettingClick, isToDoClick, isDigital, toDos } = this.state;
+    const {
+      curDo,
+      isSettingClick,
+      isToDoClick,
+      isDigital,
+      toDos,
+      isCustom,
+      focusTime,
+      shortBreakTime,
+      longBreakTime
+    } = this.state;
     return (
       <>
         <ButtonConatiner>
@@ -66,6 +76,10 @@ export default class App extends Component {
           <DigitalTimer
             isSettingClick={isSettingClick}
             isToDoClick={isToDoClick}
+            isCustom={isCustom}
+            focusTime={focusTime}
+            shortBreakTime={shortBreakTime}
+            longBreakTime={longBreakTime}
           />
         ) : (
           ""

@@ -8,8 +8,8 @@ import TodaySetCounter from "./TodaySetCounter";
 export default class TimerPresenter extends React.Component {
   state = {
     intervalTimer: () => {},
-    minute: "1",
-    second: "1",
+    minute: "50",
+    second: "00",
     sets: []
   };
   render() {
@@ -60,6 +60,10 @@ export default class TimerPresenter extends React.Component {
   RemoveTimer = () => {
     clearInterval(this.state.intervalTimer);
   };
+  ConvertToTimeFormat = number => {
+    if (number < 10) return "0" + String(number);
+    else return String(number);
+  };
   _handlePlay = () => {
     this.setState({ timerState: true });
     this.SetTimer();
@@ -69,6 +73,10 @@ export default class TimerPresenter extends React.Component {
   };
   _handleStop = () => {
     this.RemoveTimer();
+    this.setState({
+      minute: this.ConvertToTimeFormat(this.props.focusTime),
+      second: "00"
+    });
   };
 }
 
