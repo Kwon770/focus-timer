@@ -6,13 +6,17 @@ import PlayerPreview from "./PlayerPreview";
 import TodaySetCounter from "./TodaySetCounter";
 
 export default class TimerPresenter extends React.Component {
-  state = {
-    isFocus: true,
-    intervalTimer: null,
-    minute: "00",
-    second: "02",
-    sets: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFocus: true,
+      intervalTimer: null,
+      minute: this.props.focusTime,
+      second: "00",
+      sets: []
+    };
+  }
+
   render() {
     const { minute, second, sets, isFocus } = this.state;
     const { isSettingClick, isToDoClick } = this.props;
