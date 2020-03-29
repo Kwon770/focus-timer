@@ -14,14 +14,13 @@ export default class App extends Component {
     isAutoStart: false,
     isOverCount: false,
     isDigital: true,
-    focusTime: 50,
-    shortBreakTime: 10,
+    focusTime: 25,
+    shortBreakTime: 5,
     longBreakTime: 30,
     isToDoClick: false,
     curDo: "Code",
     toDos: {},
     isBreak: false,
-    isFocus: false,
     isPlayerClick: false,
     todaySet: 1
   };

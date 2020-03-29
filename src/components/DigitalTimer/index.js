@@ -7,16 +7,17 @@ import TodaySetCounter from "./TodaySetCounter";
 
 export default class TimerPresenter extends React.Component {
   state = {
-    intervalTimer: () => {},
-    minute: "50",
-    second: "00",
+    isFocus: true,
+    intervalTimer: null,
+    minute: "00",
+    second: "02",
     sets: []
   };
   render() {
-    const { minute, second, sets } = this.state;
+    const { minute, second, sets, isFocus } = this.state;
     const { isSettingClick, isToDoClick } = this.props;
     return (
-      <Main isMenu={isSettingClick || isToDoClick}>
+      <Main isMenu={isSettingClick || isToDoClick} isFocus={isFocus}>
         <TimerContainer>
           <TodaySetCounter sets={sets} />
           <DigitalTimer>{minute}</DigitalTimer>
@@ -40,7 +41,10 @@ export default class TimerPresenter extends React.Component {
       </Main>
     );
   }
+
   SetTimer = () => {
+    if (this.state.intervalTimer != null) return;
+
     let time = parseInt(this.state.minute) * 60 + parseInt(this.state.second);
     const timer = setInterval(() => {
       const min =
@@ -50,22 +54,63 @@ export default class TimerPresenter extends React.Component {
 
       time--;
 
-      if (time <= 0) {
+      if (time < 0) {
         clearInterval(timer);
         // timeout event
+        this.FinishTimer();
+        this.setState({ intervalTimer: null });
       }
     }, 1000);
     this.setState({ intervalTimer: timer });
   };
+
   RemoveTimer = () => {
     clearInterval(this.state.intervalTimer);
+    this.setState({ intervalTimer: null });
   };
+
+  FinishTimer = () => {
+    if (this.state.isFocus) {
+      // Finish focus
+      let newSets = [];
+      newSets.push(1);
+      this.state.sets.map(set => newSets.push(set));
+
+      const min = this.SetTime(newSets);
+
+      this.setState({
+        isFocus: false,
+        sets: newSets,
+        minute: this.ConvertToTimeFormat(min),
+        second: this.ConvertToTimeFormat(1)
+      });
+    } else {
+      // Finish break
+      this.setState({
+        isFocus: true,
+        minute: this.ConvertToTimeFormat(this.props.focusTime),
+        second: this.ConvertToTimeFormat(2)
+      });
+    }
+  };
+
+  SetTime = sets => {
+    if (this.props.isCustom) {
+      if (sets.length % 2 === 0) return this.props.longBreakTime;
+      else return this.props.shortBreakTime;
+    } else {
+      if (sets.length % 4 === 0) return this.props.longBreakTime;
+      else return this.props.shortBreakTime;
+    }
+  };
+
   ConvertToTimeFormat = number => {
     if (number < 10) return "0" + String(number);
     else return String(number);
   };
+
   _handlePlay = () => {
-    this.setState({ timerState: true });
+    // this.setState({ timerState: true });
     this.SetTimer();
   };
   _handlePause = () => {
@@ -123,7 +168,10 @@ const Main = styled.main`
   align-items: center;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, #ff5f6d, #ffc371);
-  ${props => (props.isMenu ? "filter: blur(3px);" : "")}
-  ${props => (props.isMenu ? "-webkit-filter: blur(3px);" : "")}
+  background: ${props =>
+    props.isFocus
+      ? "linear-gradient(to right, #ff5f6d, #ffc371)"
+      : "linear-gradient(to right, #2193b0, #6dd5ed)"};
+  ${props => (props.isMenu ? "filter: blur(3px)" : "")};
+  ${props => (props.isMenu ? "-webkit-filter: blur(3px)" : "")};
 `;
