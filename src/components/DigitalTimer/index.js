@@ -46,7 +46,7 @@ export default class TimerPresenter extends React.Component {
     );
   }
 
-  SetTimer = () => {
+  StartTimer = () => {
     if (this.state.intervalTimer != null) return;
 
     let time = parseInt(this.state.minute) * 60 + parseInt(this.state.second);
@@ -71,6 +71,13 @@ export default class TimerPresenter extends React.Component {
     this.setState({ intervalTimer: timer });
   };
 
+  SetTimer = (min, sec) => {
+    this.setState({
+      minute: this.ConvertToTimeFormat(min),
+      second: this.ConvertToTimeFormat(sec)
+    });
+  };
+
   RemoveTimer = () => {
     clearInterval(this.state.intervalTimer);
     this.setState({ intervalTimer: null });
@@ -83,29 +90,27 @@ export default class TimerPresenter extends React.Component {
       newSets.push(1);
       this.state.sets.map(set => newSets.push(set));
 
-      const min = this.SetTime(newSets);
+      const min = this.SetBreakRoutine(newSets);
 
       this.setState({
         isFocus: false,
-        sets: newSets,
-        minute: this.ConvertToTimeFormat(min),
-        second: this.ConvertToTimeFormat(1)
+        sets: newSets
       });
+      this.SetTimer(min, 1);
     } else {
       // Finish break
       this.setState({
-        isFocus: true,
-        minute: this.ConvertToTimeFormat(this.props.focusTime),
-        second: this.ConvertToTimeFormat(2)
+        isFocus: true
       });
+      this.SetTimer(this.props.focusTime, 2);
     }
 
     if (this.props.isAutoStart) {
-      this.SetTimer();
+      this.StartTimer();
     }
   };
 
-  SetTime = sets => {
+  SetBreakRoutine = (sets = this.state.sets) => {
     if (this.props.isCustom) {
       if (sets.length % 2 === 0) return this.props.longBreakTime;
       else return this.props.shortBreakTime;
@@ -122,7 +127,7 @@ export default class TimerPresenter extends React.Component {
 
   _handlePlay = () => {
     // this.setState({ timerState: true });
-    this.SetTimer();
+    this.StartTimer();
   };
   _handlePause = () => {
     this.RemoveTimer();

@@ -8,6 +8,11 @@ import ToDoButton from "./components/ToDoButton";
 import ToDoPanel from "./components/ToDoPanel";
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.digitalTimer = React.createRef();
+  }
+
   state = {
     isSettingClick: false,
     isCustom: true,
@@ -30,6 +35,17 @@ export default class App extends Component {
   };
   _toggleSetting = () => {
     this.setState({ isSettingClick: !this.state.isSettingClick });
+    // Apply new time
+    if (this.state.isSettingClick) {
+      if (this.digitalTimer.current.state.isFocus) {
+        this.digitalTimer.current.SetTimer(this.state.focusTime, 0);
+      } else {
+        this.digitalTimer.current.SetTimer(
+          this.digitalTimer.current.SetBreakRoutine(),
+          0
+        );
+      }
+    }
   };
   _pressTimeTimer = () => {
     this.setState({ isDigital: false });
@@ -81,6 +97,7 @@ export default class App extends Component {
         </ButtonConatiner>
         {isDigital ? (
           <DigitalTimer
+            ref={this.digitalTimer}
             isSettingClick={isSettingClick}
             isToDoClick={isToDoClick}
             isCustom={isCustom}
