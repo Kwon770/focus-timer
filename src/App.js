@@ -11,7 +11,7 @@ export default class App extends Component {
   state = {
     isSettingClick: false,
     isCustom: false,
-    isAutoStart: true, // false
+    isAutoStart: false,
     isOverCount: false,
     isDigital: true,
     focusTime: 0,
@@ -57,6 +57,7 @@ export default class App extends Component {
       isToDoClick,
       isDigital,
       isAutoStart,
+      isOverCount,
       toDos,
       isCustom,
       focusTime,
@@ -78,6 +79,7 @@ export default class App extends Component {
             isToDoClick={isToDoClick}
             isCustom={isCustom}
             isAutoStart={isAutoStart}
+            isOverCount={isOverCount}
             focusTime={focusTime}
             shortBreakTime={shortBreakTime}
             longBreakTime={longBreakTime}

@@ -51,14 +51,17 @@ export default class TimerPresenter extends React.Component {
 
     let time = parseInt(this.state.minute) * 60 + parseInt(this.state.second);
     const timer = setInterval(() => {
-      const min =
-        time / 60 < 10 ? "0" + Math.floor(time / 60) : Math.floor(time / 60);
-      const sec = time % 60 < 10 ? "0" + (time % 60) : time % 60;
-      this.setState({ minute: String(min), second: String(sec) });
+      const min = time < 0 ? Math.ceil(time / 60) : Math.floor(time / 60);
+      const sec = time % 60;
+      this.setState({
+        minute: this.ConvertToTimeFormat(min),
+        second: this.ConvertToTimeFormat(sec)
+      });
+      if (time < 0) this.setState({ minute: "-" + this.state.minute });
 
       time--;
 
-      if (time < 0) {
+      if (time < 0 && (!this.props.isOverCount || !this.state.isFocus)) {
         clearInterval(timer);
         // timeout event
         this.setState({ intervalTimer: null });
@@ -113,8 +116,8 @@ export default class TimerPresenter extends React.Component {
   };
 
   ConvertToTimeFormat = number => {
-    if (number < 10) return "0" + String(number);
-    else return String(number);
+    if (number < 10 && number > -10) return "0" + String(Math.abs(number));
+    else return String(Math.abs(number));
   };
 
   _handlePlay = () => {
