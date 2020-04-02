@@ -11,6 +11,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.digitalTimer = React.createRef();
+    this.timeTimer = React.createRef();
   }
 
   state = {
@@ -18,7 +19,7 @@ export default class App extends Component {
     isCustom: true,
     isAutoStart: false,
     isOverCount: false,
-    isDigital: true,
+    isDigital: false,
     focusTime: 0,
     shortBreakTime: 0,
     longBreakTime: 0,
@@ -37,13 +38,24 @@ export default class App extends Component {
     this.setState({ isSettingClick: !this.state.isSettingClick });
     // Apply new time
     if (this.state.isSettingClick) {
-      if (this.digitalTimer.current.state.isFocus) {
-        this.digitalTimer.current.SetTimer(this.state.focusTime, 0);
+      if (this.state.isDigital) {
+        if (this.digitalTimer.current.state.isFocus) {
+          this.digitalTimer.current.SetTimer(this.state.focusTime, 0);
+        } else {
+          this.digitalTimer.current.SetTimer(
+            this.digitalTimer.current.SetBreakRoutine(),
+            0
+          );
+        }
       } else {
-        this.digitalTimer.current.SetTimer(
-          this.digitalTimer.current.SetBreakRoutine(),
-          0
-        );
+        if (this.timeTimer.current.state.isFocus) {
+          this.timeTimer.current.SetTimer(this.state.focusTime, 0);
+        } else {
+          this.timeTimer.current.SetTimer(
+            this.timeTimer.current.SetBreakRoutine(),
+            0
+          );
+        }
       }
     }
   };
@@ -108,7 +120,17 @@ export default class App extends Component {
             longBreakTime={longBreakTime}
           />
         ) : (
-          ""
+          <TimeTimer
+            ref={this.timeTimer}
+            isSettingClick={isSettingClick}
+            isToDoClick={isToDoClick}
+            isCustom={isCustom}
+            isAutoStart={isAutoStart}
+            isOverCount={isOverCount}
+            focusTime={focusTime}
+            shortBreakTime={shortBreakTime}
+            longBreakTime={longBreakTime}
+          />
         )}
         {isSettingClick ? (
           <SettingPanel

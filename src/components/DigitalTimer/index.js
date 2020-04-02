@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
 import PlayerPreview from "./PlayerPreview";
-import TodaySetCounter from "./TodaySetCounter";
+import TodaySetCounter from "../TodaySetCounter";
 
 export default class TimerPresenter extends React.Component {
   constructor(props) {
