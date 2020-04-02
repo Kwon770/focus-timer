@@ -118,7 +118,6 @@ const SettingDescription = styled.div`
   border-radius: 25px;
   background-color: white;
   color: black;
-  word-break: break-all;
 `;
 
 const TimeInput = styled.input.attrs(props => ({ type: `number` }))`
