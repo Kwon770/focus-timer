@@ -25,7 +25,7 @@ export default function SettingPanel(props) {
           <Title>Clock Mode</Title>
           <SettingButton onClick={pressTimeTimer} Digital={!isDigital}>
             Time Timer
-            <SettingDescription Left>Intuitive analog clock</SettingDescription>
+            <SettingDescription Left>Intuitive color clock</SettingDescription>
           </SettingButton>
           <SettingButton onClick={pressDigitalTimer} Digital={isDigital}>
             Digital Timer

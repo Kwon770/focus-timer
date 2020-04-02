@@ -11,8 +11,8 @@ export default class TimerPresenter extends React.Component {
     this.state = {
       isFocus: true,
       intervalTimer: null,
-      minute: this.props.focusTime,
-      second: "00",
+      minute: this.ConvertToTimeFormat(this.props.focusTime),
+      second: "02",
       sets: []
     };
   }
@@ -61,8 +61,8 @@ export default class TimerPresenter extends React.Component {
       if (time < 0) {
         clearInterval(timer);
         // timeout event
-        this.FinishTimer();
         this.setState({ intervalTimer: null });
+        this.FinishTimer();
       }
     }, 1000);
     this.setState({ intervalTimer: timer });
@@ -95,6 +95,10 @@ export default class TimerPresenter extends React.Component {
         minute: this.ConvertToTimeFormat(this.props.focusTime),
         second: this.ConvertToTimeFormat(2)
       });
+    }
+
+    if (this.props.isAutoStart) {
+      this.SetTimer();
     }
   };
 
