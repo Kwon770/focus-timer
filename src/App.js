@@ -10,7 +10,7 @@ import ToDoPanel from "./components/ToDoPanel";
 export default class App extends Component {
   state = {
     isSettingClick: false,
-    isCustom: false,
+    isCustom: true,
     isAutoStart: false,
     isOverCount: false,
     isDigital: true,
@@ -39,9 +39,15 @@ export default class App extends Component {
   };
   _pressPomo = () => {
     this.setState({ isCustom: false });
+    this.state.focusTime = 25;
+    this.state.shortBreakTime = 5;
+    this.state.longBreakTime = 30;
   };
   _pressCustom = () => {
     this.setState({ isCustom: true });
+    this.state.focusTime = 50;
+    this.state.shortBreakTime = 10;
+    this.state.longBreakTime = 30;
   };
   _toggleAutoStart = () => {
     this.setState({ isAutoStart: !this.state.isAutoStart });
@@ -96,6 +102,9 @@ export default class App extends Component {
             pressCustom={this._pressCustom}
             toggleAutoStart={this._toggleAutoStart}
             toggleOverCount={this._toggleOverCount}
+            focusTime={focusTime}
+            shortBreakTime={shortBreakTime}
+            longBreakTime={longBreakTime}
             {...this.state}
           />
         ) : (
