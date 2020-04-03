@@ -66,7 +66,9 @@ export default class App extends Component {
   // _pressDigitalTimer = () => {
   //   this.setState({ isDigital: true });
   // };
-  _toggleNightMode = () => {};
+  _toggleNightMode = () => {
+    this.setState({ isNightMode: !this.state.isNightMode });
+  };
   _pressPomo = () => {
     this.setState({ isCustom: false });
     this.state.focusTime = 25;
