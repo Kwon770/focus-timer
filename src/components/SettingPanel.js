@@ -3,14 +3,16 @@ import styled from "styled-components";
 
 export default function SettingPanel(props) {
   const {
-    isCustom,
+    isNightMode,
     isDigital,
+    isCustom,
     isAutoStart,
     isOverCount,
     focusTime,
     shortBreakTime,
     longBreakTime,
     toggleSetting,
+    toggleNightMode,
     pressTimeTimer,
     pressDigitalTimer,
     pressPomo,
@@ -23,14 +25,18 @@ export default function SettingPanel(props) {
       <ButtonColumn>
         <ButtonConatiner>
           <Title>Clock Mode</Title>
-          <SettingButton onClick={pressTimeTimer} Digital={!isDigital}>
+          <SettingButton onClick={toggleNightMode} NightMode={isNightMode}>
+            Night Mode
+            <SettingDescription Left>Dark UI for night</SettingDescription>
+          </SettingButton>
+          {/* <SettingButton onClick={pressTimeTimer} Digital={!isDigital}>
             Time Timer
             <SettingDescription Left>Intuitive color clock</SettingDescription>
           </SettingButton>
           <SettingButton onClick={pressDigitalTimer} Digital={isDigital}>
             Digital Timer
             <SettingDescription Left>Accurate digital clock</SettingDescription>
-          </SettingButton>
+          </SettingButton> */}
         </ButtonConatiner>
         <ButtonConatiner>
           <Title>Time Mode</Title>
@@ -147,7 +153,7 @@ const SettingButton = styled.h4`
   font-weight: 300;
   color: black;
   color: ${props => (props.Custom ? "#ff8f70" : "")};
-  color: ${props => (props.Digital ? "#ff8f70" : "")};
+  color: ${props => (props.NightMode ? "#ff8f70" : "")};
   color: ${props => (props.Auto ? "#ff8f70" : "")};
   color: ${props => (props.Over ? "#ff8f70" : "")};
 

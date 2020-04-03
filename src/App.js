@@ -19,7 +19,8 @@ export default class App extends Component {
     isCustom: true,
     isAutoStart: false,
     isOverCount: false,
-    isDigital: false,
+    isDigital: true,
+    isNightMode: false,
     focusTime: 0,
     shortBreakTime: 0,
     longBreakTime: 0,
@@ -59,12 +60,13 @@ export default class App extends Component {
       }
     }
   };
-  _pressTimeTimer = () => {
-    this.setState({ isDigital: false });
-  };
-  _pressDigitalTimer = () => {
-    this.setState({ isDigital: true });
-  };
+  // _pressTimeTimer = () => {
+  //   this.setState({ isDigital: false });
+  // };
+  // _pressDigitalTimer = () => {
+  //   this.setState({ isDigital: true });
+  // };
+  _toggleNightMode = () => {};
   _pressPomo = () => {
     this.setState({ isCustom: false });
     this.state.focusTime = 25;
@@ -89,6 +91,7 @@ export default class App extends Component {
       curDo,
       isSettingClick,
       isToDoClick,
+      isNightMode,
       isDigital,
       isAutoStart,
       isOverCount,
@@ -112,6 +115,7 @@ export default class App extends Component {
             ref={this.digitalTimer}
             isSettingClick={isSettingClick}
             isToDoClick={isToDoClick}
+            isNightMode={isNightMode}
             isCustom={isCustom}
             isAutoStart={isAutoStart}
             isOverCount={isOverCount}
@@ -120,23 +124,14 @@ export default class App extends Component {
             longBreakTime={longBreakTime}
           />
         ) : (
-          <TimeTimer
-            ref={this.timeTimer}
-            isSettingClick={isSettingClick}
-            isToDoClick={isToDoClick}
-            isCustom={isCustom}
-            isAutoStart={isAutoStart}
-            isOverCount={isOverCount}
-            focusTime={focusTime}
-            shortBreakTime={shortBreakTime}
-            longBreakTime={longBreakTime}
-          />
+          ""
         )}
         {isSettingClick ? (
           <SettingPanel
             toggleSetting={this._toggleSetting}
-            pressTimeTimer={this._pressTimeTimer}
-            pressDigitalTimer={this._pressDigitalTimer}
+            // pressTimeTimer={this._pressTimeTimer}
+            // pressDigitalTimer={this._pressDigitalTimer}
+            toggleNightMode={this._toggleNightMode}
             pressPomo={this._pressPomo}
             pressCustom={this._pressCustom}
             toggleAutoStart={this._toggleAutoStart}
