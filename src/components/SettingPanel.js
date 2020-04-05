@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function SettingPanel(props) {
@@ -18,7 +18,7 @@ export default function SettingPanel(props) {
     pressPomo,
     pressCustom,
     toggleAutoStart,
-    toggleOverCount
+    toggleOverCount,
   } = props;
   return (
     <Panel>
@@ -110,23 +110,23 @@ const ApplyButton = styled.div`
   width: 200px;
   height: 50px;
   border-radius: 25px;
-  background-color: #ff8f70;
-  color: white;
+  background-color: ${(props) => props.theme.hlColor};
+  color: ${(props) => props.theme.fontColor};
 `;
 
 const SettingDescription = styled.div`
   display: none;
   position: absolute;
   top: 0;
-  ${props => (props.Left ? "right: 155px;" : "left: 155px;")}
+  ${(props) => (props.Left ? "right: 155px;" : "left: 155px;")}
   width: 200px;
   padding: 10px 20px;
   border-radius: 25px;
-  background-color: white;
-  color: black;
+  background-color: ${(props) => props.theme.panelBgColor};
+  color: ${(props) => props.theme.panelFontColor};
 `;
 
-const TimeInput = styled.input.attrs(props => ({ type: `number` }))`
+const TimeInput = styled.input.attrs((props) => ({ type: `number` }))`
   width: 35px;
   margin-top: 6px;
   margin-bottom: 0;
@@ -136,7 +136,8 @@ const TimeInput = styled.input.attrs(props => ({ type: `number` }))`
   text-align: center;
   font-weight: 300;
   font-size: 15px;
-  color: black;
+  color: ${(props) => props.theme.panelFontColor};
+  background-color: ${(props) => props.theme.panelBgColor};
   &:focus {
     outline: none;
   }
@@ -149,13 +150,13 @@ const SettingButton = styled.h4`
   align-items: center;
   position: relative;
   width: 119px;
-  margin-bottom: ${props => (props.input ? "10px" : "23px")};
+  margin-bottom: ${(props) => (props.input ? "10px" : "23px")};
   font-weight: 300;
-  color: black;
-  color: ${props => (props.Custom ? "#ff8f70" : "")};
-  color: ${props => (props.NightMode ? "#ff8f70" : "")};
-  color: ${props => (props.Auto ? "#ff8f70" : "")};
-  color: ${props => (props.Over ? "#ff8f70" : "")};
+  color: ${(props) => props.theme.panelFontColor};
+  color: ${(props) => (props.Custom ? props.theme.hlColor : "")};
+  color: ${(props) => (props.NightMode ? props.theme.hlColor : "")};
+  color: ${(props) => (props.Auto ? props.theme.hlColor : "")};
+  color: ${(props) => (props.Over ? props.theme.hlColor : "")};
 
   &:hover > ${SettingDescription} {
     display: block;
@@ -164,6 +165,7 @@ const SettingButton = styled.h4`
 
 const Title = styled.h3`
   font-weight: 400;
+  color: ${(props) => props.theme.panelFontColor};
 `;
 
 const ButtonConatiner = styled.div`
@@ -188,6 +190,6 @@ const Panel = styled.div`
   width: 300px;
   height: 450px;
   border-radius: 25px;
-  background-color: white;
+  background-color: ${(props) => props.theme.panelBgColor};
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
 `;

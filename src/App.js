@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import DigitalTimer from "./components/DigitalTimer";
-import TimeTimer from "./components/TimeTimer";
 import SettingButton from "./components/SettingButton";
 import SettingPanel from "./components/SettingPanel";
 import ToDoButton from "./components/ToDoButton";
@@ -16,20 +16,21 @@ export default class App extends Component {
 
   state = {
     isSettingClick: false,
+    theme: focusLight,
+    isNightMode: false,
     isCustom: true,
     isAutoStart: false,
     isOverCount: false,
     isDigital: true,
-    isNightMode: false,
     focusTime: 0,
     shortBreakTime: 0,
     longBreakTime: 0,
     isToDoClick: false,
     curDo: "Code",
     toDos: {},
-    isBreak: false,
+    isFocus: true,
     isPlayerClick: false,
-    todaySet: 1
+    todaySet: 1,
   };
 
   _toggleToDo = () => {
@@ -66,8 +67,26 @@ export default class App extends Component {
   // _pressDigitalTimer = () => {
   //   this.setState({ isDigital: true });
   // };
+  _toggleIsFocus = () => {
+    this.setState({ isFocus: !this.state.isFocus });
+  };
   _toggleNightMode = () => {
+    console.log(this.state.isNightMode);
     this.setState({ isNightMode: !this.state.isNightMode });
+    console.log(this.state.isNightMode);
+    this.applyTheme();
+  };
+  applyTheme = () => {
+    console.log(this.state.isNightMode + " / " + this.state.isFocus);
+    this.setState({
+      theme: this.state.isNightMode
+        ? this.state.isFocus
+          ? focusDark
+          : breakDark
+        : this.state.isFocus
+        ? focusLight
+        : breakLight,
+    });
   };
   _pressPomo = () => {
     this.setState({ isCustom: false });
@@ -92,6 +111,7 @@ export default class App extends Component {
     const {
       curDo,
       isSettingClick,
+      theme,
       isToDoClick,
       isNightMode,
       isDigital,
@@ -101,17 +121,11 @@ export default class App extends Component {
       isCustom,
       focusTime,
       shortBreakTime,
-      longBreakTime
+      longBreakTime,
+      isFocus,
     } = this.state;
     return (
-      <>
-        <ButtonConatiner>
-          <ToDoButton curDo={curDo} toggleToDo={this._toggleToDo} />
-          <SettingButton
-            isSettingClick={isSettingClick}
-            toggleSetting={this._toggleSetting}
-          />
-        </ButtonConatiner>
+      <ThemeProvider theme={theme}>
         {isDigital ? (
           <DigitalTimer
             ref={this.digitalTimer}
@@ -124,6 +138,9 @@ export default class App extends Component {
             focusTime={focusTime}
             shortBreakTime={shortBreakTime}
             longBreakTime={longBreakTime}
+            isFocus={isFocus}
+            toggleIsFocus={this._toggleIsFocus}
+            applyTheme={this.applyTheme}
           />
         ) : (
           ""
@@ -147,7 +164,14 @@ export default class App extends Component {
           ""
         )}
         {isToDoClick ? <ToDoPanel toDos={toDos} /> : ""}
-      </>
+        <ButtonConatiner>
+          <ToDoButton curDo={curDo} toggleToDo={this._toggleToDo} />
+          <SettingButton
+            isSettingClick={isSettingClick}
+            toggleSetting={this._toggleSetting}
+          />
+        </ButtonConatiner>
+      </ThemeProvider>
     );
   }
 }

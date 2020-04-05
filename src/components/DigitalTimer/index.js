@@ -9,17 +9,16 @@ export default class TimerPresenter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFocus: true,
       intervalTimer: null,
       minute: this.ConvertToTimeFormat(this.props.focusTime),
       second: "02",
-      sets: []
+      sets: [],
     };
   }
 
   render() {
-    const { minute, second, sets, isFocus } = this.state;
-    const { isSettingClick, isToDoClick } = this.props;
+    const { minute, second, sets } = this.state;
+    const { isFocus, isSettingClick, isToDoClick } = this.props;
     return (
       <Main isMenu={isSettingClick || isToDoClick} isFocus={isFocus}>
         <TimerContainer>
@@ -55,7 +54,7 @@ export default class TimerPresenter extends React.Component {
       const sec = time % 60;
       this.setState({
         minute: this.ConvertToTimeFormat(min),
-        second: this.ConvertToTimeFormat(sec)
+        second: this.ConvertToTimeFormat(sec),
       });
       if (time < 0) this.setState({ minute: "-" + this.state.minute });
 
@@ -74,7 +73,7 @@ export default class TimerPresenter extends React.Component {
   SetTimer = (min, sec) => {
     this.setState({
       minute: this.ConvertToTimeFormat(min),
-      second: this.ConvertToTimeFormat(sec)
+      second: this.ConvertToTimeFormat(sec),
     });
   };
 
@@ -84,30 +83,29 @@ export default class TimerPresenter extends React.Component {
   };
 
   FinishTimer = () => {
-    if (this.state.isFocus) {
+    if (this.props.isFocus) {
       // Finish focus
       let newSets = [];
       newSets.push(1);
-      this.state.sets.map(set => newSets.push(set));
+      this.state.sets.map((set) => newSets.push(set));
 
       const min = this.SetBreakRoutine(newSets);
 
       this.setState({
-        isFocus: false,
-        sets: newSets
+        sets: newSets,
       });
+      this.props.toggleIsFocus();
       this.SetTimer(min, 1);
     } else {
       // Finish break
-      this.setState({
-        isFocus: true
-      });
+      this.props.toggleIsFocus();
       this.SetTimer(this.props.focusTime, 2);
     }
 
     if (this.props.isAutoStart) {
       this.StartTimer();
     }
+    this.props.applyTheme();
   };
 
   SetBreakRoutine = (sets = this.state.sets) => {
@@ -120,7 +118,7 @@ export default class TimerPresenter extends React.Component {
     }
   };
 
-  ConvertToTimeFormat = number => {
+  ConvertToTimeFormat = (number) => {
     if (number < 10 && number > -10) return "0" + String(Math.abs(number));
     else return String(Math.abs(number));
   };
@@ -136,7 +134,7 @@ export default class TimerPresenter extends React.Component {
     this.RemoveTimer();
     this.setState({
       minute: this.ConvertToTimeFormat(this.props.focusTime),
-      second: "00"
+      second: "00",
     });
   };
 }
@@ -184,10 +182,8 @@ const Main = styled.main`
   align-items: center;
   width: 100%;
   height: 100%;
-  background: ${props =>
-    props.isFocus
-      ? "linear-gradient(to right, #ff5f6d, #ffc371)"
-      : "linear-gradient(to right, #2193b0, #6dd5ed)"};
-  ${props => (props.isMenu ? "filter: blur(3px)" : "")};
-  ${props => (props.isMenu ? "-webkit-filter: blur(3px)" : "")};
+  background: ${(props) =>
+    props.isFocus ? props.theme.bgFocusColor : props.theme.bgBreakColor};
+  ${(props) => (props.isMenu ? "filter: blur(3px)" : "")};
+  ${(props) => (props.isMenu ? "-webkit-filter: blur(3px)" : "")};
 `;

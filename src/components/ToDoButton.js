@@ -16,7 +16,7 @@ const Button = styled.div`
   width: 120px;
   height: 50px;
   margin-right: 15px;
-  background-color: white;
+  background-color: ${(props) => props.theme.panelBgColor};
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
   display: flex;
@@ -24,5 +24,5 @@ const Button = styled.div`
   align-items: center;
   font-size: 20px;
   font-weight: 600;
-  color: ${props => (props.isFocus ? "#ff8f70" : "#bdc3c7")};
+  color: ${(props) => (props.isFocus ? "#ff8f70" : "#bdc3c7")};
 `;
