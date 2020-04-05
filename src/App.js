@@ -56,9 +56,10 @@ export default class App extends Component {
   _toggleIsFocus = () => {
     this.setState({ isFocus: !this.state.isFocus });
   };
-  _toggleDarkMode = async () => {
-    await this.setState({ isDarkMode: !this.state.isDarkMode });
-    this.applyTheme();
+  _toggleDarkMode = () => {
+    this.setState({ isDarkMode: !this.state.isDarkMode }, () =>
+      this.applyTheme()
+    );
   };
   applyTheme = () => {
     this.setState({
