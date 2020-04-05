@@ -46,28 +46,21 @@ export default class App extends Component {
     }
     this.setState({ isSettingClick: !this.state.isSettingClick });
   };
-  y;
   _applyTimeSetting = (focus, shortBreak, longBreak) => {
-    console.log(focus + " / " + shortBreak + " / " + longBreak);
     this.setState({
       focusTime: focus,
       shortBreakTime: shortBreak,
       longBreakTime: longBreak,
     });
-    console.log(this.state.focusTime);
-    console.log(this.state.shortBreakTime);
   };
   _toggleIsFocus = () => {
     this.setState({ isFocus: !this.state.isFocus });
   };
-  _toggleDarkMode = () => {
-    console.log(this.state.isDarkMode);
-    this.setState({ isDarkMode: !this.state.isDarkMode });
-    console.log(this.state.isDarkMode);
+  _toggleDarkMode = async () => {
+    await this.setState({ isDarkMode: !this.state.isDarkMode });
     this.applyTheme();
   };
   applyTheme = () => {
-    console.log(this.state.isDarkMode + " / " + this.state.isFocus);
     this.setState({
       theme: this.state.isDarkMode
         ? this.state.isFocus

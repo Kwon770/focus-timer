@@ -28,13 +28,13 @@ export default function SettingPanel(props) {
   const longBreakTimeInput = useInput(longBreakTime, {
     validate: (newVal) => newVal.length <= 2,
   });
-  const applySetting = () => {
-    applyTimeSetting(
+  const applySetting = async () => {
+    await applyTimeSetting(
       focusTimeInput.value,
       shortBreakTimeInput.value,
       longBreakTimeInput.value
     );
-    // toggleSetting();
+    toggleSetting();
   };
   return (
     <Panel>
