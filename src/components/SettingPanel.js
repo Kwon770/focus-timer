@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 export default function SettingPanel(props) {
   const {
-    isNightMode,
-    isDigital,
+    isDarkMode,
     isCustom,
     isAutoStart,
     isOverCount,
@@ -12,9 +11,7 @@ export default function SettingPanel(props) {
     shortBreakTime,
     longBreakTime,
     toggleSetting,
-    toggleNightMode,
-    pressTimeTimer,
-    pressDigitalTimer,
+    toggleDarkMode,
     pressPomo,
     pressCustom,
     toggleAutoStart,
@@ -25,18 +22,10 @@ export default function SettingPanel(props) {
       <ButtonColumn>
         <ButtonConatiner>
           <Title>Clock Mode</Title>
-          <SettingButton onClick={toggleNightMode} NightMode={isNightMode}>
+          <SettingButton onClick={toggleDarkMode} DarkMode={isDarkMode}>
             Night Mode
             <SettingDescription Left>Dark UI for night</SettingDescription>
           </SettingButton>
-          {/* <SettingButton onClick={pressTimeTimer} Digital={!isDigital}>
-            Time Timer
-            <SettingDescription Left>Intuitive color clock</SettingDescription>
-          </SettingButton>
-          <SettingButton onClick={pressDigitalTimer} Digital={isDigital}>
-            Digital Timer
-            <SettingDescription Left>Accurate digital clock</SettingDescription>
-          </SettingButton> */}
         </ButtonConatiner>
         <ButtonConatiner>
           <Title>Time Mode</Title>
@@ -154,7 +143,7 @@ const SettingButton = styled.h4`
   font-weight: 300;
   color: ${(props) => props.theme.panelFontColor};
   color: ${(props) => (props.Custom ? props.theme.hlColor : "")};
-  color: ${(props) => (props.NightMode ? props.theme.hlColor : "")};
+  color: ${(props) => (props.DarkMode ? props.theme.hlColor : "")};
   color: ${(props) => (props.Auto ? props.theme.hlColor : "")};
   color: ${(props) => (props.Over ? props.theme.hlColor : "")};
 

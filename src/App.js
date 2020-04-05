@@ -11,17 +11,15 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.digitalTimer = React.createRef();
-    this.timeTimer = React.createRef();
   }
 
   state = {
     isSettingClick: false,
     theme: focusLight,
-    isNightMode: false,
+    isDarkMode: false,
     isCustom: true,
     isAutoStart: false,
     isOverCount: false,
-    isDigital: true,
     focusTime: 0,
     shortBreakTime: 0,
     longBreakTime: 0,
@@ -40,46 +38,29 @@ export default class App extends Component {
     this.setState({ isSettingClick: !this.state.isSettingClick });
     // Apply new time
     if (this.state.isSettingClick) {
-      if (this.state.isDigital) {
-        if (this.digitalTimer.current.state.isFocus) {
-          this.digitalTimer.current.SetTimer(this.state.focusTime, 0);
-        } else {
-          this.digitalTimer.current.SetTimer(
-            this.digitalTimer.current.SetBreakRoutine(),
-            0
-          );
-        }
+      if (this.digitalTimer.current.state.isFocus) {
+        this.digitalTimer.current.SetTimer(this.state.focusTime, 0);
       } else {
-        if (this.timeTimer.current.state.isFocus) {
-          this.timeTimer.current.SetTimer(this.state.focusTime, 0);
-        } else {
-          this.timeTimer.current.SetTimer(
-            this.timeTimer.current.SetBreakRoutine(),
-            0
-          );
-        }
+        this.digitalTimer.current.SetTimer(
+          this.digitalTimer.current.SetBreakRoutine(),
+          0
+        );
       }
     }
   };
-  // _pressTimeTimer = () => {
-  //   this.setState({ isDigital: false });
-  // };
-  // _pressDigitalTimer = () => {
-  //   this.setState({ isDigital: true });
-  // };
   _toggleIsFocus = () => {
     this.setState({ isFocus: !this.state.isFocus });
   };
-  _toggleNightMode = () => {
-    console.log(this.state.isNightMode);
-    this.setState({ isNightMode: !this.state.isNightMode });
-    console.log(this.state.isNightMode);
+  _toggleDarkMode = () => {
+    console.log(this.state.isDarkMode);
+    this.setState({ isDarkMode: !this.state.isDarkMode });
+    console.log(this.state.isDarkMode);
     this.applyTheme();
   };
   applyTheme = () => {
-    console.log(this.state.isNightMode + " / " + this.state.isFocus);
+    console.log(this.state.isDarkMode + " / " + this.state.isFocus);
     this.setState({
-      theme: this.state.isNightMode
+      theme: this.state.isDarkMode
         ? this.state.isFocus
           ? focusDark
           : breakDark
@@ -89,16 +70,20 @@ export default class App extends Component {
     });
   };
   _pressPomo = () => {
-    this.setState({ isCustom: false });
-    this.state.focusTime = 25;
-    this.state.shortBreakTime = 5;
-    this.state.longBreakTime = 30;
+    this.setState({
+      isCustom: false,
+      focusTime: 25,
+      shortBreakTime: 5,
+      longBreakTime: 30,
+    });
   };
   _pressCustom = () => {
-    this.setState({ isCustom: true });
-    this.state.focusTime = 50;
-    this.state.shortBreakTime = 10;
-    this.state.longBreakTime = 30;
+    this.setState({
+      isCustom: true,
+      focusTime: 50,
+      shortBreakTime: 10,
+      longBreakTime: 30,
+    });
   };
   _toggleAutoStart = () => {
     this.setState({ isAutoStart: !this.state.isAutoStart });
@@ -113,8 +98,7 @@ export default class App extends Component {
       isSettingClick,
       theme,
       isToDoClick,
-      isNightMode,
-      isDigital,
+      isDarkMode,
       isAutoStart,
       isOverCount,
       toDos,
@@ -126,31 +110,25 @@ export default class App extends Component {
     } = this.state;
     return (
       <ThemeProvider theme={theme}>
-        {isDigital ? (
-          <DigitalTimer
-            ref={this.digitalTimer}
-            isSettingClick={isSettingClick}
-            isToDoClick={isToDoClick}
-            isNightMode={isNightMode}
-            isCustom={isCustom}
-            isAutoStart={isAutoStart}
-            isOverCount={isOverCount}
-            focusTime={focusTime}
-            shortBreakTime={shortBreakTime}
-            longBreakTime={longBreakTime}
-            isFocus={isFocus}
-            toggleIsFocus={this._toggleIsFocus}
-            applyTheme={this.applyTheme}
-          />
-        ) : (
-          ""
-        )}
+        <DigitalTimer
+          ref={this.digitalTimer}
+          isSettingClick={isSettingClick}
+          isToDoClick={isToDoClick}
+          isDarkMode={isDarkMode}
+          isCustom={isCustom}
+          isAutoStart={isAutoStart}
+          isOverCount={isOverCount}
+          focusTime={focusTime}
+          shortBreakTime={shortBreakTime}
+          longBreakTime={longBreakTime}
+          isFocus={isFocus}
+          toggleIsFocus={this._toggleIsFocus}
+          applyTheme={this.applyTheme}
+        />
         {isSettingClick ? (
           <SettingPanel
             toggleSetting={this._toggleSetting}
-            // pressTimeTimer={this._pressTimeTimer}
-            // pressDigitalTimer={this._pressDigitalTimer}
-            toggleNightMode={this._toggleNightMode}
+            toggleDarkMode={this._toggleDarkMode}
             pressPomo={this._pressPomo}
             pressCustom={this._pressCustom}
             toggleAutoStart={this._toggleAutoStart}
