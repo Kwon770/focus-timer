@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
-import DigitalTimer from "./components/DigitalTimer";
+import Timer from "./components/Timer";
 import SettingButton from "./components/SettingButton";
 import SettingPanel from "./components/SettingPanel";
 import ToDoButton from "./components/ToDoButton";
@@ -10,7 +10,7 @@ import ToDoPanel from "./components/ToDoPanel";
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.digitalTimer = React.createRef();
+    this.Timer = React.createRef();
   }
 
   state = {
@@ -35,18 +35,27 @@ export default class App extends Component {
     this.setState({ isToDoClick: !this.state.isToDoClick });
   };
   _toggleSetting = () => {
-    this.setState({ isSettingClick: !this.state.isSettingClick });
     // Apply new time
     if (this.state.isSettingClick) {
-      if (this.digitalTimer.current.state.isFocus) {
-        this.digitalTimer.current.SetTimer(this.state.focusTime, 0);
+      if (this.state.isFocus) {
+        // console.log(this.state.focusTime);
+        this.Timer.current.SetTimer(this.state.focusTime, 0);
       } else {
-        this.digitalTimer.current.SetTimer(
-          this.digitalTimer.current.SetBreakRoutine(),
-          0
-        );
+        this.Timer.current.SetTimer(this.Timer.current.GetBreakTime(), 0);
       }
     }
+    this.setState({ isSettingClick: !this.state.isSettingClick });
+  };
+  y;
+  _applyTimeSetting = (focus, shortBreak, longBreak) => {
+    console.log(focus + " / " + shortBreak + " / " + longBreak);
+    this.setState({
+      focusTime: focus,
+      shortBreakTime: shortBreak,
+      longBreakTime: longBreak,
+    });
+    console.log(this.state.focusTime);
+    console.log(this.state.shortBreakTime);
   };
   _toggleIsFocus = () => {
     this.setState({ isFocus: !this.state.isFocus });
@@ -110,8 +119,8 @@ export default class App extends Component {
     } = this.state;
     return (
       <ThemeProvider theme={theme}>
-        <DigitalTimer
-          ref={this.digitalTimer}
+        <Timer
+          ref={this.Timer}
           isSettingClick={isSettingClick}
           isToDoClick={isToDoClick}
           isDarkMode={isDarkMode}
@@ -127,6 +136,7 @@ export default class App extends Component {
         />
         {isSettingClick ? (
           <SettingPanel
+            applyTimeSetting={this._applyTimeSetting}
             toggleSetting={this._toggleSetting}
             toggleDarkMode={this._toggleDarkMode}
             pressPomo={this._pressPomo}

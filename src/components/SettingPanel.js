@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useInput from "@rooks/use-input";
 
 export default function SettingPanel(props) {
   const {
@@ -11,12 +12,30 @@ export default function SettingPanel(props) {
     shortBreakTime,
     longBreakTime,
     toggleSetting,
+    applyTimeSetting,
     toggleDarkMode,
     pressPomo,
     pressCustom,
     toggleAutoStart,
     toggleOverCount,
   } = props;
+  const focusTimeInput = useInput(focusTime, {
+    validate: (newVal) => newVal.length <= 2,
+  });
+  const shortBreakTimeInput = useInput(shortBreakTime, {
+    validate: (newVal) => newVal.length <= 2,
+  });
+  const longBreakTimeInput = useInput(longBreakTime, {
+    validate: (newVal) => newVal.length <= 2,
+  });
+  const applySetting = () => {
+    applyTimeSetting(
+      focusTimeInput.value,
+      shortBreakTimeInput.value,
+      longBreakTimeInput.value
+    );
+    // toggleSetting();
+  };
   return (
     <Panel>
       <ButtonColumn>
@@ -61,21 +80,21 @@ export default function SettingPanel(props) {
           <Title>Time Setting</Title>
           <SettingButton input>
             Focus Time
-            <TimeInput value={focusTime} />
+            <TimeInput {...focusTimeInput} />
             <SettingDescription>
               Time to focus on what you do (minute)
             </SettingDescription>
           </SettingButton>
           <SettingButton input>
             Short break Time
-            <TimeInput value={shortBreakTime} />
+            <TimeInput {...shortBreakTimeInput} />
             <SettingDescription>
               Short break time after repeated focus (minute)
             </SettingDescription>
           </SettingButton>
           <SettingButton input>
             Long Break Time
-            <TimeInput value={longBreakTime} />
+            <TimeInput {...longBreakTimeInput} />
             <SettingDescription>
               Long break time after 2 repeated focus (4 repeated with Pomodoro)
               (minute)
@@ -83,7 +102,7 @@ export default function SettingPanel(props) {
           </SettingButton>
         </ButtonConatiner>
       </ButtonColumn>
-      <ApplyButton onClick={toggleSetting}>Apply</ApplyButton>
+      <ApplyButton onClick={applySetting}>Apply</ApplyButton>
     </Panel>
   );
 }

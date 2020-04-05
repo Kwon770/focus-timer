@@ -89,7 +89,7 @@ export default class TimerPresenter extends React.Component {
       newSets.push(1);
       this.state.sets.map((set) => newSets.push(set));
 
-      const min = this.SetBreakRoutine(newSets);
+      const min = this.GetBreakTime(newSets);
 
       this.setState({
         sets: newSets,
@@ -108,7 +108,7 @@ export default class TimerPresenter extends React.Component {
     this.props.applyTheme();
   };
 
-  SetBreakRoutine = (sets = this.state.sets) => {
+  GetBreakTime = (sets = this.state.sets) => {
     if (this.props.isCustom) {
       if (sets.length % 2 === 0) return this.props.longBreakTime;
       else return this.props.shortBreakTime;
