@@ -7,15 +7,29 @@ import SettingPanel from "./components/SettingPanel";
 import ToDoButton from "./components/ToDoButton";
 import ToDoPanel from "./components/ToDoPanel";
 
+const OPTIONS_LS = "optionsLocalStorage";
+
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.Timer = React.createRef();
+    // load saved data and apply time setting
+    this.loadToDo();
+    this.loadOption();
   }
 
   state = {
-    isSettingClick: false,
     theme: focusLight,
+    isSettingClick: false,
+    isPlayerClick: false,
+    isToDoClick: false,
+    isFocus: true,
+    // Default Value
+    // ToDos
+    curDo: "Code",
+    toDos: {},
+    todaySet: 1,
+    // Options
     isDarkMode: false,
     isCustom: true,
     isAutoStart: false,
@@ -23,26 +37,62 @@ export default class App extends Component {
     focusTime: 0,
     shortBreakTime: 0,
     longBreakTime: 0,
-    isToDoClick: false,
-    curDo: "Code",
-    toDos: {},
-    isFocus: true,
-    isPlayerClick: false,
-    todaySet: 1,
+  };
+
+  saveToDo = () => {};
+
+  loadToDo = () => {};
+
+  saveOption = () => {
+    const optionValue = {};
+    optionValue["isDarkMode"] = this.state.isDarkMode;
+    optionValue["isCustom"] = this.state.isCustom;
+    optionValue["isAutoStart"] = this.state.isAutoStart;
+    optionValue["isOverCount"] = this.state.isOverCount;
+    optionValue["focusTime"] = this.state.focusTime;
+    optionValue["shortBreakTime"] = this.state.shortBreakTime;
+    optionValue["longBreakTime"] = this.state.longBreakTime;
+    localStorage.setItem(OPTIONS_LS, JSON.stringify(optionValue));
+  };
+
+  loadOption = () => {
+    const loadedOptions = localStorage.getItem(OPTIONS_LS);
+    if (loadedOptions !== null) {
+      const parsedOptions = JSON.parse(loadedOptions);
+      this.state.isDarkMode = parsedOptions["isDarkMode"];
+      this.state.isCustom = parsedOptions["isCustom"];
+      this.state.isAutoStart = parsedOptions["isAutoStart"];
+      this.state.isOverCount = parsedOptions["isOverCount"];
+      this.state.focusTime = parsedOptions["focusTime"];
+      this.state.shortBreakTime = parsedOptions["shortBreakTime"];
+      this.state.longBreakTime = parsedOptions["longBreakTime"];
+    }
+  };
+
+  applyTheme = () => {
+    this.setState({
+      theme: this.state.isDarkMode
+        ? this.state.isFocus
+          ? focusDark
+          : breakDark
+        : this.state.isFocus
+        ? focusLight
+        : breakLight,
+    });
   };
 
   _toggleToDo = () => {
     this.setState({ isToDoClick: !this.state.isToDoClick });
   };
   _toggleSetting = () => {
-    // Apply new time
+    // When panel is closing
     if (this.state.isSettingClick) {
       if (this.state.isFocus) {
-        // console.log(this.state.focusTime);
         this.Timer.current.SetTimer(this.state.focusTime, 0);
       } else {
         this.Timer.current.SetTimer(this.Timer.current.GetBreakTime(), 0);
       }
+      this.saveOption();
     }
     this.setState({ isSettingClick: !this.state.isSettingClick });
   };
@@ -60,17 +110,6 @@ export default class App extends Component {
     this.setState({ isDarkMode: !this.state.isDarkMode }, () =>
       this.applyTheme()
     );
-  };
-  applyTheme = () => {
-    this.setState({
-      theme: this.state.isDarkMode
-        ? this.state.isFocus
-          ? focusDark
-          : breakDark
-        : this.state.isFocus
-        ? focusLight
-        : breakLight,
-    });
   };
   _pressPomo = () => {
     this.setState({
@@ -94,7 +133,6 @@ export default class App extends Component {
   _toggleOverCount = () => {
     this.setState({ isOverCount: !this.state.isOverCount });
   };
-
   render() {
     const {
       curDo,
