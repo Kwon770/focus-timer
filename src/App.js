@@ -31,12 +31,12 @@ export default class App extends Component {
     todaySet: 1,
     // Options
     isDarkMode: false,
-    isCustom: true,
+    isCustom: false,
     isAutoStart: false,
     isOverCount: false,
-    focusTime: 0,
-    shortBreakTime: 0,
-    longBreakTime: 0,
+    focusTime: 25,
+    shortBreakTime: 5,
+    longBreakTime: 30,
   };
 
   saveToDo = () => {};

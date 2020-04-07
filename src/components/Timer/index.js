@@ -11,7 +11,7 @@ export default class TimerPresenter extends React.Component {
     this.state = {
       intervalTimer: null,
       minute: this.ConvertToTimeFormat(this.props.focusTime),
-      second: "02",
+      second: "00",
       sets: [],
     };
   }
