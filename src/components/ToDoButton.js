@@ -24,5 +24,6 @@ const Button = styled.div`
   align-items: center;
   font-size: 20px;
   font-weight: 600;
+  /* THEME */
   color: ${(props) => (props.isFocus ? "#ff8f70" : "#bdc3c7")};
 `;
