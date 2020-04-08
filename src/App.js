@@ -27,7 +27,26 @@ export default class App extends Component {
     // Default Value
     // ToDos
     curDo: "Code",
-    toDos: {},
+    toDos: [
+      {
+        isSelected: true,
+        name: "Coding",
+        time: 180,
+        isDone: true,
+      },
+      {
+        isSelected: false,
+        name: "Japanese",
+        time: 120,
+        isDone: true,
+      },
+      {
+        isSelected: false,
+        name: "English",
+        time: 60,
+        isDone: false,
+      },
+    ],
     todaySet: 1,
     // Options
     isDarkMode: false,

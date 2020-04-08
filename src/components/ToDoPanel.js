@@ -10,6 +10,11 @@ import {
 
 export default function ToDoPanel(props) {
   const { toDos } = props;
+  const ConvertToTimeFormat = (time) => {
+    const hour = time / 60;
+    const min = time % 60;
+    return `${hour}h ${min}m`;
+  };
   return (
     <Panel>
       <Title_Container>
@@ -20,48 +25,26 @@ export default function ToDoPanel(props) {
         <FontAwesomeIcon icon={faPlus} />
       </Plus_Button>
       <List_Conatiner>
-        <List_Element>
-          <Element_Container>
-            <Progress_Icon>
-              <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
-            </Progress_Icon>
-            <Information_Container>
-              <ToDo_Title>Coding</ToDo_Title>
-              <ToDo_Time>3h 00m (3set)</ToDo_Time>
-            </Information_Container>
-          </Element_Container>
-          <Progress_Button>
-            <FontAwesomeIcon icon={faCheckCircle} />
-          </Progress_Button>
-        </List_Element>
-        <List_Element>
-          <Element_Container>
-            <Progress_Icon>
-              <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
-            </Progress_Icon>
-            <Information_Container>
-              <ToDo_Title>Japanese</ToDo_Title>
-              <ToDo_Time>3h 00m (3set)</ToDo_Time>
-            </Information_Container>
-          </Element_Container>
-          <Progress_Button>
-            <FontAwesomeIcon icon={faCircle} />
-          </Progress_Button>
-        </List_Element>
-        <List_Element>
-          <Element_Container>
-            <Progress_Icon>
-              <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
-            </Progress_Icon>
-            <Information_Container>
-              <ToDo_Title>English</ToDo_Title>
-              <ToDo_Time>3h 00m (3set)</ToDo_Time>
-            </Information_Container>
-          </Element_Container>
-          <Progress_Button>
-            <FontAwesomeIcon icon={faCircle} />
-          </Progress_Button>
-        </List_Element>
+        {toDos.map((toDo) => (
+          <List_Element>
+            <Element_Container>
+              <Progress_Icon isSelected={toDo.isSelected}>
+                <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
+              </Progress_Icon>
+              <Information_Container>
+                <ToDo_Title>{toDo.name}</ToDo_Title>
+                <ToDo_Time>{ConvertToTimeFormat(toDo.time)}</ToDo_Time>
+              </Information_Container>
+            </Element_Container>
+            <Progress_Button>
+              {toDo.isDone ? (
+                <FontAwesomeIcon icon={faCheckCircle} />
+              ) : (
+                <FontAwesomeIcon icon={faCircle} />
+              )}
+            </Progress_Button>
+          </List_Element>
+        ))}
       </List_Conatiner>
     </Panel>
   );
@@ -92,6 +75,7 @@ const Information_Container = styled.div``;
 
 const Progress_Icon = styled.div`
   color: ${(props) => props.theme.hlColor};
+  opacity: ${(props) => (!props.isSelected ? "0" : "")};
 `;
 
 const List_Element = styled.li`
