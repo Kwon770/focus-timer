@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, ThemeConsumer } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import Timer from "./components/Timer";
 import SettingButton from "./components/SettingButton";
 import SettingPanel from "./components/SettingPanel";
-import ToDoButton from "./components/ToDoButton";
-import ToDoPanel from "./components/ToDoPanel";
+import ToDosButton from "./components/ToDos/ToDosButton";
+import ToDosPanel from "./components/ToDos";
 
 const OPTIONS_LS = "optionsLocalStorage";
 
@@ -26,27 +26,7 @@ export default class App extends Component {
     isFocus: true,
     // Default Value
     // ToDos
-    curDo: "Code",
-    toDos: [
-      {
-        isSelected: true,
-        name: "Coding",
-        time: 180,
-        isDone: true,
-      },
-      {
-        isSelected: false,
-        name: "Japanese",
-        time: 120,
-        isDone: true,
-      },
-      {
-        isSelected: false,
-        name: "English",
-        time: 60,
-        isDone: false,
-      },
-    ],
+    curDo: "Japanese",
     todaySet: 1,
     // Options
     isDarkMode: false,
@@ -61,6 +41,10 @@ export default class App extends Component {
   saveToDo = () => {};
 
   loadToDo = () => {};
+
+  setCurDo = (curDo) => {
+    this.setState({ curDo: curDo });
+  };
 
   saveOption = () => {
     const optionValue = {};
@@ -202,10 +186,10 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        {/* {isToDoClick ? <ToDoPanel toDos={toDos} /> : ""} */}
-        <ToDoPanel toDos={toDos} />
+        {/* {isToDoClick ? <ToDosPanel toDos={toDos} /> : ""} */}
+        <ToDosPanel setCurDo={this.setCurDo} />
         <ButtonConatiner>
-          <ToDoButton curDo={curDo} toggleToDo={this._toggleToDo} />
+          <ToDosButton curDo={curDo} toggleToDo={this._toggleToDo} />
           <SettingButton
             isSettingClick={isSettingClick}
             toggleSetting={this._toggleSetting}

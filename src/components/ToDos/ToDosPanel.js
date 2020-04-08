@@ -8,7 +8,7 @@ import {
   faCheckCircle,
 } from "@fortawesome/free-regular-svg-icons";
 
-export default function ToDoPanel(props) {
+export default function ToDosPanel(props) {
   const { toDos } = props;
   const ConvertToTimeFormat = (time) => {
     const hour = time / 60;
