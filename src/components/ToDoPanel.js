@@ -89,6 +89,7 @@ const List_Element = styled.li`
 
 const List_Conatiner = styled.ul`
   list-style: none;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -127,7 +128,7 @@ const Panel = styled.div`
   left: 50%;
   margin-left: -150px;
   width: 300px;
-  /* height: 450px; */
+  max-height: 380px;
   border-radius: 25px;
   background-color: ${(props) => props.theme.panelBgColor};
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
