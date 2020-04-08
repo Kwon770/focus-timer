@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   faClipboard,
   faCircle,
@@ -9,16 +9,19 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 export default function ToDoPanel(props) {
-  const {} = props;
+  const { toDos } = props;
   return (
     <Panel>
-      <TitleContainer>
+      <Title_Container>
         <FontAwesomeIcon icon={faClipboard} style={{ marginRight: 10 }} />
         Todo
-      </TitleContainer>
+      </Title_Container>
+      <Plus_Button>
+        <FontAwesomeIcon icon={faPlus} />
+      </Plus_Button>
       <List_Conatiner>
         <List_Element>
-          <Di>
+          <Element_Container>
             <Progress_Icon>
               <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
             </Progress_Icon>
@@ -26,13 +29,13 @@ export default function ToDoPanel(props) {
               <ToDo_Title>Coding</ToDo_Title>
               <ToDo_Time>3h 00m (3set)</ToDo_Time>
             </Information_Container>
-          </Di>
+          </Element_Container>
           <Progress_Button>
             <FontAwesomeIcon icon={faCheckCircle} />
           </Progress_Button>
         </List_Element>
         <List_Element>
-          <Di>
+          <Element_Container>
             <Progress_Icon>
               <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
             </Progress_Icon>
@@ -40,13 +43,13 @@ export default function ToDoPanel(props) {
               <ToDo_Title>Japanese</ToDo_Title>
               <ToDo_Time>3h 00m (3set)</ToDo_Time>
             </Information_Container>
-          </Di>
+          </Element_Container>
           <Progress_Button>
             <FontAwesomeIcon icon={faCircle} />
           </Progress_Button>
         </List_Element>
         <List_Element>
-          <Di>
+          <Element_Container>
             <Progress_Icon>
               <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
             </Progress_Icon>
@@ -54,7 +57,7 @@ export default function ToDoPanel(props) {
               <ToDo_Title>English</ToDo_Title>
               <ToDo_Time>3h 00m (3set)</ToDo_Time>
             </Information_Container>
-          </Di>
+          </Element_Container>
           <Progress_Button>
             <FontAwesomeIcon icon={faCircle} />
           </Progress_Button>
@@ -64,7 +67,7 @@ export default function ToDoPanel(props) {
   );
 }
 
-const Di = styled.div`
+const Element_Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,7 +76,7 @@ const Di = styled.div`
 const ToDo_Time = styled.h5`
   margin: 7px 0px;
   font-weight: 400;
-  /* color: */
+  color: ${(props) => props.theme.disColor};
 `;
 
 const ToDo_Title = styled.h4`
@@ -81,12 +84,14 @@ const ToDo_Title = styled.h4`
   /* color: */
 `;
 
-const Progress_Button = styled.div``;
+const Progress_Button = styled.div`
+  color: ${(props) => props.theme.hlColor};
+`;
 
 const Information_Container = styled.div``;
 
 const Progress_Icon = styled.div`
-  /* color: */
+  color: ${(props) => props.theme.hlColor};
 `;
 
 const List_Element = styled.li`
@@ -110,12 +115,24 @@ const List_Conatiner = styled.ul`
   margin-bottom: 10px;
 `;
 
-const TitleContainer = styled.div`
+const Title_Container = styled.div`
   align-items: center;
   justify-content: space-around;
   font-size: 25px;
   font-weight: 600;
   /* color: */
+`;
+
+const Plus_Button = styled.div`
+  color: ${(props) => props.theme.hlColor};
+  position: absolute;
+  top: 25px;
+  right: 26px;
+  padding: 0px 4px;
+  border-style: solid;
+  border-color: ${(props) => props.theme.hlColor};
+  border-width: 3px;
+  border-radius: 15px;
 `;
 
 const Panel = styled.div`

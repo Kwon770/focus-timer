@@ -17,7 +17,8 @@ const Button = styled.div`
   align-items: center;
   width: 50px;
   height: 50px;
-  color: ${(props) => (props.isSettingClick ? props.theme.hlColor : "#bdc3c7")};
+  color: ${(props) =>
+    props.isSettingClick ? props.theme.hlColor : props.theme.disColor};
   font-size: 20px;
   background-color: ${(props) => props.theme.panelBgColor};
   border-radius: 25px;
