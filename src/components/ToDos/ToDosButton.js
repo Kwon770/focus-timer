@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faCrutch } from "@fortawesome/free-solid-svg-icons";
 
 export default function ToDosButton(props) {
   return (
     <Button onClick={props.toggleToDo}>
-      <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
+      <FontAwesomeIcon icon={faCrutch} style={{ marginRight: 10 }} />
       {props.curDo}
     </Button>
   );

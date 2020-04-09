@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faCrutch } from "@fortawesome/free-solid-svg-icons";
 import {
   faClipboard,
   faCircle,
@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 export default function ToDosPanel(props) {
-  const { toDos } = props;
+  const { isEdit, toDos, toggleEditMode, addTodo, setCurDo } = props;
   const ConvertToTimeFormat = (time) => {
     const hour = time / 60;
     const min = time % 60;
@@ -21,30 +21,43 @@ export default function ToDosPanel(props) {
         <FontAwesomeIcon icon={faClipboard} style={{ marginRight: 10 }} />
         Todo
       </Title_Container>
-      <Plus_Button>
-        <FontAwesomeIcon icon={faPlus} />
-      </Plus_Button>
+      <Edit_Button isEdit={isEdit} onClick={toggleEditMode}>
+        <FontAwesomeIcon icon={faPen} />
+      </Edit_Button>
       <List_Conatiner>
-        {toDos.map((toDo) => (
-          <List_Element>
-            <Element_Container>
-              <Progress_Icon isSelected={toDo.isSelected}>
-                <FontAwesomeIcon icon={faPen} style={{ marginRight: 15 }} />
-              </Progress_Icon>
-              <Information_Container>
-                <ToDo_Title>{toDo.name}</ToDo_Title>
-                <ToDo_Time>{ConvertToTimeFormat(toDo.time)}</ToDo_Time>
-              </Information_Container>
-            </Element_Container>
-            <Progress_Button>
-              {toDo.isDone ? (
-                <FontAwesomeIcon icon={faCheckCircle} />
-              ) : (
-                <FontAwesomeIcon icon={faCircle} />
-              )}
-            </Progress_Button>
-          </List_Element>
-        ))}
+        {toDos.map((toDo) => {
+          if (toDo.isButton) {
+            return (
+              <List_Element>
+                <Element_Container>asd</Element_Container>
+              </List_Element>
+            );
+          } else {
+            return (
+              <List_Element>
+                <Element_Container>
+                  <Progress_Icon isSelected={toDo.isSelected}>
+                    <FontAwesomeIcon
+                      icon={faCrutch}
+                      style={{ marginRight: 15, fontSize: 20 }}
+                    />
+                  </Progress_Icon>
+                  <Information_Container>
+                    <ToDo_Title>{toDo.name}</ToDo_Title>
+                    <ToDo_Time>{ConvertToTimeFormat(toDo.time)}</ToDo_Time>
+                  </Information_Container>
+                </Element_Container>
+                <Progress_Button>
+                  {toDo.isDone ? (
+                    <FontAwesomeIcon icon={faCheckCircle} />
+                  ) : (
+                    <FontAwesomeIcon icon={faCircle} />
+                  )}
+                </Progress_Button>
+              </List_Element>
+            );
+          }
+        })}
       </List_Conatiner>
     </Panel>
   );
@@ -74,8 +87,8 @@ const Progress_Button = styled.div`
 const Information_Container = styled.div``;
 
 const Progress_Icon = styled.div`
-  color: ${(props) => props.theme.hlColor};
-  opacity: ${(props) => (!props.isSelected ? "0" : "")};
+  color: ${(props) =>
+    props.isSelected ? props.theme.hlColor : props.theme.disColor};
 `;
 
 const List_Element = styled.li`
@@ -108,16 +121,15 @@ const Title_Container = styled.div`
   /* color: */
 `;
 
-const Plus_Button = styled.div`
-  color: ${(props) => props.theme.hlColor};
+const Edit_Button = styled.div`
+  color: ${(props) =>
+    props.isEdit ? props.theme.hlColor : props.theme.disColor};
   position: absolute;
   top: 25px;
-  right: 26px;
+  right: 27px;
   padding: 0px 4px;
-  border-style: solid;
-  border-color: ${(props) => props.theme.hlColor};
-  border-width: 3px;
-  border-radius: 15px;
+  font-size: 20px;
+  background-color: ${(props) => props.theme.panelBgColor};
 `;
 
 const Panel = styled.div`
