@@ -49,10 +49,6 @@ export default class ToDosPresenter extends React.Component {
     } else {
       newToDos.push({
         isButton: true,
-        isSelected: false,
-        name: "",
-        time: 0,
-        isDone: false,
       });
       this.state.toDos.map((toDo) => newToDos.push(toDo));
     }
@@ -63,7 +59,7 @@ export default class ToDosPresenter extends React.Component {
       <Panel
         {...this.state}
         toggleEditMode={this.toggleEditMode}
-        arrToDo={this.addToDo}
+        addToDo={this.addToDo}
       />
     );
   }

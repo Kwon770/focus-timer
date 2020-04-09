@@ -1,15 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faCrutch } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faCrutch, faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   faClipboard,
   faCircle,
   faCheckCircle,
 } from "@fortawesome/free-regular-svg-icons";
+import AddToDo from "./AddToDo";
 
 export default function ToDosPanel(props) {
-  const { isEdit, toDos, toggleEditMode, addTodo, setCurDo } = props;
+  const {
+    isEdit,
+    toDos,
+    toggleEditMode,
+    toggleInputAdd,
+    addTodo,
+    setCurDo,
+  } = props;
   const ConvertToTimeFormat = (time) => {
     const hour = time / 60;
     const min = time % 60;
@@ -27,11 +35,7 @@ export default function ToDosPanel(props) {
       <List_Conatiner>
         {toDos.map((toDo) => {
           if (toDo.isButton) {
-            return (
-              <List_Element>
-                <Element_Container>asd</Element_Container>
-              </List_Element>
-            );
+            return <AddToDo addToDo={props.addToDo} />;
           } else {
             return (
               <List_Element>
@@ -77,7 +81,7 @@ const ToDo_Time = styled.h5`
 
 const ToDo_Title = styled.h4`
   margin: 7px 0px;
-  /* color: */
+  color: ${(props) => props.theme.panelFontColor};
 `;
 
 const Progress_Button = styled.div`
