@@ -6,6 +6,7 @@ export default class ToDosPresenter extends React.Component {
   state = {
     toDos: [
       {
+        key: 1,
         isButton: false,
         isSelected: true,
         name: "Coding",
@@ -13,6 +14,7 @@ export default class ToDosPresenter extends React.Component {
         isDone: true,
       },
       {
+        key: 12,
         isButton: false,
         isSelected: false,
         name: "Japanese",
@@ -20,6 +22,7 @@ export default class ToDosPresenter extends React.Component {
         isDone: true,
       },
       {
+        key: 123,
         isButton: false,
         isSelected: false,
         name: "English",
@@ -30,9 +33,10 @@ export default class ToDosPresenter extends React.Component {
     isEdit: false,
   };
   addToDo = (name) => {
-    const newToDos = [];
+    let newToDos = [];
     this.state.toDos.map((toDo) => newToDos.push(toDo));
-    newToDos.push({
+    newToDos.splice(1, 0, {
+      key: Date.now(),
       isButton: false,
       isSelected: false,
       name: name,
@@ -41,18 +45,20 @@ export default class ToDosPresenter extends React.Component {
     });
     this.setState({ toDos: newToDos });
   };
-  toggleEditMode = () => {
+  toggleEditMode = async () => {
     let newToDos = [];
     if (this.state.isEdit) {
       this.state.toDos.map((toDo) => newToDos.push(toDo));
       newToDos.splice(0, 1);
     } else {
       newToDos.push({
+        key: 123456789,
         isButton: true,
       });
       this.state.toDos.map((toDo) => newToDos.push(toDo));
     }
-    this.setState({ toDos: newToDos, isEdit: !this.state.isEdit });
+    await this.setState({ toDos: newToDos, isEdit: !this.state.isEdit });
+    console.log(this.state.toDos);
   };
   render() {
     return (

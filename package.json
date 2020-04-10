@@ -14,6 +14,7 @@
     "react": "^16.13.0",
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.13.0",
+    "react-flip-move": "^3.0.4",
     "react-minimal-pie-chart": "^7.0.0",
     "react-scripts": "3.4.0",
     "styled-components": "^5.0.1",

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { forwardRef, useState } from "react";
 import styled from "styled-components";
+import FlipMove from "react-flip-move";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faCrutch, faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -7,22 +8,78 @@ import {
   faCircle,
   faCheckCircle,
 } from "@fortawesome/free-regular-svg-icons";
-import AddToDo from "./AddToDo";
 
 export default function ToDosPanel(props) {
-  const {
-    isEdit,
-    toDos,
-    toggleEditMode,
-    toggleInputAdd,
-    addTodo,
-    setCurDo,
-  } = props;
+  const { isEdit, toDos, toggleEditMode, addToDo, setCurDo } = props;
+
   const ConvertToTimeFormat = (time) => {
     const hour = time / 60;
     const min = time % 60;
     return `${hour}h ${min}m`;
   };
+  const [isInput, setIsInput] = useState(false);
+  const [input, setInput] = useState("");
+
+  const toggleInputAdd = (_input) => {
+    if (_input === null || _input.trim() === "") {
+      setIsInput(false);
+      setInput("");
+    } else {
+      setIsInput(true);
+      setInput(_input);
+    }
+  };
+
+  const tryAdding = () => {
+    if (isInput) {
+      addToDo(input);
+      setInput("");
+      setIsInput(false);
+    }
+  };
+
+  const AddingColumn = forwardRef((props, ref) => (
+    <List_Element ref={ref}>
+      <Element_Container>
+        <Progress_Icon isInput={isInput} onClick={tryAdding}>
+          <FontAwesomeIcon
+            icon={faPlus}
+            style={{ marginRight: 15, fontSize: 20 }}
+          />
+        </Progress_Icon>
+        <Add_Input
+          placeholder="Click to Add ToDo"
+          value={input}
+          onInput={(e) => toggleInputAdd(e.target.value)}
+        />
+      </Element_Container>
+    </List_Element>
+  ));
+
+  const ToDoColumn = forwardRef((props, ref) => (
+    <List_Element ref={ref}>
+      <Element_Container>
+        <Progress_Icon isSelected={props.isSelected}>
+          <FontAwesomeIcon
+            icon={faCrutch}
+            style={{ marginRight: 15, fontSize: 20 }}
+          />
+        </Progress_Icon>
+        <Information_Container>
+          <ToDo_Title>{props.name}</ToDo_Title>
+          <ToDo_Time>{ConvertToTimeFormat(props.time)}</ToDo_Time>
+        </Information_Container>
+      </Element_Container>
+      <Progress_Button>
+        {props.isDone ? (
+          <FontAwesomeIcon icon={faCheckCircle} />
+        ) : (
+          <FontAwesomeIcon icon={faCircle} />
+        )}
+      </Progress_Button>
+    </List_Element>
+  ));
+
   return (
     <Panel>
       <Title_Container>
@@ -33,39 +90,38 @@ export default function ToDosPanel(props) {
         <FontAwesomeIcon icon={faPen} />
       </Edit_Button>
       <List_Conatiner>
-        {toDos.map((toDo) => {
-          if (toDo.isButton) {
-            return <AddToDo addToDo={props.addToDo} />;
-          } else {
-            return (
-              <List_Element>
-                <Element_Container>
-                  <Progress_Icon isSelected={toDo.isSelected}>
-                    <FontAwesomeIcon
-                      icon={faCrutch}
-                      style={{ marginRight: 15, fontSize: 20 }}
-                    />
-                  </Progress_Icon>
-                  <Information_Container>
-                    <ToDo_Title>{toDo.name}</ToDo_Title>
-                    <ToDo_Time>{ConvertToTimeFormat(toDo.time)}</ToDo_Time>
-                  </Information_Container>
-                </Element_Container>
-                <Progress_Button>
-                  {toDo.isDone ? (
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  ) : (
-                    <FontAwesomeIcon icon={faCircle} />
-                  )}
-                </Progress_Button>
-              </List_Element>
-            );
-          }
-        })}
+        <FlipMove enterAnimation="fade" leaveAnimation="fade">
+          {toDos.map((toDo) => {
+            if (toDo.isButton) {
+              return <AddingColumn key={toDo.key} />;
+            } else {
+              return <ToDoColumn key={toDo.key} {...toDo} />;
+            }
+          })}
+        </FlipMove>
       </List_Conatiner>
     </Panel>
   );
 }
+
+const Add_Input = styled.input`
+  border: none;
+  padding-bottom: 3px;
+  height: 30px;
+  width: 180px;
+  color: ${(props) => props.theme.panelFontColor};
+  font-size: 17px;
+  font-weight: 700;
+  background-color: ${(props) => props.theme.panelBgColor};
+  ::placeholder {
+    color: ${(props) => props.theme.disColor};
+    font-size: 17px;
+    font-weight: 700;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
 
 const Element_Container = styled.div`
   display: flex;
