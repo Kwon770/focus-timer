@@ -34,7 +34,7 @@ export const ToDoColumn = forwardRef((props, ref) => (
         <Edit_Button>
           <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
         </Edit_Button>
-        <Edit_Button>
+        <Edit_Button onClick={() => props.deleteToDo(props.id)}>
           <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
         </Edit_Button>
         <Edit_Button>

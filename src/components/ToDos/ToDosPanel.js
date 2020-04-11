@@ -8,7 +8,14 @@ import { AddingColumn } from "./AddingColumn";
 import { ToDoColumn } from "./ToDoColumn";
 
 export default function ToDosPanel(props) {
-  const { isEdit, toDos, toggleEditMode, addToDo, setCurDo } = props;
+  const {
+    isEdit,
+    toDos,
+    toggleEditMode,
+    addToDo,
+    deleteToDo,
+    setCurDo,
+  } = props;
 
   const [isInput, setIsInput] = useState(false);
   const [input, setInput] = useState("");
@@ -48,7 +55,7 @@ export default function ToDosPanel(props) {
             if (toDo.isButton) {
               return (
                 <AddingColumn
-                  key={toDo.key}
+                  key={toDo.id}
                   tryAdding={tryAdding}
                   toggleInputAdd={toggleInputAdd}
                   input={input}
@@ -56,7 +63,14 @@ export default function ToDosPanel(props) {
                 />
               );
             } else {
-              return <ToDoColumn key={toDo.key} isEdit={isEdit} {...toDo} />;
+              return (
+                <ToDoColumn
+                  key={toDo.id}
+                  isEdit={isEdit}
+                  deleteToDo={deleteToDo}
+                  {...toDo}
+                />
+              );
             }
           })}
         </FlipMove>
