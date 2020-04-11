@@ -56,7 +56,7 @@ export default function ToDosPanel(props) {
                 />
               );
             } else {
-              return <ToDoColumn key={toDo.key} {...toDo} />;
+              return <ToDoColumn key={toDo.key} isEdit={isEdit} {...toDo} />;
             }
           })}
         </FlipMove>

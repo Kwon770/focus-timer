@@ -1,7 +1,12 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCrutch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCrutch,
+  faPen,
+  faTrash,
+  faSort,
+} from "@fortawesome/free-solid-svg-icons";
 import { faCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
 const ConvertToTimeFormat = (time) => {
@@ -24,13 +29,27 @@ export const ToDoColumn = forwardRef((props, ref) => (
         <ToDo_Time>{ConvertToTimeFormat(props.time)}</ToDo_Time>
       </Information_Container>
     </Element_Container>
-    <Progress_Button>
-      {props.isDone ? (
-        <FontAwesomeIcon icon={faCheckCircle} />
-      ) : (
-        <FontAwesomeIcon icon={faCircle} />
-      )}
-    </Progress_Button>
+    {props.isEdit ? (
+      <EditButton_Container>
+        <Edit_Button>
+          <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
+        </Edit_Button>
+        <Edit_Button>
+          <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
+        </Edit_Button>
+        <Edit_Button>
+          <FontAwesomeIcon icon={faSort} style={{ marginRight: 0 }} />
+        </Edit_Button>
+      </EditButton_Container>
+    ) : (
+      <Progress_Button>
+        {props.isDone ? (
+          <FontAwesomeIcon icon={faCheckCircle} />
+        ) : (
+          <FontAwesomeIcon icon={faCircle} />
+        )}
+      </Progress_Button>
+    )}
   </List_Element>
 ));
 
@@ -51,6 +70,16 @@ const ToDo_Title = styled.h4`
   color: ${(props) => props.theme.panelFontColor};
 `;
 
+const EditButton_Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Edit_Button = styled.div`
+  color: ${(props) => props.theme.disColor};
+`;
+
 const Progress_Button = styled.div`
   color: ${(props) => props.theme.hlColor};
 `;
@@ -68,5 +97,5 @@ const List_Element = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 238.5px;
+  width: 260px;
 `;

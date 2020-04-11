@@ -57,5 +57,5 @@ const List_Element = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 238.5px;
+  width: 260px;
 `;

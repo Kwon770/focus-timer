@@ -66,6 +66,7 @@ export default class ToDosPresenter extends React.Component {
         {...this.state}
         toggleEditMode={this.toggleEditMode}
         addToDo={this.addToDo}
+        isEdit={this.state.isEdit}
       />
     );
   }
