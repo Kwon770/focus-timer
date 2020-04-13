@@ -36,11 +36,14 @@ export default class ToDosPresenter extends React.Component {
   };
   addToDo = (name) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => newToDos.push(toDo));
+    this.state.toDos.map((toDo) => {
+      toDo.isSelected = false;
+      newToDos.push(toDo);
+    });
     newToDos.splice(1, 0, {
       id: Date.now(),
       isButton: false,
-      isSelected: false,
+      isSelected: true,
       name: name,
       time: 0,
       isDone: false,
