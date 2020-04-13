@@ -1,12 +1,7 @@
 import React, { forwardRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCrutch,
-  faPen,
-  faTrash,
-  faSort,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCrutch, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
 const ConvertToTimeFormat = (time) => {
@@ -62,9 +57,6 @@ export const ToDoColumn = forwardRef((props, ref) => (
             onClick={() => props.deleteToDo(props.id)}
           >
             <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
-          </Edit_Button>
-          <Edit_Button isMode={false}>
-            <FontAwesomeIcon icon={faSort} style={{ marginRight: 0 }} />
           </Edit_Button>
         </EditButton_Container>
       )

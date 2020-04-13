@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import FlipMove from "react-flip-move";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
