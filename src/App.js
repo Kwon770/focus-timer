@@ -202,9 +202,8 @@ export default class App extends Component {
 const ButtonConatiner = styled.div`
   position: absolute;
   left: 50%;
-  margin-left: -92.5px;
   top: 15px;
-  width: 185px;
+  margin-left: -10%;
   display: flex;
   justify-content: center;
   align-items: center;

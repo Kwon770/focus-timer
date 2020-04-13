@@ -13,8 +13,9 @@ export default function ToDosButton(props) {
 }
 
 const Button = styled.div`
-  width: 120px;
+  /* width: 120px; */
   height: 50px;
+  padding: 0px 15px;
   margin-right: 15px;
   background-color: ${(props) => props.theme.panelBgColor};
   border-radius: 25px;
