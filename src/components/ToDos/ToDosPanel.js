@@ -9,34 +9,37 @@ import { ToDoColumn } from "./ToDoColumn";
 
 export default function ToDosPanel(props) {
   const {
-    isEdit,
+    isEditMode,
     toDos,
     toggleEditMode,
     addToDo,
     deleteToDo,
+    editToDo,
+    changeToDo,
     setCurDo,
   } = props;
 
-  const [isInput, setIsInput] = useState(false);
-  const [input, setInput] = useState("");
+  const [isAddInput, setIsAddInput] = useState(false);
+  const [addInput, setAddInput] = useState("");
+  const [changeInput, setChangeInput] = useState("");
 
   const toggleInputAdd = (e) => {
     e.preventDefault();
     const _input = e.target.value;
     if (_input.trim() === "") {
-      setIsInput(false);
-      setInput("");
+      setIsAddInput(false);
+      setAddInput("");
     } else {
-      setIsInput(true);
-      setInput(_input);
+      setIsAddInput(true);
+      setAddInput(_input);
     }
   };
 
   const tryAdding = () => {
-    if (isInput) {
-      addToDo(input);
-      setInput("");
-      setIsInput(false);
+    if (isAddInput) {
+      addToDo(addInput);
+      setAddInput("");
+      setIsAddInput(false);
     }
   };
 
@@ -46,7 +49,7 @@ export default function ToDosPanel(props) {
         <FontAwesomeIcon icon={faClipboard} style={{ marginRight: 10 }} />
         Todo
       </Title_Container>
-      <Edit_Button isEdit={isEdit} onClick={toggleEditMode}>
+      <Edit_Button isEditMode={isEditMode} onClick={toggleEditMode}>
         <FontAwesomeIcon icon={faPen} />
       </Edit_Button>
       <List_Conatiner>
@@ -58,16 +61,20 @@ export default function ToDosPanel(props) {
                   key={toDo.id}
                   tryAdding={tryAdding}
                   toggleInputAdd={toggleInputAdd}
-                  input={input}
-                  isInput={isInput}
+                  input={addInput}
+                  isInput={isAddInput}
                 />
               );
             } else {
               return (
                 <ToDoColumn
                   key={toDo.id}
-                  isEdit={isEdit}
+                  isEditMode={isEditMode}
                   deleteToDo={deleteToDo}
+                  editToDo={editToDo}
+                  changeToDo={changeToDo}
+                  input={changeInput}
+                  setInput={setChangeInput}
                   {...toDo}
                 />
               );
@@ -102,7 +109,7 @@ const Title_Container = styled.div`
 
 const Edit_Button = styled.div`
   color: ${(props) =>
-    props.isEdit ? props.theme.hlColor : props.theme.disColor};
+    props.isEditMode ? props.theme.hlColor : props.theme.disColor};
   position: absolute;
   top: 25px;
   right: 27px;

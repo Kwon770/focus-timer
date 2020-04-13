@@ -1,6 +1,5 @@
 import React from "react";
 import Panel from "./ToDosPanel";
-import { ThemeConsumer } from "styled-components";
 
 export default class ToDosPresenter extends React.Component {
   state = {
@@ -9,6 +8,7 @@ export default class ToDosPresenter extends React.Component {
         id: 1,
         isButton: false,
         isSelected: true,
+        isEdit: false,
         name: "Coding",
         time: 180,
         isDone: true,
@@ -17,6 +17,7 @@ export default class ToDosPresenter extends React.Component {
         id: 12,
         isButton: false,
         isSelected: false,
+        isEdit: false,
         name: "Japanese",
         time: 120,
         isDone: true,
@@ -25,12 +26,13 @@ export default class ToDosPresenter extends React.Component {
         id: 123,
         isButton: false,
         isSelected: false,
+        isEdit: false,
         name: "English",
         time: 60,
         isDone: false,
       },
     ],
-    isEdit: false,
+    isEditMode: false,
   };
   addToDo = (name) => {
     let newToDos = [];
@@ -46,10 +48,32 @@ export default class ToDosPresenter extends React.Component {
     this.setState({ toDos: newToDos });
   };
   deleteToDo = (id) => {
-    console.log(id);
     let newToDos = [];
     this.state.toDos.map((toDo) => {
       if (toDo.id !== id) newToDos.push(toDo);
+    });
+    this.setState({ toDos: newToDos });
+  };
+  editToDo = (id) => {
+    let newToDos = [];
+    this.state.toDos.map((toDo) => {
+      if (toDo.id === id) {
+        toDo.isEdit = true;
+      } else if (toDo.isEdit) {
+        toDo.isEdit = false;
+      }
+      newToDos.push(toDo);
+    });
+    this.setState({ toDos: newToDos });
+  };
+  changeToDo = (id, name) => {
+    let newToDos = [];
+    this.state.toDos.map((toDo) => {
+      if (toDo.id === id) {
+        toDo.name = name;
+        toDo.isEdit = false;
+      }
+      newToDos.push(toDo);
     });
     this.setState({ toDos: newToDos });
   };
@@ -74,7 +98,9 @@ export default class ToDosPresenter extends React.Component {
         toggleEditMode={this.toggleEditMode}
         addToDo={this.addToDo}
         deleteToDo={this.deleteToDo}
-        isEdit={this.state.isEdit}
+        isEditMode={this.state.isEdit}
+        editToDo={this.editToDo}
+        changeToDo={this.changeToDo}
       />
     );
   }

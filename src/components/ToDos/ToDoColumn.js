@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -25,22 +25,49 @@ export const ToDoColumn = forwardRef((props, ref) => (
         />
       </Progress_Icon>
       <Information_Container>
-        <ToDo_Title>{props.name}</ToDo_Title>
+        {props.isEdit ? (
+          <ToDoInput
+            value={props.input}
+            onChange={(e) => props.setInput(e.target.value)}
+          />
+        ) : (
+          <ToDo_Title>{props.name}</ToDo_Title>
+        )}
         <ToDo_Time>{ConvertToTimeFormat(props.time)}</ToDo_Time>
       </Information_Container>
     </Element_Container>
-    {props.isEdit ? (
-      <EditButton_Container>
-        <Edit_Button>
-          <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
-        </Edit_Button>
-        <Edit_Button onClick={() => props.deleteToDo(props.id)}>
-          <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
-        </Edit_Button>
-        <Edit_Button>
-          <FontAwesomeIcon icon={faSort} style={{ marginRight: 0 }} />
-        </Edit_Button>
-      </EditButton_Container>
+    {props.isEditMode ? (
+      props.isEdit ? (
+        <EditButton_Container>
+          <Edit_Button
+            isMode={true}
+            onClick={() => props.changeToDo(props.id, props.input)}
+          >
+            <FontAwesomeIcon icon={faPen} />
+          </Edit_Button>
+        </EditButton_Container>
+      ) : (
+        <EditButton_Container>
+          <Edit_Button
+            isMode={false}
+            onClick={() => {
+              props.setInput(props.name);
+              props.editToDo(props.id);
+            }}
+          >
+            <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
+          </Edit_Button>
+          <Edit_Button
+            isMode={false}
+            onClick={() => props.deleteToDo(props.id)}
+          >
+            <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
+          </Edit_Button>
+          <Edit_Button isMode={false}>
+            <FontAwesomeIcon icon={faSort} style={{ marginRight: 0 }} />
+          </Edit_Button>
+        </EditButton_Container>
+      )
     ) : (
       <Progress_Button>
         {props.isDone ? (
@@ -52,6 +79,23 @@ export const ToDoColumn = forwardRef((props, ref) => (
     )}
   </List_Element>
 ));
+
+const ToDoInput = styled.input`
+  width: 150px;
+  margin: 0;
+  padding: 4px 0px;
+  border: none;
+  border-bottom: 1px solid #bdc3c7;
+  text-align: start;
+  font-weight: 700;
+  font-size: 16px;
+  color: ${(props) => props.theme.panelFontColor};
+  background-color: ${(props) => props.theme.panelBgColor};
+  &:focus {
+    outline: none;
+    border-color: ${(props) => props.theme.hlColor};
+  }
+`;
 
 const Element_Container = styled.div`
   display: flex;
@@ -77,7 +121,8 @@ const EditButton_Container = styled.div`
 `;
 
 const Edit_Button = styled.div`
-  color: ${(props) => props.theme.disColor};
+  color: ${(props) =>
+    props.isMode ? props.theme.hlColor : props.theme.disColor};
 `;
 
 const Progress_Button = styled.div`
