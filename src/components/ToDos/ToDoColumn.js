@@ -13,7 +13,10 @@ const ConvertToTimeFormat = (time) => {
 export const ToDoColumn = forwardRef((props, ref) => (
   <List_Element ref={ref}>
     <Element_Container>
-      <Progress_Icon isSelected={props.isSelected}>
+      <Progress_Icon
+        isSelected={props.isSelected}
+        onClick={() => props.selectToDo(props.id)}
+      >
         <FontAwesomeIcon
           icon={faCrutch}
           style={{ marginRight: 15, fontSize: 20 }}

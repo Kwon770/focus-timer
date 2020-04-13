@@ -7,7 +7,7 @@ export default class ToDosPresenter extends React.Component {
       {
         id: 1,
         isButton: false,
-        isSelected: true,
+        isSelected: false,
         isEdit: false,
         name: "Coding",
         time: 180,
@@ -77,6 +77,20 @@ export default class ToDosPresenter extends React.Component {
     });
     this.setState({ toDos: newToDos });
   };
+  selectToDo = (id) => {
+    let newToDos = [];
+    this.state.toDos.map((toDo) => {
+      if (toDo.id === id) {
+        this.props.setCurDo(toDo.name);
+        toDo.isSelected = true;
+        newToDos.splice(0, 0, toDo);
+      } else {
+        toDo.isSelected = false;
+        newToDos.push(toDo);
+      }
+    });
+    this.setState({ toDos: newToDos });
+  };
   toggleEditMode = async () => {
     let newToDos = [];
     if (this.state.isEdit) {
@@ -101,6 +115,7 @@ export default class ToDosPresenter extends React.Component {
         isEditMode={this.state.isEdit}
         editToDo={this.editToDo}
         changeToDo={this.changeToDo}
+        selectToDo={this.selectToDo}
       />
     );
   }

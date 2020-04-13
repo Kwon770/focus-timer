@@ -16,7 +16,7 @@ export default function ToDosPanel(props) {
     deleteToDo,
     editToDo,
     changeToDo,
-    setCurDo,
+    selectToDo,
   } = props;
 
   const [isAddInput, setIsAddInput] = useState(false);
@@ -73,6 +73,7 @@ export default function ToDosPanel(props) {
                   deleteToDo={deleteToDo}
                   editToDo={editToDo}
                   changeToDo={changeToDo}
+                  selectToDo={selectToDo}
                   input={changeInput}
                   setInput={setChangeInput}
                   {...toDo}

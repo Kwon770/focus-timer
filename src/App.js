@@ -186,7 +186,6 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        {/* {isToDoClick ? <ToDosPanel toDos={toDos} /> : ""} */}
         <ToDosPanel setCurDo={this.setCurDo} />
         <ButtonConatiner>
           <ToDosButton curDo={curDo} toggleToDo={this._toggleToDo} />
