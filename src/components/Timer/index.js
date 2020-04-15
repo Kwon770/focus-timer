@@ -61,13 +61,14 @@ export default class TimerPresenter extends React.Component {
       time--;
 
       if (time < 0 && (!this.props.isOverCount || !this.state.isFocus)) {
-        clearInterval(timer);
         // timeout event
+        clearInterval(timer);
         this.setState({ intervalTimer: null });
         this.FinishTimer();
       }
     }, 1000);
     this.setState({ intervalTimer: timer });
+    this.props.changeIsStudy(true);
   };
 
   SetTimer = (min, sec) => {
@@ -80,6 +81,7 @@ export default class TimerPresenter extends React.Component {
   RemoveTimer = () => {
     clearInterval(this.state.intervalTimer);
     this.props.addFocusedTime(this.props.focusTime - this.state.minute);
+    this.props.changeIsStudy(false);
     this.setState({ intervalTimer: null });
   };
 
@@ -90,18 +92,17 @@ export default class TimerPresenter extends React.Component {
       newSets.push(1);
       this.state.sets.map((set) => newSets.push(set));
 
-      const min = this.GetBreakTime(newSets);
-
       this.setState({
         sets: newSets,
       });
       this.props.toggleIsFocus();
+      this.props.changeIsStudy(false);
       this.props.addFocusedTime(this.props.focusTime);
-      this.SetTimer(min, 1);
+      this.SetTimer(this.GetBreakTime(newSets), 0);
     } else {
       // Finish break
       this.props.toggleIsFocus();
-      this.SetTimer(this.props.focusTime, 2);
+      this.SetTimer(this.props.focusTime, 0);
     }
 
     if (this.props.isAutoStart) {
@@ -126,7 +127,6 @@ export default class TimerPresenter extends React.Component {
   };
 
   _handlePlay = () => {
-    // this.setState({ timerState: true });
     this.StartTimer();
   };
   _handlePause = () => {

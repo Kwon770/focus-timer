@@ -24,6 +24,7 @@ export default class App extends Component {
     isPlayerClick: false,
     isToDoClick: false,
     isFocus: true,
+    isStudy: false,
     // ToDos
     curDo: null,
     curDoId: null,
@@ -153,6 +154,9 @@ export default class App extends Component {
   _toggleIsFocus = () => {
     this.setState({ isFocus: !this.state.isFocus });
   };
+  changeIsStudy = (bool) => {
+    this.setState({ isStudy: bool });
+  };
   _toggleDarkMode = () => {
     this.setState({ isDarkMode: !this.state.isDarkMode }, () =>
       this.applyTheme()
@@ -211,6 +215,7 @@ export default class App extends Component {
           shortBreakTime={shortBreakTime}
           longBreakTime={longBreakTime}
           toggleIsFocus={this._toggleIsFocus}
+          changeIsStudy={this.changeIsStudy}
           applyTheme={this.applyTheme}
           addFocusedTime={this.addFocusedTime}
         />
@@ -244,7 +249,7 @@ export default class App extends Component {
           <ToDosButton
             curDo={curDo}
             toggleToDo={this._toggleToDo}
-            isFocus={this.state.isFocus}
+            isStudy={this.state.isStudy}
           />
           <SettingButton
             isSettingClick={isSettingClick}
