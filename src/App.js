@@ -34,7 +34,8 @@ export default class App extends Component {
         isSelected: false,
         isEdit: false,
         name: "Coding",
-        time: 180,
+        totalTime: 0,
+        todayTime: 0,
         isDone: true,
       },
       {
@@ -43,7 +44,8 @@ export default class App extends Component {
         isSelected: false,
         isEdit: false,
         name: "Japanese",
-        time: 120,
+        totalTime: 0,
+        todayTime: 0,
         isDone: true,
       },
       {
@@ -52,7 +54,8 @@ export default class App extends Component {
         isSelected: false,
         isEdit: false,
         name: "English",
-        time: 60,
+        totalTime: 0,
+        todayTime: 0,
         isDone: false,
       },
     ],
@@ -70,12 +73,21 @@ export default class App extends Component {
 
   loadToDo = () => {};
 
-  setCurDo = (curDo) => {
-    this.setState({ curDo: curDo });
+  setCurDo = (curDo, curDoId) => {
+    this.setState({ curDo, curDoId });
   };
 
-  changeToDos = (newToDos) => {
+  reallocateToDos = (newToDos) => {
     this.setState({ toDos: newToDos });
+  };
+
+  addFocusedTime = (time) => {
+    this.state.toDos.map((toDo) => {
+      if (toDo.id === this.state.curDoId) {
+        toDo.todayTime += time;
+        toDo.totalTime += time;
+      }
+    });
   };
 
   saveOption = () => {
@@ -194,12 +206,13 @@ export default class App extends Component {
           isCustom={isCustom}
           isAutoStart={isAutoStart}
           isOverCount={isOverCount}
+          isFocus={isFocus}
           focusTime={focusTime}
           shortBreakTime={shortBreakTime}
           longBreakTime={longBreakTime}
-          isFocus={isFocus}
           toggleIsFocus={this._toggleIsFocus}
           applyTheme={this.applyTheme}
+          addFocusedTime={this.addFocusedTime}
         />
         {isSettingClick ? (
           <SettingPanel
@@ -221,7 +234,7 @@ export default class App extends Component {
         {isToDoClick ? (
           <ToDosPanel
             setCurDo={this.setCurDo}
-            changeToDos={this.changeToDos}
+            reallocateToDos={this.reallocateToDos}
             toDos={this.state.toDos}
           />
         ) : (

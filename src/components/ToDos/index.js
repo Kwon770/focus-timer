@@ -5,6 +5,7 @@ export default class ToDosPresenter extends React.Component {
   state = {
     isEditMode: false,
   };
+
   addToDo = (name) => {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
@@ -16,18 +17,21 @@ export default class ToDosPresenter extends React.Component {
       isButton: false,
       isSelected: true,
       name: name,
-      time: 0,
+      totalTime: 0,
+      todayTime: 0,
       isDone: false,
     });
-    this.props.changeToDos(newToDos);
+    this.props.reallocateToDos(newToDos);
   };
+
   deleteToDo = (id) => {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
       if (toDo.id !== id) newToDos.push(toDo);
     });
-    this.props.changeToDos(newToDos);
+    this.props.reallocateToDos(newToDos);
   };
+
   editToDo = (id) => {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
@@ -38,8 +42,9 @@ export default class ToDosPresenter extends React.Component {
       }
       newToDos.push(toDo);
     });
-    this.props.changeToDos(newToDos);
+    this.props.reallocateToDos(newToDos);
   };
+
   changeToDo = (id, name) => {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
@@ -49,13 +54,14 @@ export default class ToDosPresenter extends React.Component {
       }
       newToDos.push(toDo);
     });
-    this.props.changeToDos(newToDos);
+    this.props.reallocateToDos(newToDos);
   };
+
   selectToDo = (id) => {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
       if (toDo.id === id) {
-        this.props.setCurDo(toDo.name);
+        this.props.setCurDo(toDo.name, toDo.id);
         toDo.isSelected = true;
         newToDos.splice(0, 0, toDo);
       } else {
@@ -63,8 +69,10 @@ export default class ToDosPresenter extends React.Component {
         newToDos.push(toDo);
       }
     });
-    this.props.changeToDos(newToDos);
+
+    this.props.reallocateToDos(newToDos);
   };
+
   toggleToDoProgress = (id) => {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
@@ -73,8 +81,9 @@ export default class ToDosPresenter extends React.Component {
       }
       newToDos.push(toDo);
     });
-    this.props.changeToDos(newToDos);
+    this.props.reallocateToDos(newToDos);
   };
+
   toggleEditMode = () => {
     let newToDos = [];
     if (this.state.isEditMode) {
@@ -90,9 +99,10 @@ export default class ToDosPresenter extends React.Component {
         newToDos.push(toDo);
       });
     }
-    this.props.changeToDos(newToDos);
+    this.props.reallocateToDos(newToDos);
     this.setState({ isEditMode: !this.state.isEditMode });
   };
+
   render() {
     return (
       <Panel

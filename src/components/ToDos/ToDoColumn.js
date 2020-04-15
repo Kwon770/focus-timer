@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrutch, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
-const ConvertToTimeFormat = (time) => {
-  const hour = time / 60;
+const ConvertToTimeFormat = (time, fullFormat) => {
+  const hour = Math.floor(time / 60);
   const min = time % 60;
-  return `${hour}h ${min}m`;
+  if (fullFormat) {
+    return `${hour}h ${min}m`;
+  } else {
+    return `${hour}h`;
+  }
 };
 
 export const ToDoColumn = forwardRef((props, ref) => (
@@ -31,7 +35,11 @@ export const ToDoColumn = forwardRef((props, ref) => (
         ) : (
           <ToDo_Title>{props.name}</ToDo_Title>
         )}
-        <ToDo_Time>{ConvertToTimeFormat(props.time)}</ToDo_Time>
+        <ToDo_Time>{`
+        ${ConvertToTimeFormat(props.todayTime, true)} (${ConvertToTimeFormat(
+          props.totalTime,
+          false
+        )})`}</ToDo_Time>
       </Information_Container>
     </Element_Container>
     {props.isEditMode ? (

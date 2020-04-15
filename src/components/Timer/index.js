@@ -79,6 +79,7 @@ export default class TimerPresenter extends React.Component {
 
   RemoveTimer = () => {
     clearInterval(this.state.intervalTimer);
+    this.props.addFocusedTime(this.props.focusTime - this.state.minute);
     this.setState({ intervalTimer: null });
   };
 
@@ -95,6 +96,7 @@ export default class TimerPresenter extends React.Component {
         sets: newSets,
       });
       this.props.toggleIsFocus();
+      this.props.addFocusedTime(this.props.focusTime);
       this.SetTimer(min, 1);
     } else {
       // Finish break
