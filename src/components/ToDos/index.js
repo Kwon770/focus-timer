@@ -3,40 +3,11 @@ import Panel from "./ToDosPanel";
 
 export default class ToDosPresenter extends React.Component {
   state = {
-    toDos: [
-      {
-        id: 1,
-        isButton: false,
-        isSelected: false,
-        isEdit: false,
-        name: "Coding",
-        time: 180,
-        isDone: true,
-      },
-      {
-        id: 12,
-        isButton: false,
-        isSelected: false,
-        isEdit: false,
-        name: "Japanese",
-        time: 120,
-        isDone: true,
-      },
-      {
-        id: 123,
-        isButton: false,
-        isSelected: false,
-        isEdit: false,
-        name: "English",
-        time: 60,
-        isDone: false,
-      },
-    ],
     isEditMode: false,
   };
   addToDo = (name) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.props.toDos.map((toDo) => {
       toDo.isSelected = false;
       newToDos.push(toDo);
     });
@@ -48,18 +19,18 @@ export default class ToDosPresenter extends React.Component {
       time: 0,
       isDone: false,
     });
-    this.setState({ toDos: newToDos });
+    this.props.changeToDos(newToDos);
   };
   deleteToDo = (id) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.props.toDos.map((toDo) => {
       if (toDo.id !== id) newToDos.push(toDo);
     });
-    this.setState({ toDos: newToDos });
+    this.props.changeToDos(newToDos);
   };
   editToDo = (id) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.props.toDos.map((toDo) => {
       if (toDo.id === id) {
         toDo.isEdit = true;
       } else if (toDo.isEdit) {
@@ -67,22 +38,22 @@ export default class ToDosPresenter extends React.Component {
       }
       newToDos.push(toDo);
     });
-    this.setState({ toDos: newToDos });
+    this.props.changeToDos(newToDos);
   };
   changeToDo = (id, name) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.props.toDos.map((toDo) => {
       if (toDo.id === id) {
         toDo.name = name;
         toDo.isEdit = false;
       }
       newToDos.push(toDo);
     });
-    this.setState({ toDos: newToDos });
+    this.props.changeToDos(newToDos);
   };
   selectToDo = (id) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.props.toDos.map((toDo) => {
       if (toDo.id === id) {
         this.props.setCurDo(toDo.name);
         toDo.isSelected = true;
@@ -92,39 +63,43 @@ export default class ToDosPresenter extends React.Component {
         newToDos.push(toDo);
       }
     });
-    this.setState({ toDos: newToDos });
+    this.props.changeToDos(newToDos);
   };
   toggleToDoProgress = (id) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.props.toDos.map((toDo) => {
       if (toDo.id === id) {
         toDo.isDone = !toDo.isDone;
       }
       newToDos.push(toDo);
     });
-    this.setState({ toDos: newToDos });
+    this.props.changeToDos(newToDos);
   };
-  toggleEditMode = async () => {
+  toggleEditMode = () => {
     let newToDos = [];
-    if (this.state.isEdit) {
-      this.state.toDos.map((toDo) => newToDos.push(toDo));
+    if (this.state.isEditMode) {
+      this.props.toDos.map((toDo) => newToDos.push(toDo));
       newToDos.splice(0, 1);
     } else {
       newToDos.push({
         id: 123456789,
         isButton: true,
       });
-      this.state.toDos.map((toDo) => newToDos.push(toDo));
+      this.props.toDos.map((toDo) => {
+        toDo.isEdit = false;
+        newToDos.push(toDo);
+      });
     }
-    await this.setState({ toDos: newToDos, isEdit: !this.state.isEdit });
+    this.props.changeToDos(newToDos);
+    this.setState({ isEditMode: !this.state.isEditMode });
   };
   render() {
     return (
       <Panel
-        {...this.state}
+        toDos={this.props.toDos}
         addToDo={this.addToDo}
         deleteToDo={this.deleteToDo}
-        isEditMode={this.state.isEdit}
+        isEditMode={this.state.isEditMode}
         editToDo={this.editToDo}
         changeToDo={this.changeToDo}
         selectToDo={this.selectToDo}

@@ -24,10 +24,38 @@ export default class App extends Component {
     isPlayerClick: false,
     isToDoClick: false,
     isFocus: true,
-    // Default Value
     // ToDos
-    curDo: "Japanese",
-    todaySet: 1,
+    curDo: null,
+    curDoId: null,
+    toDos: [
+      {
+        id: 1,
+        isButton: false,
+        isSelected: false,
+        isEdit: false,
+        name: "Coding",
+        time: 180,
+        isDone: true,
+      },
+      {
+        id: 12,
+        isButton: false,
+        isSelected: false,
+        isEdit: false,
+        name: "Japanese",
+        time: 120,
+        isDone: true,
+      },
+      {
+        id: 123,
+        isButton: false,
+        isSelected: false,
+        isEdit: false,
+        name: "English",
+        time: 60,
+        isDone: false,
+      },
+    ],
     // Options
     isDarkMode: false,
     isCustom: false,
@@ -44,6 +72,10 @@ export default class App extends Component {
 
   setCurDo = (curDo) => {
     this.setState({ curDo: curDo });
+  };
+
+  changeToDos = (newToDos) => {
+    this.setState({ toDos: newToDos });
   };
 
   saveOption = () => {
@@ -186,7 +218,15 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        <ToDosPanel setCurDo={this.setCurDo} />
+        {isToDoClick ? (
+          <ToDosPanel
+            setCurDo={this.setCurDo}
+            changeToDos={this.changeToDos}
+            toDos={this.state.toDos}
+          />
+        ) : (
+          ""
+        )}
         <ButtonConatiner>
           <ToDosButton curDo={curDo} toggleToDo={this._toggleToDo} />
           <SettingButton
