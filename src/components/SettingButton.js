@@ -12,6 +12,9 @@ export default function SettingButton(props) {
 }
 
 const Button = styled.div`
+  position: absolute;
+  top: 0;
+  left: 15px;
   display: flex;
   justify-content: center;
   align-items: center;

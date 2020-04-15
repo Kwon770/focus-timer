@@ -13,10 +13,11 @@ export default function ToDosButton(props) {
 }
 
 const Button = styled.div`
-  /* width: 120px; */
+  position: absolute;
+  top: 0;
+  right: 10px;
   height: 50px;
   padding: 0px 15px;
-  margin-right: 15px;
   background-color: ${(props) => props.theme.panelBgColor};
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;

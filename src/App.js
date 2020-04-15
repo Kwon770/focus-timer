@@ -243,7 +243,8 @@ const ButtonConatiner = styled.div`
   position: absolute;
   left: 50%;
   top: 15px;
-  margin-left: -10%;
+  height: 50px;
+  width: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
