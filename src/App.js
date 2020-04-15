@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import styled, { ThemeProvider, ThemeConsumer } from "styled-components";
+import styled, {
+  ThemeProvider,
+  ThemeConsumer,
+  keyframes,
+} from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import Timer from "./components/Timer";
 import SettingButton from "./components/SettingButton";
@@ -207,13 +211,13 @@ export default class App extends Component {
   render() {
     const {
       curDo,
-      isSettingClick,
       theme,
+      isSettingClick,
       isToDoClick,
       isDarkMode,
       isAutoStart,
       isOverCount,
-      toDos,
+      isStudy,
       isCustom,
       focusTime,
       shortBreakTime,
@@ -265,11 +269,11 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        <ButtonConatiner>
+        <ButtonConatiner isStudy={isStudy}>
           <ToDosButton
             curDo={curDo}
             toggleToDo={this._toggleToDo}
-            isStudy={this.state.isStudy}
+            isStudy={isStudy}
           />
           <SettingButton
             isSettingClick={isSettingClick}
@@ -284,10 +288,11 @@ export default class App extends Component {
 const ButtonConatiner = styled.div`
   position: absolute;
   left: 50%;
-  top: 15px;
+  top: ${(props) => (props.isStudy ? "-60px" : "15px")};
   height: 50px;
   width: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: top 0.6s ease-in-out;
 `;
