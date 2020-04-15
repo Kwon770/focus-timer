@@ -228,7 +228,11 @@ export default class App extends Component {
           ""
         )}
         <ButtonConatiner>
-          <ToDosButton curDo={curDo} toggleToDo={this._toggleToDo} />
+          <ToDosButton
+            curDo={curDo}
+            toggleToDo={this._toggleToDo}
+            isFocus={this.state.isFocus}
+          />
           <SettingButton
             isSettingClick={isSettingClick}
             toggleSetting={this._toggleSetting}
