@@ -18,6 +18,10 @@ export default class App extends Component {
     this.loadOption();
   }
 
+  componentDidMount() {
+    this.checkLastDate();
+  }
+
   state = {
     theme: focusLight,
     isSettingClick: false,
@@ -70,6 +74,23 @@ export default class App extends Component {
     longBreakTime: 30,
   };
 
+  checkLastDate = () => {
+    const lastDate = localStorage.getItem("LastDate");
+    const date = new Date();
+    const todayDate = date.getMonth() + "." + date.getDate();
+    if (lastDate !== todayDate) {
+      let newToDos = [];
+      this.state.toDos.map((toDo) => {
+        toDo.todayTime = 0;
+        toDo.isDone = false;
+        newToDos.push(toDo);
+      });
+      this.reallocateToDos(newToDos);
+      this.Timer.current.ClearSets();
+      localStorage.setItem("LocalDate", todayDate);
+    }
+  };
+
   saveToDo = () => {};
 
   loadToDo = () => {};
@@ -116,7 +137,6 @@ export default class App extends Component {
       this.state.longBreakTime = parsedOptions["longBreakTime"];
     }
   };
-
   applyTheme = () => {
     this.setState({
       theme: this.state.isDarkMode

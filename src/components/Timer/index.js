@@ -12,7 +12,7 @@ export default class TimerPresenter extends React.Component {
       intervalTimer: null,
       minute: this.ConvertToTimeFormat(this.props.focusTime),
       second: "00",
-      sets: [],
+      sets: [[], []],
     };
   }
 
@@ -124,6 +124,10 @@ export default class TimerPresenter extends React.Component {
   ConvertToTimeFormat = (number) => {
     if (number < 10 && number > -10) return "0" + String(Math.abs(number));
     else return String(Math.abs(number));
+  };
+
+  ClearSets = () => {
+    this.setState({ sets: [] });
   };
 
   _handlePlay = () => {
