@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrutch, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -64,7 +64,7 @@ export const ToDoColumn = forwardRef((props, ref) => (
         </EditButton_Container>
       )
     ) : (
-      <Progress_Button>
+      <Progress_Button onClick={() => props.toggleToDoProgress(props.id)}>
         {props.isDone ? (
           <FontAwesomeIcon icon={faCheckCircle} />
         ) : (

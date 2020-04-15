@@ -94,6 +94,16 @@ export default class ToDosPresenter extends React.Component {
     });
     this.setState({ toDos: newToDos });
   };
+  toggleToDoProgress = (id) => {
+    let newToDos = [];
+    this.state.toDos.map((toDo) => {
+      if (toDo.id === id) {
+        toDo.isDone = !toDo.isDone;
+      }
+      newToDos.push(toDo);
+    });
+    this.setState({ toDos: newToDos });
+  };
   toggleEditMode = async () => {
     let newToDos = [];
     if (this.state.isEdit) {
@@ -112,13 +122,14 @@ export default class ToDosPresenter extends React.Component {
     return (
       <Panel
         {...this.state}
-        toggleEditMode={this.toggleEditMode}
         addToDo={this.addToDo}
         deleteToDo={this.deleteToDo}
         isEditMode={this.state.isEdit}
         editToDo={this.editToDo}
         changeToDo={this.changeToDo}
         selectToDo={this.selectToDo}
+        toggleToDoProgress={this.toggleToDoProgress}
+        toggleEditMode={this.toggleEditMode}
       />
     );
   }

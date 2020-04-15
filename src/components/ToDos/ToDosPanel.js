@@ -11,12 +11,13 @@ export default function ToDosPanel(props) {
   const {
     isEditMode,
     toDos,
-    toggleEditMode,
     addToDo,
     deleteToDo,
     editToDo,
     changeToDo,
     selectToDo,
+    toggleToDoProgress,
+    toggleEditMode,
   } = props;
 
   const [isAddInput, setIsAddInput] = useState(false);
@@ -74,6 +75,7 @@ export default function ToDosPanel(props) {
                   editToDo={editToDo}
                   changeToDo={changeToDo}
                   selectToDo={selectToDo}
+                  toggleToDoProgress={toggleToDoProgress}
                   input={changeInput}
                   setInput={setChangeInput}
                   {...toDo}
