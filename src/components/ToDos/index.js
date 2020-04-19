@@ -15,7 +15,7 @@ export default class ToDosPresenter extends React.Component {
     newToDos.splice(1, 0, {
       id: Date.now(),
       isButton: false,
-      isSelected: true,
+      isSelected: false,
       name: name,
       totalTime: 0,
       todayTime: 0,

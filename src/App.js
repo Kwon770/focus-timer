@@ -8,13 +8,14 @@ import ToDosButton from "./components/ToDos/ToDosButton";
 import ToDosPanel from "./components/ToDos";
 
 const OPTIONS_LS = "optionsLocalStorage";
+const TODOS_LS = "todosLocalStorage";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.Timer = React.createRef();
     // load saved data and apply time setting
-    this.loadToDo();
+    this.loadToDos();
     this.loadOption();
   }
 
@@ -32,38 +33,7 @@ export default class App extends Component {
     // ToDos
     curDo: null,
     curDoId: null,
-    toDos: [
-      {
-        id: 1,
-        isButton: false,
-        isSelected: false,
-        isEdit: false,
-        name: "Coding",
-        totalTime: 0,
-        todayTime: 0,
-        isDone: true,
-      },
-      {
-        id: 12,
-        isButton: false,
-        isSelected: false,
-        isEdit: false,
-        name: "Japanese",
-        totalTime: 0,
-        todayTime: 0,
-        isDone: true,
-      },
-      {
-        id: 123,
-        isButton: false,
-        isSelected: false,
-        isEdit: false,
-        name: "English",
-        totalTime: 0,
-        todayTime: 0,
-        isDone: false,
-      },
-    ],
+    toDos: [],
     // Options
     isDarkMode: false,
     isCustom: false,
@@ -91,25 +61,40 @@ export default class App extends Component {
     }
   };
 
-  saveToDo = () => {};
+  saveToDos = () => {
+    let savingToDos = [];
+    this.state.toDos.map((toDo) => {
+      if (toDo.isButton === false) savingToDos.push(toDo);
+    });
+    localStorage.setItem(TODOS_LS, JSON.stringify(savingToDos));
+  };
 
-  loadToDo = () => {};
+  loadToDos = async () => {
+    const loadedToDos = localStorage.getItem(TODOS_LS);
+    if (loadedToDos !== null) {
+      // await this.setState({ toDos: JSON.parse(loadedToDos) });
+      this.state.toDos = JSON.parse(loadedToDos);
+    }
+  };
 
   setCurDo = (curDo, curDoId) => {
     this.setState({ curDo, curDoId });
   };
 
   reallocateToDos = (newToDos) => {
-    this.setState({ toDos: newToDos });
+    this.setState({ toDos: newToDos }, () => this.saveToDos());
   };
 
   addFocusedTime = (time) => {
+    let newToDos = [];
     this.state.toDos.map((toDo) => {
       if (toDo.id === this.state.curDoId) {
         toDo.todayTime += time;
         toDo.totalTime += time;
       }
+      newToDos.push(toDo);
     });
+    this.reallocateToDos(newToDos);
   };
 
   saveOption = () => {
