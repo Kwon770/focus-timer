@@ -41,65 +41,65 @@ export default function SettingPanel(props) {
       <ButtonColumn>
         <ButtonConatiner>
           <Title>Clock Mode</Title>
-          <SettingButton onClick={toggleDarkMode} DarkMode={isDarkMode}>
+          <Button onClick={toggleDarkMode} DarkMode={isDarkMode}>
             Night Mode
-            <SettingDescription Left>Dark UI for night</SettingDescription>
-          </SettingButton>
+            <DescriptionPanel Left>Dark UI for night</DescriptionPanel>
+          </Button>
         </ButtonConatiner>
         <ButtonConatiner>
           <Title>Time Mode</Title>
-          <SettingButton onClick={pressPomo} Custom={!isCustom}>
+          <Button onClick={pressPomo} Custom={!isCustom}>
             Pomodoro
-            <SettingDescription>
+            <DescriptionPanel>
               1 long focus after 4 short focus with break
-            </SettingDescription>
-          </SettingButton>
-          <SettingButton onClick={pressCustom} Custom={isCustom}>
+            </DescriptionPanel>
+          </Button>
+          <Button onClick={pressCustom} Custom={isCustom}>
             Custom
-            <SettingDescription>Custom time set</SettingDescription>
-          </SettingButton>
+            <DescriptionPanel>Custom time set</DescriptionPanel>
+          </Button>
         </ButtonConatiner>
       </ButtonColumn>
       <ButtonColumn>
         <ButtonConatiner>
           <Title>Timer Mode</Title>
-          <SettingButton onClick={toggleAutoStart} Auto={isAutoStart}>
+          <Button onClick={toggleAutoStart} Auto={isAutoStart}>
             Timer Auto Start
-            <SettingDescription Left>
+            <DescriptionPanel Left>
               If focus or break is done, start next timer automatically
-            </SettingDescription>
-          </SettingButton>
-          <SettingButton onClick={toggleOverCount} Over={isOverCount}>
+            </DescriptionPanel>
+          </Button>
+          <Button onClick={toggleOverCount} Over={isOverCount}>
             Over Counting
-            <SettingDescription Left>
+            <DescriptionPanel Left>
               If you don't press next Button, It will count time till you press
-            </SettingDescription>
-          </SettingButton>
+            </DescriptionPanel>
+          </Button>
         </ButtonConatiner>
         <ButtonConatiner>
           <Title>Time Setting</Title>
-          <SettingButton input>
+          <Button input>
             Focus Time
             <TimeInput {...focusTimeInput} />
-            <SettingDescription>
+            <DescriptionPanel>
               Time to focus on what you do (minute)
-            </SettingDescription>
-          </SettingButton>
-          <SettingButton input>
+            </DescriptionPanel>
+          </Button>
+          <Button input>
             Short break Time
             <TimeInput {...shortBreakTimeInput} />
-            <SettingDescription>
+            <DescriptionPanel>
               Short break time after repeated focus (minute)
-            </SettingDescription>
-          </SettingButton>
-          <SettingButton input>
+            </DescriptionPanel>
+          </Button>
+          <Button input>
             Long Break Time
             <TimeInput {...longBreakTimeInput} />
-            <SettingDescription>
+            <DescriptionPanel>
               Long break time after 2 repeated focus (4 repeated with Pomodoro)
               (minute)
-            </SettingDescription>
-          </SettingButton>
+            </DescriptionPanel>
+          </Button>
         </ButtonConatiner>
       </ButtonColumn>
       <ApplyButton onClick={applySetting}>Apply</ApplyButton>
@@ -122,7 +122,7 @@ const ApplyButton = styled.div`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const SettingDescription = styled.div`
+const DescriptionPanel = styled.div`
   display: none;
   position: absolute;
   top: 0;
@@ -151,7 +151,7 @@ const TimeInput = styled.input.attrs((props) => ({ type: `number` }))`
   }
 `;
 
-const SettingButton = styled.h4`
+const Button = styled.h4`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -166,7 +166,7 @@ const SettingButton = styled.h4`
   color: ${(props) => (props.Auto ? props.theme.hlColor : "")};
   color: ${(props) => (props.Over ? props.theme.hlColor : "")};
 
-  &:hover > ${SettingDescription} {
+  &:hover > ${DescriptionPanel} {
     display: block;
   }
 `;

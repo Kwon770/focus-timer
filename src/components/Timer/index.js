@@ -21,7 +21,7 @@ export default class TimerPresenter extends React.Component {
     const { isFocus, isSettingClick, isToDoClick } = this.props;
     return (
       <Main isMenu={isSettingClick || isToDoClick} isFocus={isFocus}>
-        <TimerContainer>
+        <TimerWrapper>
           <TodaySetCounter sets={sets} />
           <DigitalTimer>{minute}</DigitalTimer>
           <DigitalTimer>
@@ -29,18 +29,18 @@ export default class TimerPresenter extends React.Component {
           </DigitalTimer>
           <DigitalTimer>{second}</DigitalTimer>
           <PlayerPreview />
-        </TimerContainer>
-        <TimerBtnContainer>
-          <TimerBtn onClick={this._handlePlay}>
+        </TimerWrapper>
+        <TimerButtonWrapper>
+          <TimerButton onClick={this._handlePlay}>
             <FontAwesomeIcon icon={faPlay} size="5x" color="white" />
-          </TimerBtn>
-          <TimerBtn onClick={this._handlePause}>
+          </TimerButton>
+          <TimerButton onClick={this._handlePause}>
             <FontAwesomeIcon icon={faPause} size="5x" color="white" />
-          </TimerBtn>
-          <TimerBtn onClick={this._handleStop}>
+          </TimerButton>
+          <TimerButton onClick={this._handleStop}>
             <FontAwesomeIcon icon={faStop} size="5x" color="white" />
-          </TimerBtn>
-        </TimerBtnContainer>
+          </TimerButton>
+        </TimerButtonWrapper>
       </Main>
     );
   }
@@ -145,14 +145,14 @@ export default class TimerPresenter extends React.Component {
   };
 }
 
-const TimerBtnContainer = styled.div`
+const TimerButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 60px;
 `;
 
-const TimerBtn = styled.button`
+const TimerButton = styled.button`
   background-color: rgba(0, 0, 0, 0);
   border: none;
   margin: 0px 15px;
@@ -174,7 +174,7 @@ const DigitalTimerDot = styled.span`
   left: 0;
 `;
 
-const TimerContainer = styled.div`
+const TimerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

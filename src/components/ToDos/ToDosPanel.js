@@ -46,13 +46,13 @@ export default function ToDosPanel(props) {
 
   return (
     <Panel>
-      <Title_Container>
+      <Title_Wrapper>
         <FontAwesomeIcon icon={faClipboard} style={{ marginRight: 10 }} />
         Todo
-      </Title_Container>
-      <Edit_Button isEditMode={isEditMode} onClick={toggleEditMode}>
+      </Title_Wrapper>
+      <EditButton isEditMode={isEditMode} onClick={toggleEditMode}>
         <FontAwesomeIcon icon={faPen} />
-      </Edit_Button>
+      </EditButton>
       <List_Conatiner>
         <FlipMove enterAnimation="fade" leaveAnimation="fade">
           {toDos.map((toDo) => {
@@ -102,7 +102,7 @@ const List_Conatiner = styled.ul`
   margin-bottom: 10px;
 `;
 
-const Title_Container = styled.div`
+const Title_Wrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   font-size: 25px;
@@ -110,7 +110,7 @@ const Title_Container = styled.div`
   /* color: */
 `;
 
-const Edit_Button = styled.div`
+const EditButton = styled.div`
   color: ${(props) =>
     props.isEditMode ? props.theme.hlColor : props.theme.disColor};
   position: absolute;

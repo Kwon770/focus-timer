@@ -3,15 +3,15 @@ import styled from "styled-components";
 
 export default function TodaySetCounter(props) {
   return (
-    <SetContainer>
-      {props.sets.map(set => (
+    <SetWrapper>
+      {props.sets.map((set) => (
         <Set />
       ))}
-    </SetContainer>
+    </SetWrapper>
   );
 }
 
-const SetContainer = styled.ul`
+const SetWrapper = styled.ul`
   position: absolute;
   left: 0;
   top: 0;

@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import styled, {
-  ThemeProvider,
-  ThemeConsumer,
-  keyframes,
-} from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import Timer from "./components/Timer";
-import SettingButton from "./components/SettingButton";
-import SettingPanel from "./components/SettingPanel";
+import SettingButton from "./components/Setting/SettingButton";
+import SettingPanel from "./components/Setting/SettingPanel";
 import ToDosButton from "./components/ToDos/ToDosButton";
 import ToDosPanel from "./components/ToDos";
 

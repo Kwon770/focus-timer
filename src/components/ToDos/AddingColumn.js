@@ -4,29 +4,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const AddingColumn = forwardRef((props, ref) => (
-  <List_Element ref={ref}>
-    <Element_Container>
-      <Plus_Icon isInput={props.isInput} onClick={props.tryAdding}>
+  <List ref={ref}>
+    <ElementWrapper>
+      <PlusIcon isInput={props.isInput} onClick={props.tryAdding}>
         <FontAwesomeIcon
           icon={faPlus}
           style={{ marginRight: 15, fontSize: 20 }}
         />
-      </Plus_Icon>
-      <Add_Input
+      </PlusIcon>
+      <TitleInput
         placeholder="Click to Add ToDo"
         value={props.input}
         onInput={props.toggleInputAdd}
       />
-    </Element_Container>
-  </List_Element>
+    </ElementWrapper>
+  </List>
 ));
 
-const Plus_Icon = styled.div`
+const PlusIcon = styled.div`
   color: ${(props) =>
     props.isInput ? props.theme.hlColor : props.theme.disColor};
 `;
 
-const Add_Input = styled.input`
+const TitleInput = styled.input`
   border: none;
   padding-bottom: 3px;
   height: 30px;
@@ -45,13 +45,13 @@ const Add_Input = styled.input`
   }
 `;
 
-const Element_Container = styled.div`
+const ElementWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const List_Element = styled.li`
+const List = styled.li`
   margin: 10px 0px;
   padding: 0px 13px;
   display: flex;

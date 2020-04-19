@@ -15,9 +15,9 @@ const ConvertToTimeFormat = (time, fullFormat) => {
 };
 
 export const ToDoColumn = forwardRef((props, ref) => (
-  <List_Element ref={ref}>
-    <Element_Container>
-      <Progress_Icon
+  <List ref={ref}>
+    <ElementWrapper>
+      <ProgressIcon
         isSelected={props.isSelected}
         onClick={() => props.selectToDo(props.id)}
       >
@@ -25,36 +25,36 @@ export const ToDoColumn = forwardRef((props, ref) => (
           icon={faCrutch}
           style={{ marginRight: 15, fontSize: 20 }}
         />
-      </Progress_Icon>
-      <Information_Container>
+      </ProgressIcon>
+      <InformationWrapper>
         {props.isEdit ? (
-          <ToDoInput
+          <TitleInput
             value={props.input}
             onChange={(e) => props.setInput(e.target.value)}
           />
         ) : (
-          <ToDo_Title>{props.name}</ToDo_Title>
+          <Title>{props.name}</Title>
         )}
-        <ToDo_Time>{`
+        <Time>{`
         ${ConvertToTimeFormat(props.todayTime, true)} (${ConvertToTimeFormat(
           props.totalTime,
           false
-        )})`}</ToDo_Time>
-      </Information_Container>
-    </Element_Container>
+        )})`}</Time>
+      </InformationWrapper>
+    </ElementWrapper>
     {props.isEditMode ? (
       props.isEdit ? (
-        <EditButton_Container>
-          <Edit_Button
+        <EditButtonWrapper>
+          <EditButton
             isMode={true}
             onClick={() => props.changeToDo(props.id, props.input)}
           >
             <FontAwesomeIcon icon={faPen} />
-          </Edit_Button>
-        </EditButton_Container>
+          </EditButton>
+        </EditButtonWrapper>
       ) : (
-        <EditButton_Container>
-          <Edit_Button
+        <EditButtonWrapper>
+          <EditButton
             isMode={false}
             onClick={() => {
               props.setInput(props.name);
@@ -62,28 +62,25 @@ export const ToDoColumn = forwardRef((props, ref) => (
             }}
           >
             <FontAwesomeIcon icon={faPen} style={{ marginRight: 10 }} />
-          </Edit_Button>
-          <Edit_Button
-            isMode={false}
-            onClick={() => props.deleteToDo(props.id)}
-          >
+          </EditButton>
+          <EditButton isMode={false} onClick={() => props.deleteToDo(props.id)}>
             <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
-          </Edit_Button>
-        </EditButton_Container>
+          </EditButton>
+        </EditButtonWrapper>
       )
     ) : (
-      <Progress_Button onClick={() => props.toggleToDoProgress(props.id)}>
+      <ProgressButton onClick={() => props.toggleToDoProgress(props.id)}>
         {props.isDone ? (
           <FontAwesomeIcon icon={faCheckCircle} />
         ) : (
           <FontAwesomeIcon icon={faCircle} />
         )}
-      </Progress_Button>
+      </ProgressButton>
     )}
-  </List_Element>
+  </List>
 ));
 
-const ToDoInput = styled.input`
+const TitleInput = styled.input`
   width: 150px;
   margin: 0;
   padding: 4px 0px;
@@ -100,46 +97,46 @@ const ToDoInput = styled.input`
   }
 `;
 
-const Element_Container = styled.div`
+const ElementWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const ToDo_Time = styled.h5`
+const Time = styled.h5`
   margin: 7px 0px;
   font-weight: 400;
   color: ${(props) => props.theme.disColor};
 `;
 
-const ToDo_Title = styled.h4`
+const Title = styled.h4`
   margin: 7px 0px;
   color: ${(props) => props.theme.panelFontColor};
 `;
 
-const EditButton_Container = styled.div`
+const EditButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const Edit_Button = styled.div`
+const EditButton = styled.div`
   color: ${(props) =>
     props.isMode ? props.theme.hlColor : props.theme.disColor};
 `;
 
-const Progress_Button = styled.div`
+const ProgressButton = styled.div`
   color: ${(props) => props.theme.hlColor};
 `;
 
-const Information_Container = styled.div``;
+const InformationWrapper = styled.div``;
 
-const Progress_Icon = styled.div`
+const ProgressIcon = styled.div`
   color: ${(props) =>
     props.isSelected ? props.theme.hlColor : props.theme.disColor};
 `;
 
-const List_Element = styled.li`
+const List = styled.li`
   margin: 10px 0px;
   padding: 0px 13px;
   display: flex;
