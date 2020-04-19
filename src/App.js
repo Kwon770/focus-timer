@@ -29,8 +29,8 @@ export default class App extends Component {
   state = {
     theme: focusLight,
     isSettingClick: false,
-    isPlayerClick: false,
     isToDoClick: false,
+    isPlayerClick: false,
     isFocus: true,
     isStudy: false,
     // ToDos
@@ -273,7 +273,7 @@ export default class App extends Component {
           <ToDosButton
             curDo={curDo}
             toggleToDo={this._toggleToDo}
-            isStudy={isStudy}
+            isToDoClick={isToDoClick}
           />
           <SettingButton
             isSettingClick={isSettingClick}

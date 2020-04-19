@@ -5,7 +5,7 @@ import { faCrutch } from "@fortawesome/free-solid-svg-icons";
 
 export default function ToDosButton(props) {
   return (
-    <Button onClick={props.toggleToDo} isStudy={props.isStudy}>
+    <Button onClick={props.toggleToDo} isToDoClick={props.isToDoClick}>
       <FontAwesomeIcon icon={faCrutch} style={{ marginRight: 10 }} />
       {props.curDo}
     </Button>
@@ -27,5 +27,5 @@ const Button = styled.div`
   font-size: 20px;
   font-weight: 600;
   color: ${(props) =>
-    props.isStudy ? props.theme.hlColor : props.theme.disColor};
+    props.isToDoClick ? props.theme.hlColor : props.theme.disColor};
 `;
