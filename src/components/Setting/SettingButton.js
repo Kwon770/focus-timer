@@ -5,7 +5,11 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function SettingButton(props) {
   return (
-    <Button onClick={props.toggleSetting} isSettingClick={props.isSettingClick}>
+    <Button
+      onClick={props.toggleSetting}
+      isSettingClick={props.isSettingClick}
+      isStudy={props.isStudy}
+    >
       <FontAwesomeIcon icon={faCog} />
     </Button>
   );
@@ -13,8 +17,10 @@ export default function SettingButton(props) {
 
 const Button = styled.div`
   position: absolute;
-  top: 0;
-  left: 15px;
+  z-index: 1;
+  top: 10px;
+  left: ${(props) => (props.isStudy ? "10px" : "85px")};
+  transition: left 0.6s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import YouTube from "react-youtube";
 import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import Timer from "./components/Timer";
+import Player from "./components/Player/Player";
+import PlayerButton from "./components/Player/PlayerButton";
 import SettingButton from "./components/Setting/SettingButton";
 import SettingPanel from "./components/Setting/SettingPanel";
 import ToDosButton from "./components/ToDos/ToDosButton";
@@ -206,15 +207,8 @@ export default class App extends Component {
       longBreakTime,
       isFocus,
     } = this.state;
-    const opts = {
-      height: "390",
-      width: "640",
-    };
     return (
       <ThemeProvider theme={theme}>
-        <YoutubeWrapper>
-          <YouTube videoId="pEE_uJ-joUA" opts={opts} />
-        </YoutubeWrapper>
         <Timer
           ref={this.Timer}
           isSettingClick={isSettingClick}
@@ -258,15 +252,19 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        <ButtonConatiner isStudy={isStudy}>
+        <Player />
+        <ButtonConatiner>
+          <PlayerButton />
           <ToDosButton
             curDo={curDo}
             toggleToDo={this._toggleToDo}
             isToDoClick={isToDoClick}
+            isStudy={isStudy}
           />
           <SettingButton
             isSettingClick={isSettingClick}
             toggleSetting={this._toggleSetting}
+            isStudy={isStudy}
           />
         </ButtonConatiner>
       </ThemeProvider>
@@ -274,19 +272,13 @@ export default class App extends Component {
   }
 }
 
-const YoutubeWrapper = styled.div`
-  /* position: absolute;
-  opacity: 0; */
-`;
-
 const ButtonConatiner = styled.div`
   position: absolute;
-  left: 50%;
-  top: ${(props) => (props.isStudy ? "-60px" : "15px")};
+  left: 20px;
+  top: 15px;
   height: 50px;
   width: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: top 0.6s ease-in-out;
 `;

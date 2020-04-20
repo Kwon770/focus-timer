@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
-import PlayerPreview from "./PlayerPreview";
 import TodaySetCounter from "../TodaySetCounter";
 
 export default class TimerPresenter extends React.Component {
@@ -28,7 +27,6 @@ export default class TimerPresenter extends React.Component {
             '<DigitalTimerDot>'</DigitalTimerDot>
           </DigitalTimer>
           <DigitalTimer>{second}</DigitalTimer>
-          <PlayerPreview />
         </TimerWrapper>
         <TimerButtonWrapper>
           <TimerButton onClick={this._handlePlay}>
