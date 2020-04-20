@@ -17,6 +17,7 @@
     "react-flip-move": "^3.0.4",
     "react-minimal-pie-chart": "^7.0.0",
     "react-scripts": "3.4.0",
+    "react-youtube": "^7.11.2",
     "styled-components": "^5.0.1",
     "styled-flex-component": "^3.0.0",
     "styled-reset": "^4.1.1",

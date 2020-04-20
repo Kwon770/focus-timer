@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import YouTube from "react-youtube";
 import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import Timer from "./components/Timer";
@@ -205,8 +206,15 @@ export default class App extends Component {
       longBreakTime,
       isFocus,
     } = this.state;
+    const opts = {
+      height: "390",
+      width: "640",
+    };
     return (
       <ThemeProvider theme={theme}>
+        <YoutubeWrapper>
+          <YouTube videoId="pEE_uJ-joUA" opts={opts} />
+        </YoutubeWrapper>
         <Timer
           ref={this.Timer}
           isSettingClick={isSettingClick}
@@ -265,6 +273,11 @@ export default class App extends Component {
     );
   }
 }
+
+const YoutubeWrapper = styled.div`
+  /* position: absolute;
+  opacity: 0; */
+`;
 
 const ButtonConatiner = styled.div`
   position: absolute;
