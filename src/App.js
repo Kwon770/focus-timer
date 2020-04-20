@@ -4,6 +4,7 @@ import { breakDark, focusDark, breakLight, focusLight } from "./theme";
 import Timer from "./components/Timer";
 import Player from "./components/Player/Player";
 import PlayerButton from "./components/Player/PlayerButton";
+import PlayerPanel from "./components/Player/PlayerPanel";
 import SettingButton from "./components/Setting/SettingButton";
 import SettingPanel from "./components/Setting/SettingPanel";
 import ToDosButton from "./components/ToDos/ToDosButton";
@@ -27,16 +28,18 @@ export default class App extends Component {
 
   state = {
     theme: focusLight,
-    isSettingClick: false,
-    isToDoClick: false,
-    isPlayerClick: false,
     isFocus: true,
     isStudy: false,
+    // Player
+    isPlayerClick: true,
+    isPlay: true,
     // ToDos
+    isToDoClick: false,
     curDo: null,
     curDoId: null,
     toDos: [],
-    // Options
+    // Settings
+    isSettingClick: false,
     isDarkMode: false,
     isCustom: false,
     isAutoStart: false,
@@ -44,6 +47,14 @@ export default class App extends Component {
     focusTime: 25,
     shortBreakTime: 5,
     longBreakTime: 30,
+  };
+
+  togglePlayerButton = () => {
+    this.setState({ isPlayerClick: !this.state.isPlayerClick });
+  };
+
+  togglePlay = () => {
+    this.setState({ isPlay: !this.state.isPlay });
   };
 
   checkLastDate = () => {
@@ -71,10 +82,9 @@ export default class App extends Component {
     localStorage.setItem(TODOS_LS, JSON.stringify(savingToDos));
   };
 
-  loadToDos = async () => {
+  loadToDos = () => {
     const loadedToDos = localStorage.getItem(TODOS_LS);
     if (loadedToDos !== null) {
-      // await this.setState({ toDos: JSON.parse(loadedToDos) });
       this.state.toDos = JSON.parse(loadedToDos);
     }
   };
@@ -206,6 +216,8 @@ export default class App extends Component {
       shortBreakTime,
       longBreakTime,
       isFocus,
+      isPlay,
+      isPlayerClick,
     } = this.state;
     return (
       <ThemeProvider theme={theme}>
@@ -213,6 +225,7 @@ export default class App extends Component {
           ref={this.Timer}
           isSettingClick={isSettingClick}
           isToDoClick={isToDoClick}
+          isPlayerClick={isPlayerClick}
           isDarkMode={isDarkMode}
           isCustom={isCustom}
           isAutoStart={isAutoStart}
@@ -252,9 +265,13 @@ export default class App extends Component {
         ) : (
           ""
         )}
+        {isPlayerClick ? <PlayerPanel /> : ""}
         <Player />
         <ButtonConatiner>
-          <PlayerButton />
+          <PlayerButton
+            isPlay={isPlay}
+            togglePlayerButton={this.togglePlayerButton}
+          />
           <ToDosButton
             curDo={curDo}
             toggleToDo={this._toggleToDo}

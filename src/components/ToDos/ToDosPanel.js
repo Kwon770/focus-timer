@@ -107,7 +107,7 @@ const Title_Wrapper = styled.div`
   justify-content: space-around;
   font-size: 25px;
   font-weight: 600;
-  /* color: */
+  color: ${(props) => props.theme.panelFontColor};
 `;
 
 const EditButton = styled.div`
