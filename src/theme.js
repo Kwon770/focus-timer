@@ -4,7 +4,7 @@ export const focusLight = {
   bgFocusColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
   bgBreakColor: "linear-gradient(to right, #2193b0, #6dd5ed)",
   fontColor: "white",
-  panelFontColor: "black",
+  panelFontColor: "#5A6381",
   panelBgColor: "white",
 };
 export const breakLight = {

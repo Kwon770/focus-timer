@@ -265,7 +265,7 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        {isPlayerClick ? <PlayerPanel /> : ""}
+        {isPlayerClick ? <PlayerPanel isPlay={isPlay} /> : ""}
         <Player />
         <ButtonConatiner>
           <PlayerButton

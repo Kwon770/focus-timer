@@ -1,7 +1,17 @@
 import React from "react";
+import Wave from "react-wavify";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faBars,
+  faPlay,
+  faPause,
+  faAngleRight,
+  faAngleLeft,
+} from "@fortawesome/free-solid-svg-icons";
+
+// https://coderwall.com/p/nihgwq/get-a-thumbnail-from-a-youtube-video
 
 export default function PlayerPanel(props) {
   return (
@@ -14,9 +24,62 @@ export default function PlayerPanel(props) {
         <Name>ASMR</Name>
         <Author>Soup Asmr</Author>
       </TitleWrapper>
+      <ThumbnailWrapper>
+        <FontAwesomeIcon icon={faAngleLeft} size="2x" />
+        <Thumbnail />
+        <FontAwesomeIcon icon={faAngleRight} size="2x" />
+      </ThumbnailWrapper>
+      <Wave
+        fill="#EFEFF8"
+        paused={(props) => (props.isPlay ? false : true)}
+      ></Wave>
+      {props.isPlay ? (
+        <Button>
+          <FontAwesomeIcon icon={faPause} />
+        </Button>
+      ) : (
+        <Button>
+          <FontAwesomeIcon icon={faPlay} />
+        </Button>
+      )}
     </Panel>
   );
 }
+
+const Button = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  margin-left: -35px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  background-color: ${(props) => props.theme.panelBgColor};
+  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
+  color: ${(props) => props.theme.panelFontColor};
+  font-size: 22px;
+`;
+
+const Thumbnail = styled.div`
+  background-image: url("https://img.youtube.com/vi/K3Qzzggn--s/0.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 110px;
+  height: 110px;
+  box-shadow: rgba(0, 0, 0, 0.37) 0 10px 20px;
+  border-radius: 7px;
+  margin: 20px 30px;
+`;
+
+const ThumbnailWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: ${(props) => props.theme.panelFontColor};
+`;
 
 const Author = styled.span`
   color: ${(props) => props.theme.disColor};
@@ -51,7 +114,7 @@ const Panel = styled.div`
   margin-top: -200px;
   left: 50%;
   margin-left: -150px;
-  height: 300px;
+  height: 440px;
   width: 300px;
   padding: 20px;
   border-radius: 25px;
