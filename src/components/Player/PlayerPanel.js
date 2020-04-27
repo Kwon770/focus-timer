@@ -1,7 +1,9 @@
 import React from "react";
 import Wave from "react-wavify";
+import useToggle from "../../Hooks/useToggle";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faItunesNote } from "@fortawesome/free-brands-svg-icons";
 import {
   faChevronLeft,
   faBars,
@@ -14,25 +16,47 @@ import {
 // https://coderwall.com/p/nihgwq/get-a-thumbnail-from-a-youtube-video
 
 export default function PlayerPanel(props) {
+  const playlist = useToggle(false);
   return (
     <Panel>
       <TopButtonWrapper>
         <FontAwesomeIcon icon={faChevronLeft} />
-        <FontAwesomeIcon icon={faBars} />
+        {playlist.value ? (
+          <FontAwesomeIcon icon={faItunesNote} {...playlist} />
+        ) : (
+          <FontAwesomeIcon icon={faBars} {...playlist} />
+        )}
       </TopButtonWrapper>
-      <TitleWrapper>
-        <Name>ASMR</Name>
-        <Author>Soup Asmr</Author>
-      </TitleWrapper>
-      <ThumbnailWrapper>
-        <FontAwesomeIcon icon={faAngleLeft} size="2x" />
-        <Thumbnail />
-        <FontAwesomeIcon icon={faAngleRight} size="2x" />
-      </ThumbnailWrapper>
-      <Wave
-        fill="#EFEFF8"
-        paused={(props) => (props.isPlay ? false : true)}
-      ></Wave>
+      {playlist.value ? (
+        <Main>
+          <PlaylistWrapper>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+            <PlayerlistElement>123</PlayerlistElement>
+          </PlaylistWrapper>
+        </Main>
+      ) : (
+        <Main>
+          <TitleWrapper>
+            <Name>ASMR</Name>
+            <Author>Soup Asmr</Author>
+          </TitleWrapper>
+          <ThumbnailWrapper>
+            <FontAwesomeIcon icon={faAngleLeft} size="2x" />
+            <Thumbnail />
+            <FontAwesomeIcon icon={faAngleRight} size="2x" />
+          </ThumbnailWrapper>
+        </Main>
+      )}
+      <Wave fill="#EFEFF8" paused={props.isPlay} />
       {props.isPlay ? (
         <Button>
           <FontAwesomeIcon icon={faPause} />
@@ -45,6 +69,19 @@ export default function PlayerPanel(props) {
     </Panel>
   );
 }
+
+const PlayerlistElement = styled.li`
+  color: ${(props) => props.theme.panelFontColor};
+`;
+
+const PlaylistWrapper = styled.ul`
+  overflow-y: scroll;
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  /* padding: 0px 10px; */
+`;
 
 const Button = styled.div`
   display: flex;
@@ -76,7 +113,7 @@ const Thumbnail = styled.div`
 
 const ThumbnailWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   color: ${(props) => props.theme.panelFontColor};
 `;
@@ -104,8 +141,13 @@ const TopButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px 15px;
+  padding: 16px 15px;
   color: ${(props) => props.theme.disColor};
+`;
+
+const Main = styled.main`
+  width: 100%;
+  height: 196px;
 `;
 
 const Panel = styled.div`

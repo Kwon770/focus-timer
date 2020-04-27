@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "./theme";
-import Timer from "./components/Timer";
-import Player from "./components/Player/Player";
-import PlayerButton from "./components/Player/PlayerButton";
-import PlayerPanel from "./components/Player/PlayerPanel";
-import SettingButton from "./components/Setting/SettingButton";
-import SettingPanel from "./components/Setting/SettingPanel";
-import ToDosButton from "./components/ToDos/ToDosButton";
-import ToDosPanel from "./components/ToDos";
+import Timer from "./Components/Timer";
+import Player from "./Components/Player/Player";
+import PlayerButton from "./Components/Player/PlayerButton";
+import PlayerPanel from "./Components/Player/PlayerPanel";
+import SettingButton from "./Components/Setting/SettingButton";
+import SettingPanel from "./Components/Setting/SettingPanel";
+import ToDosButton from "./Components/ToDos/ToDosButton";
+import ToDosPanel from "./Components/ToDos";
 
 const OPTIONS_LS = "optionsLocalStorage";
 const TODOS_LS = "todosLocalStorage";
