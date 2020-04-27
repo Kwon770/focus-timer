@@ -49,12 +49,16 @@ export default class App extends Component {
     longBreakTime: 30,
   };
 
-  togglePlayerButton = () => {
-    this.setState({ isPlayerClick: !this.state.isPlayerClick });
-  };
+  playPrevSong = () => {};
+
+  playNextSong = () => {};
 
   togglePlay = () => {
     this.setState({ isPlay: !this.state.isPlay });
+  };
+
+  togglePlayerButton = () => {
+    this.setState({ isPlayerClick: !this.state.isPlayerClick });
   };
 
   checkLastDate = () => {
@@ -134,6 +138,7 @@ export default class App extends Component {
       this.state.longBreakTime = parsedOptions["longBreakTime"];
     }
   };
+
   applyTheme = () => {
     this.setState({
       theme: this.state.isDarkMode
@@ -149,6 +154,7 @@ export default class App extends Component {
   _toggleToDo = () => {
     this.setState({ isToDoClick: !this.state.isToDoClick });
   };
+
   _toggleSetting = () => {
     // When panel is closing
     if (this.state.isSettingClick) {
@@ -161,6 +167,7 @@ export default class App extends Component {
     }
     this.setState({ isSettingClick: !this.state.isSettingClick });
   };
+
   _applyTimeSetting = (focus, shortBreak, longBreak) => {
     this.setState({
       focusTime: focus,
@@ -168,17 +175,21 @@ export default class App extends Component {
       longBreakTime: longBreak,
     });
   };
+
   _toggleIsFocus = () => {
     this.setState({ isFocus: !this.state.isFocus });
   };
+
   changeIsStudy = (bool) => {
     this.setState({ isStudy: bool });
   };
+
   _toggleDarkMode = () => {
     this.setState({ isDarkMode: !this.state.isDarkMode }, () =>
       this.applyTheme()
     );
   };
+
   _pressPomo = () => {
     this.setState({
       isCustom: false,
@@ -187,6 +198,7 @@ export default class App extends Component {
       longBreakTime: 30,
     });
   };
+
   _pressCustom = () => {
     this.setState({
       isCustom: true,
@@ -195,12 +207,15 @@ export default class App extends Component {
       longBreakTime: 30,
     });
   };
+
   _toggleAutoStart = () => {
     this.setState({ isAutoStart: !this.state.isAutoStart });
   };
+
   _toggleOverCount = () => {
     this.setState({ isOverCount: !this.state.isOverCount });
   };
+
   render() {
     const {
       curDo,
@@ -223,9 +238,7 @@ export default class App extends Component {
       <ThemeProvider theme={theme}>
         <Timer
           ref={this.Timer}
-          isSettingClick={isSettingClick}
-          isToDoClick={isToDoClick}
-          isPlayerClick={isPlayerClick}
+          isMenu={isSettingClick || isToDoClick || isPlayerClick}
           isDarkMode={isDarkMode}
           isCustom={isCustom}
           isAutoStart={isAutoStart}
@@ -265,7 +278,17 @@ export default class App extends Component {
         ) : (
           ""
         )}
-        {isPlayerClick ? <PlayerPanel isPlay={isPlay} /> : ""}
+        {isPlayerClick ? (
+          <PlayerPanel
+            isPlay={isPlay}
+            tooglePlay={this.togglePlay}
+            togglePlayerButton={this.togglePlayerButton}
+            playNextSong={this.playNextSong}
+            playPrevSong={this.playPrevSong}
+          />
+        ) : (
+          ""
+        )}
         <Player />
         <ButtonConatiner>
           <PlayerButton

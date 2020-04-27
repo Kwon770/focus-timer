@@ -20,7 +20,10 @@ export default function PlayerPanel(props) {
   return (
     <Panel>
       <TopButtonWrapper>
-        <FontAwesomeIcon icon={faChevronLeft} />
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          onClick={props.togglePlayerButton}
+        />
         {playlist.value ? (
           <FontAwesomeIcon icon={faItunesNote} {...playlist} />
         ) : (
@@ -50,22 +53,28 @@ export default function PlayerPanel(props) {
             <Author>Soup Asmr</Author>
           </TitleWrapper>
           <ThumbnailWrapper>
-            <FontAwesomeIcon icon={faAngleLeft} size="2x" />
+            <FontAwesomeIcon
+              icon={faAngleLeft}
+              size="2x"
+              onClick={props.playPrevSong}
+            />
             <Thumbnail />
-            <FontAwesomeIcon icon={faAngleRight} size="2x" />
+            <FontAwesomeIcon
+              icon={faAngleRight}
+              size="2x"
+              onClick={props.playNextSong}
+            />
           </ThumbnailWrapper>
         </Main>
       )}
       <Wave fill="#EFEFF8" paused={props.isPlay} />
-      {props.isPlay ? (
-        <Button>
+      <Button onClick={props.tooglePlay}>
+        {props.isPlay ? (
           <FontAwesomeIcon icon={faPause} />
-        </Button>
-      ) : (
-        <Button>
+        ) : (
           <FontAwesomeIcon icon={faPlay} />
-        </Button>
-      )}
+        )}
+      </Button>
     </Panel>
   );
 }

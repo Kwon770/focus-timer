@@ -17,12 +17,9 @@ export default class TimerPresenter extends React.Component {
 
   render() {
     const { minute, second, sets } = this.state;
-    const { isFocus, isSettingClick, isToDoClick, isPlayerClick } = this.props;
+    const { isFocus, isMenu } = this.props;
     return (
-      <Main
-        isMenu={isSettingClick || isToDoClick || isPlayerClick}
-        isFocus={isFocus}
-      >
+      <Main isMenu={isMenu} isFocus={isFocus}>
         <TimerWrapper>
           <TodaySetCounter sets={sets} />
           <DigitalTimer>{minute}</DigitalTimer>
