@@ -1,75 +1,45 @@
 import React from "react";
 import styled from "styled-components";
-import useInput from "@rooks/use-input";
 
-export default function SettingPanel(props) {
-  const {
-    isDarkMode,
-    isCustom,
-    isAutoStart,
-    isOverCount,
-    focusTime,
-    shortBreakTime,
-    longBreakTime,
-    toggleSetting,
-    applyTimeSetting,
-    toggleDarkMode,
-    pressPomo,
-    pressCustom,
-    toggleAutoStart,
-    toggleOverCount,
-  } = props;
-  const focusTimeInput = useInput(focusTime, {
-    validate: (newVal) => newVal.length <= 2,
-  });
-  const shortBreakTimeInput = useInput(shortBreakTime, {
-    validate: (newVal) => newVal.length <= 2,
-  });
-  const longBreakTimeInput = useInput(longBreakTime, {
-    validate: (newVal) => newVal.length <= 2,
-  });
-  const applySetting = async () => {
-    await applyTimeSetting(
-      focusTimeInput.value,
-      shortBreakTimeInput.value,
-      longBreakTimeInput.value
-    );
-    toggleSetting();
-  };
+export default function SettingPresenter({
+  nightMode,
+  autoStart,
+  overCount,
+  pomodoro,
+  focusTimeInput,
+  shortBreakTimeInput,
+  longBreakTimeInput,
+}) {
   return (
     <Panel>
       <ButtonColumn>
         <ButtonConatiner>
           <Title>Clock Mode</Title>
-          <Button onClick={toggleDarkMode} DarkMode={isDarkMode}>
+          <Button {...nightMode}>
             Night Mode
             <DescriptionPanel Left>Dark UI for night</DescriptionPanel>
           </Button>
         </ButtonConatiner>
         <ButtonConatiner>
           <Title>Time Mode</Title>
-          <Button onClick={pressPomo} Custom={!isCustom}>
+          <Button {...pomodoro}>
             Pomodoro
             <DescriptionPanel>
               1 long focus after 4 short focus with break
             </DescriptionPanel>
-          </Button>
-          <Button onClick={pressCustom} Custom={isCustom}>
-            Custom
-            <DescriptionPanel>Custom time set</DescriptionPanel>
           </Button>
         </ButtonConatiner>
       </ButtonColumn>
       <ButtonColumn>
         <ButtonConatiner>
           <Title>Timer Mode</Title>
-          <Button onClick={toggleAutoStart} Auto={isAutoStart}>
+          <Button {...autoStart}>
             Timer Auto Start
             <DescriptionPanel Left>
               If focus or break is done, start next timer automatically
             </DescriptionPanel>
           </Button>
-          <Button onClick={toggleOverCount} Over={isOverCount}>
+          <Button {...overCount}>
             Over Counting
             <DescriptionPanel Left>
               If you don't press next Button, It will count time till you press
@@ -102,25 +72,9 @@ export default function SettingPanel(props) {
           </Button>
         </ButtonConatiner>
       </ButtonColumn>
-      <ApplyButton onClick={applySetting}>Apply</ApplyButton>
     </Panel>
   );
 }
-
-const ApplyButton = styled.div`
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  margin-left: -100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 50px;
-  border-radius: 25px;
-  background-color: ${(props) => props.theme.hlColor};
-  color: ${(props) => props.theme.fontColor};
-`;
 
 const DescriptionPanel = styled.div`
   display: none;
@@ -157,11 +111,8 @@ const Button = styled.h4`
   width: 119px;
   margin-bottom: ${(props) => (props.input ? "10px" : "23px")};
   font-weight: 300;
-  color: ${(props) => props.theme.panelFontColor};
-  color: ${(props) => (props.Custom ? props.theme.hlColor : "")};
-  color: ${(props) => (props.DarkMode ? props.theme.hlColor : "")};
-  color: ${(props) => (props.Auto ? props.theme.hlColor : "")};
-  color: ${(props) => (props.Over ? props.theme.hlColor : "")};
+  color: ${(props) =>
+    props.value ? props.theme.hlColor : props.theme.panelFontColor};
 
   &:hover > ${DescriptionPanel} {
     display: block;

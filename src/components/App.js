@@ -7,7 +7,7 @@ import Player from "./Player/Player";
 import PlayerButton from "./Player/PlayerButton";
 import PlayerPanel from "./Player/PlayerPanel";
 import SettingButton from "./Setting/SettingButton";
-import SettingPanel from "./Setting/SettingPanel";
+import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
 
@@ -32,7 +32,7 @@ export default class App extends Component {
     isFocus: true,
     isStudy: false,
     // Player
-    isPlayerClick: true,
+    isPlayerClick: false,
     isPlay: true,
     // ToDos
     isToDoClick: false,
@@ -40,8 +40,8 @@ export default class App extends Component {
     curDoId: null,
     toDos: [],
     // Settings
-    isSettingClick: false,
-    isDarkMode: false,
+    isSettingClick: true,
+    isNightMode: false,
     isCustom: false,
     isAutoStart: false,
     isOverCount: false,
@@ -116,7 +116,7 @@ export default class App extends Component {
 
   saveOption = () => {
     const optionValue = {};
-    optionValue["isDarkMode"] = this.state.isDarkMode;
+    optionValue["isNightMode"] = this.state.isNightMode;
     optionValue["isCustom"] = this.state.isCustom;
     optionValue["isAutoStart"] = this.state.isAutoStart;
     optionValue["isOverCount"] = this.state.isOverCount;
@@ -130,7 +130,7 @@ export default class App extends Component {
     const loadedOptions = localStorage.getItem(OPTIONS_LS);
     if (loadedOptions !== null) {
       const parsedOptions = JSON.parse(loadedOptions);
-      this.state.isDarkMode = parsedOptions["isDarkMode"];
+      this.state.isNightMode = parsedOptions["isNightMode"];
       this.state.isCustom = parsedOptions["isCustom"];
       this.state.isAutoStart = parsedOptions["isAutoStart"];
       this.state.isOverCount = parsedOptions["isOverCount"];
@@ -142,7 +142,7 @@ export default class App extends Component {
 
   applyTheme = () => {
     this.setState({
-      theme: this.state.isDarkMode
+      theme: this.state.isNightMode
         ? this.state.isFocus
           ? focusDark
           : breakDark
@@ -186,7 +186,7 @@ export default class App extends Component {
   };
 
   _toggleDarkMode = () => {
-    this.setState({ isDarkMode: !this.state.isDarkMode }, () =>
+    this.setState({ isNightMode: !this.state.isNightMode }, () =>
       this.applyTheme()
     );
   };
@@ -217,13 +217,17 @@ export default class App extends Component {
     this.setState({ isOverCount: !this.state.isOverCount });
   };
 
+  ChangeNightMode = (state) => {
+    this.setState({ isNightMode: state });
+  };
+
   render() {
     const {
       curDo,
       theme,
       isSettingClick,
       isToDoClick,
-      isDarkMode,
+      isNightMode,
       isAutoStart,
       isOverCount,
       isStudy,
@@ -241,7 +245,7 @@ export default class App extends Component {
         <Timer
           ref={this.Timer}
           isMenu={isSettingClick || isToDoClick || isPlayerClick}
-          isDarkMode={isDarkMode}
+          isNightMode={isNightMode}
           isCustom={isCustom}
           isAutoStart={isAutoStart}
           isOverCount={isOverCount}
@@ -255,19 +259,7 @@ export default class App extends Component {
           addFocusedTime={this.addFocusedTime}
         />
         {isSettingClick ? (
-          <SettingPanel
-            applyTimeSetting={this._applyTimeSetting}
-            toggleSetting={this._toggleSetting}
-            toggleDarkMode={this._toggleDarkMode}
-            pressPomo={this._pressPomo}
-            pressCustom={this._pressCustom}
-            toggleAutoStart={this._toggleAutoStart}
-            toggleOverCount={this._toggleOverCount}
-            focusTime={focusTime}
-            shortBreakTime={shortBreakTime}
-            longBreakTime={longBreakTime}
-            {...this.state}
-          />
+          <Setting ChangeNightMode={this.ChangeNightMode} />
         ) : (
           ""
         )}
