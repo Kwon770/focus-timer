@@ -146,9 +146,6 @@ const TimeInput = styled.input.attrs((props) => ({ type: `number` }))`
   font-size: 15px;
   color: ${(props) => props.theme.panelFontColor};
   background-color: ${(props) => props.theme.panelBgColor};
-  &:focus {
-    outline: none;
-  }
 `;
 
 const Button = styled.h4`

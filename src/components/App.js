@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import GlobalStyles from "../Styles/GlobalStyles";
 import styled, { ThemeProvider } from "styled-components";
-import { breakDark, focusDark, breakLight, focusLight } from "./theme";
-import Timer from "./Components/Timer";
-import Player from "./Components/Player/Player";
-import PlayerButton from "./Components/Player/PlayerButton";
-import PlayerPanel from "./Components/Player/PlayerPanel";
-import SettingButton from "./Components/Setting/SettingButton";
-import SettingPanel from "./Components/Setting/SettingPanel";
-import ToDosButton from "./Components/ToDos/ToDosButton";
-import ToDosPanel from "./Components/ToDos";
+import { breakDark, focusDark, breakLight, focusLight } from "../Styles/theme";
+import Timer from "./Timer";
+import Player from "./Player/Player";
+import PlayerButton from "./Player/PlayerButton";
+import PlayerPanel from "./Player/PlayerPanel";
+import SettingButton from "./Setting/SettingButton";
+import SettingPanel from "./Setting/SettingPanel";
+import ToDosButton from "./ToDos/ToDosButton";
+import ToDosPanel from "./ToDos";
 
 const OPTIONS_LS = "optionsLocalStorage";
 const TODOS_LS = "todosLocalStorage";
@@ -236,6 +237,7 @@ export default class App extends Component {
     } = this.state;
     return (
       <ThemeProvider theme={theme}>
+        <GlobalStyles />
         <Timer
           ref={this.Timer}
           isMenu={isSettingClick || isToDoClick || isPlayerClick}

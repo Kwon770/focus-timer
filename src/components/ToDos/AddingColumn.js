@@ -40,9 +40,6 @@ const TitleInput = styled.input`
     font-size: 17px;
     font-weight: 700;
   }
-  &:focus {
-    outline: none;
-  }
 `;
 
 const ElementWrapper = styled.div`

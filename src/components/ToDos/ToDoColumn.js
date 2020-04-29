@@ -91,10 +91,6 @@ const TitleInput = styled.input`
   font-size: 16px;
   color: ${(props) => props.theme.panelFontColor};
   background-color: ${(props) => props.theme.panelBgColor};
-  &:focus {
-    outline: none;
-    border-color: ${(props) => props.theme.hlColor};
-  }
 `;
 
 const ElementWrapper = styled.div`
