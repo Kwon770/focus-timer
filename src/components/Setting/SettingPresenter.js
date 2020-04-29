@@ -77,15 +77,13 @@ export default function SettingPresenter({
 }
 
 const DescriptionPanel = styled.div`
+  ${(props) => props.theme.panel}
+  width: 200px;
   display: none;
   position: absolute;
   top: 0;
   ${(props) => (props.Left ? "right: 155px;" : "left: 155px;")}
-  width: 200px;
   padding: 10px 20px;
-  border-radius: 25px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  color: ${(props) => props.theme.panelFontColor};
 `;
 
 const TimeInput = styled.input.attrs((props) => ({ type: `number` }))`
@@ -137,15 +135,13 @@ const ButtonColumn = styled.div`
 `;
 
 const Panel = styled.div`
-  padding: 20px;
-  position: absolute;
-  top: 50%;
-  margin-top: -200px;
-  left: 50%;
-  margin-left: -150px;
+  ${(props) => props.theme.panel}
   width: 300px;
   height: 450px;
-  border-radius: 25px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  margin-top: -200px;
+  margin-left: -150px;
 `;

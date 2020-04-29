@@ -1,3 +1,7 @@
+const PANEL_RADIUS = "25px";
+const BUTTON_RADIUS = "35px";
+const SHADOW = "rgba(0, 0, 0, 0.27) 0 10px 20px";
+
 export const focusLight = {
   hlColor: "#ff8f70",
   disColor: "#bdc3c7",
@@ -6,6 +10,21 @@ export const focusLight = {
   fontColor: "white",
   panelFontColor: "#5A6381",
   panelBgColor: "white",
+  panel: `
+  box-shadow: ${SHADOW};
+  border-radius: ${PANEL_RADIUS};
+  background-color: white;
+  color: #5A6381;
+  `,
+  button: `
+  box-shadow: ${SHADOW};
+  border-radius: ${BUTTON_RADIUS};
+  background-color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `,
 };
 export const breakLight = {
   hlColor: "#40B4CE",
@@ -15,6 +34,21 @@ export const breakLight = {
   fontColor: "white",
   panelFontColor: "#5A6381",
   panelBgColor: "white",
+  panel: `
+  box-shadow: ${SHADOW};
+  border-radius: ${PANEL_RADIUS};
+  background-color: white;
+  color: #5A6381;
+  `,
+  button: `
+  box-shadow: ${SHADOW};
+  border-radius: ${BUTTON_RADIUS};
+  background-color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `,
 };
 
 export const focusDark = {
@@ -25,6 +59,21 @@ export const focusDark = {
   fontColor: "#ecf0f1",
   panelFontColor: "#ecf0f1",
   panelBgColor: "#1F1B17",
+  panel: `
+  box-shadow: ${SHADOW};
+  border-radius: ${PANEL_RADIUS};
+  background-color: #1F1B17;
+  color: #ecf0f1;
+  `,
+  button: `
+  box-shadow: ${SHADOW};
+  border-radius: ${BUTTON_RADIUS};
+  background-color: #1F1B17;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `,
 };
 export const breakDark = {
   hlColor: "#2B5262",
@@ -34,4 +83,19 @@ export const breakDark = {
   fontColor: "#ecf0f1",
   panelFontColor: "#ecf0f1",
   panelBgColor: "#0E2027",
+  panel: `
+  box-shadow: ${SHADOW};
+  border-radius: ${PANEL_RADIUS};
+  background-color: #0E2027;
+  color: #ecf0f1;
+  `,
+  button: `
+  box-shadow: ${SHADOW};
+  border-radius: ${BUTTON_RADIUS};
+  background-color: #0E2027;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `,
 };

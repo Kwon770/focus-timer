@@ -16,20 +16,14 @@ export default function SettingButton(props) {
 }
 
 const Button = styled.div`
+  ${(props) => props.theme.button}
   position: absolute;
   z-index: 1;
   top: 10px;
-  left: ${(props) => (props.isStudy ? "10px" : "85px")};
-  transition: left 0.6s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 50px;
   height: 50px;
+  left: ${(props) => (props.isStudy ? "10px" : "85px")};
+  transition: left 0.6s ease-in-out;
   color: ${(props) =>
     props.isSettingClick ? props.theme.hlColor : props.theme.disColor};
-  font-size: 20px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  border-radius: 25px;
-  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
 `;

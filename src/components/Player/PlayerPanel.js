@@ -160,6 +160,7 @@ const Main = styled.main`
 `;
 
 const Panel = styled.div`
+  ${(props) => props.theme.panel}
   position: absolute;
   top: 50%;
   margin-top: -200px;
@@ -168,9 +169,6 @@ const Panel = styled.div`
   height: 440px;
   width: 300px;
   padding: 20px;
-  border-radius: 25px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

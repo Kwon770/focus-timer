@@ -17,6 +17,7 @@ export default function ToDosButton(props) {
 }
 
 const Button = styled.div`
+  ${(props) => props.theme.button}
   position: absolute;
   z-index: 1;
   top: 10px;
@@ -24,13 +25,6 @@ const Button = styled.div`
   transition: left 0.6s ease-in-out;
   height: 50px;
   padding: 0px 15px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  border-radius: 25px;
-  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
   font-weight: 600;
   color: ${(props) =>
     props.isToDoClick ? props.theme.hlColor : props.theme.disColor};

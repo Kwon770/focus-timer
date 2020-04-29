@@ -122,6 +122,7 @@ const EditButton = styled.div`
 `;
 
 const Panel = styled.div`
+  ${(props) => props.theme.panel}
   padding: 20px;
   position: absolute;
   top: 50%;
@@ -130,9 +131,6 @@ const Panel = styled.div`
   margin-left: -150px;
   width: 300px;
   max-height: 380px;
-  border-radius: 25px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

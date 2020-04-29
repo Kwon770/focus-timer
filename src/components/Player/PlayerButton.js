@@ -51,20 +51,15 @@ const IconWrapper = styled.div`
 `;
 
 const Button = styled.div`
+  ${(props) => props.theme.button}
   position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
   width: 70px;
   height: 70px;
-  border-radius: 35px;
-  background-color: ${(props) => props.theme.panelBgColor};
-  box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
   color: ${(props) =>
     props.isPlay ? props.theme.hlColor : props.theme.disColor};
   font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding-right: 5px;
 `;
