@@ -8,34 +8,59 @@ import {
   faAppleAlt,
   faStopwatch,
   faBurn,
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function SettingPresenter({
+  ChangePomodoroTime,
+  ResetOptions,
+  SaveOptions,
+  ToggleSettingPanel,
+  ToggleNightMode,
   nightMode,
   autoStart,
   overCount,
   pomodoro,
-  focusTimeInput,
-  shortBreakTimeInput,
-  longBreakTimeInput,
+  focusTime,
+  shortBreakTime,
+  longBreakTime,
 }) {
   return (
     <Panel>
       <TopButtonsWrapper>
-        <FontAwesomeIcon icon={faChevronLeft} />
-        <FontAwesomeIcon icon={faRedoAlt} />
+        <FontAwesomeIcon icon={faChevronLeft} onClick={ToggleSettingPanel} />
+        <TopRightButtonsWrapper>
+          <FontAwesomeIcon
+            icon={faRedoAlt}
+            onClick={ResetOptions}
+            style={{ marginRight: 15 }}
+          />
+          <FontAwesomeIcon icon={faSave} onClick={SaveOptions} />
+        </TopRightButtonsWrapper>
       </TopButtonsWrapper>
       <ButtonsWrapper>
         <ButtonsColumn>
           <ButtonWrapper>
-            <Button {...nightMode}>
+            <Button
+              value={nightMode.value}
+              onClick={() => {
+                ToggleNightMode();
+                nightMode.onClick();
+              }}
+            >
               <FontAwesomeIcon icon={faMoon} />
             </Button>
             <ButtonTitle>night mode</ButtonTitle>
             <DescriptionPanel Left>Dark UI for night</DescriptionPanel>
           </ButtonWrapper>
           <ButtonWrapper>
-            <Button {...pomodoro}>
+            <Button
+              value={pomodoro.value}
+              onClick={() => {
+                pomodoro.onClick();
+                ChangePomodoroTime();
+              }}
+            >
               <FontAwesomeIcon icon={faAppleAlt} />
             </Button>
             <ButtonTitle>pomodoro</ButtonTitle>
@@ -67,14 +92,14 @@ export default function SettingPresenter({
         <ButtonsColumn>
           <ButtonWrapper>
             <ButtonTitle>short break time</ButtonTitle>
-            <TimeInput {...shortBreakTimeInput} />
-            <DescriptionPanel>
+            <TimeInput {...shortBreakTime} />
+            <DescriptionPanel Left>
               Short break time after repeated focus (minute)
             </DescriptionPanel>
           </ButtonWrapper>
           <ButtonWrapper>
             <ButtonTitle>long break time</ButtonTitle>
-            <TimeInput {...longBreakTimeInput} />
+            <TimeInput {...longBreakTime} />
             <DescriptionPanel>
               Long break time after 2 repeated focus (4 repeated with Pomodoro)
               (minute)
@@ -84,8 +109,8 @@ export default function SettingPresenter({
         <ButtonsColumn Single>
           <ButtonWrapper>
             <ButtonTitle>focus time</ButtonTitle>
-            <TimeInput {...focusTimeInput} />
-            <DescriptionPanel>
+            <TimeInput {...focusTime} />
+            <DescriptionPanel Left>
               Time to focus on what you do (minute)
             </DescriptionPanel>
           </ButtonWrapper>
@@ -164,6 +189,12 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
+`;
+
+const TopRightButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;
 

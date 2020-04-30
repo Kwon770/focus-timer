@@ -6,7 +6,7 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 export default function SettingButton(props) {
   return (
     <Button
-      onClick={props.toggleSetting}
+      onClick={props.ToggleSettingPanel}
       isSettingClick={props.isSettingClick}
       isStudy={props.isStudy}
     >

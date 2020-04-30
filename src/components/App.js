@@ -11,8 +11,14 @@ import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
 
-const OPTIONS_LS = "optionsLocalStorage";
 const TODOS_LS = "todosLocalStorage";
+const NIGHT_MODE = "nightMode";
+const AUTO_START = "autoStart";
+const OVER_COUNT = "overCount";
+const POMODORO = "pomodoro";
+const FOCUS_TIME = "focusTime";
+const SHORT_BREAK_TIME = "shortBreakTime";
+const LONG_BREAK_TIME = "longBreakTime";
 
 export default class App extends Component {
   constructor(props) {
@@ -20,7 +26,6 @@ export default class App extends Component {
     this.Timer = React.createRef();
     // load saved data and apply time setting
     this.loadToDos();
-    this.loadOption();
   }
 
   componentDidMount() {
@@ -40,14 +45,14 @@ export default class App extends Component {
     curDoId: null,
     toDos: [],
     // Settings
-    isSettingClick: true,
-    isNightMode: false,
-    isCustom: false,
-    isAutoStart: false,
-    isOverCount: false,
-    focusTime: 25,
-    shortBreakTime: 5,
-    longBreakTime: 30,
+    isSettingClick: false,
+    isNightMode: JSON.parse(localStorage.getItem(NIGHT_MODE)),
+    isAutoStart: JSON.parse(localStorage.getItem(AUTO_START)),
+    isOverCount: JSON.parse(localStorage.getItem(OVER_COUNT)),
+    isPomodoro: JSON.parse(localStorage.getItem(POMODORO)),
+    focusTime: JSON.parse(localStorage.getItem(FOCUS_TIME)),
+    shortBreakTime: JSON.parse(localStorage.getItem(SHORT_BREAK_TIME)),
+    longBreakTime: JSON.parse(localStorage.getItem(LONG_BREAK_TIME)),
   };
 
   playPrevSong = () => {};
@@ -114,32 +119,6 @@ export default class App extends Component {
     this.reallocateToDos(newToDos);
   };
 
-  saveOption = () => {
-    const optionValue = {};
-    optionValue["isNightMode"] = this.state.isNightMode;
-    optionValue["isCustom"] = this.state.isCustom;
-    optionValue["isAutoStart"] = this.state.isAutoStart;
-    optionValue["isOverCount"] = this.state.isOverCount;
-    optionValue["focusTime"] = this.state.focusTime;
-    optionValue["shortBreakTime"] = this.state.shortBreakTime;
-    optionValue["longBreakTime"] = this.state.longBreakTime;
-    localStorage.setItem(OPTIONS_LS, JSON.stringify(optionValue));
-  };
-
-  loadOption = () => {
-    const loadedOptions = localStorage.getItem(OPTIONS_LS);
-    if (loadedOptions !== null) {
-      const parsedOptions = JSON.parse(loadedOptions);
-      this.state.isNightMode = parsedOptions["isNightMode"];
-      this.state.isCustom = parsedOptions["isCustom"];
-      this.state.isAutoStart = parsedOptions["isAutoStart"];
-      this.state.isOverCount = parsedOptions["isOverCount"];
-      this.state.focusTime = parsedOptions["focusTime"];
-      this.state.shortBreakTime = parsedOptions["shortBreakTime"];
-      this.state.longBreakTime = parsedOptions["longBreakTime"];
-    }
-  };
-
   applyTheme = () => {
     this.setState({
       theme: this.state.isNightMode
@@ -156,25 +135,39 @@ export default class App extends Component {
     this.setState({ isToDoClick: !this.state.isToDoClick });
   };
 
-  _toggleSetting = () => {
-    // When panel is closing
+  ReloadOptions = () => {
+    this.setState({
+      isNightMode: JSON.parse(localStorage.getItem(NIGHT_MODE)),
+      isAutoStart: JSON.parse(localStorage.getItem(AUTO_START)),
+      isOverCount: JSON.parse(localStorage.getItem(OVER_COUNT)),
+      isPomodoro: JSON.parse(localStorage.getItem(POMODORO)),
+      focusTime: JSON.parse(localStorage.getItem(FOCUS_TIME)),
+      shortBreakTime: JSON.parse(localStorage.getItem(SHORT_BREAK_TIME)),
+      longBreakTime: JSON.parse(localStorage.getItem(LONG_BREAK_TIME)),
+    });
+  };
+
+  ToggleSettingPanel = () => {
+    // Close panel
+    this.setState({ isSettingClick: !this.state.isSettingClick });
+
+    // Load updated Options after panel is closed
+    if (!this.state.isSettingClick) this.ReloadOptions();
+
+    // Load updated time to timer
     if (this.state.isSettingClick) {
       if (this.state.isFocus) {
         this.Timer.current.SetTimer(this.state.focusTime, 0);
       } else {
         this.Timer.current.SetTimer(this.Timer.current.GetBreakTime(), 0);
       }
-      this.saveOption();
     }
-    this.setState({ isSettingClick: !this.state.isSettingClick });
   };
 
-  _applyTimeSetting = (focus, shortBreak, longBreak) => {
-    this.setState({
-      focusTime: focus,
-      shortBreakTime: shortBreak,
-      longBreakTime: longBreak,
-    });
+  ToggleNightMode = () => {
+    this.setState({ isNightMode: !this.state.isNightMode }, () =>
+      this.applyTheme()
+    );
   };
 
   _toggleIsFocus = () => {
@@ -183,42 +176,6 @@ export default class App extends Component {
 
   changeIsStudy = (bool) => {
     this.setState({ isStudy: bool });
-  };
-
-  _toggleDarkMode = () => {
-    this.setState({ isNightMode: !this.state.isNightMode }, () =>
-      this.applyTheme()
-    );
-  };
-
-  _pressPomo = () => {
-    this.setState({
-      isCustom: false,
-      focusTime: 25,
-      shortBreakTime: 5,
-      longBreakTime: 30,
-    });
-  };
-
-  _pressCustom = () => {
-    this.setState({
-      isCustom: true,
-      focusTime: 50,
-      shortBreakTime: 10,
-      longBreakTime: 30,
-    });
-  };
-
-  _toggleAutoStart = () => {
-    this.setState({ isAutoStart: !this.state.isAutoStart });
-  };
-
-  _toggleOverCount = () => {
-    this.setState({ isOverCount: !this.state.isOverCount });
-  };
-
-  ChangeNightMode = (state) => {
-    this.setState({ isNightMode: state });
   };
 
   render() {
@@ -231,7 +188,7 @@ export default class App extends Component {
       isAutoStart,
       isOverCount,
       isStudy,
-      isCustom,
+      isPomodoro,
       focusTime,
       shortBreakTime,
       longBreakTime,
@@ -246,7 +203,7 @@ export default class App extends Component {
           ref={this.Timer}
           isMenu={isSettingClick || isToDoClick || isPlayerClick}
           isNightMode={isNightMode}
-          isCustom={isCustom}
+          isPomodoro={isPomodoro}
           isAutoStart={isAutoStart}
           isOverCount={isOverCount}
           isFocus={isFocus}
@@ -259,7 +216,10 @@ export default class App extends Component {
           addFocusedTime={this.addFocusedTime}
         />
         {isSettingClick ? (
-          <Setting ChangeNightMode={this.ChangeNightMode} />
+          <Setting
+            ToggleNightMode={this.ToggleNightMode}
+            ToggleSettingPanel={this.ToggleSettingPanel}
+          />
         ) : (
           ""
         )}
@@ -297,7 +257,7 @@ export default class App extends Component {
           />
           <SettingButton
             isSettingClick={isSettingClick}
-            toggleSetting={this._toggleSetting}
+            ToggleSettingPanel={this.ToggleSettingPanel}
             isStudy={isStudy}
           />
         </ButtonConatiner>

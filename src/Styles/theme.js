@@ -80,7 +80,7 @@ export const breakLight = {
 };
 
 export const focusDark = {
-  highLightColor: "#8A0E00",
+  highLightColor: "#ff8f70",
   lightDisabledColor: "#7f8c8d",
   darkDisabledColor: "#ecf0f1",
   bgFocusColor: "linear-gradient(to right, #1F1C18, #8E0E00)",
@@ -118,7 +118,7 @@ export const focusDark = {
   `,
 };
 export const breakDark = {
-  highLightColor: "#2B5262",
+  highLightColor: "#40B4CE",
   lightDisabledColor: "#7f8c8d",
   darkDisabledColor: "#ecf0f1",
   bgFocusColor: "linear-gradient(to right, #1F1C18, #8E0E00)",

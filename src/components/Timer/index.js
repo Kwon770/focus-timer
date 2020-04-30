@@ -110,11 +110,11 @@ export default class TimerPresenter extends React.Component {
   };
 
   GetBreakTime = (sets = this.state.sets) => {
-    if (this.props.isCustom) {
-      if (sets.length % 2 === 0) return this.props.longBreakTime;
+    if (this.props.isPomodoro) {
+      if (sets.length % 4 === 0) return this.props.longBreakTime;
       else return this.props.shortBreakTime;
     } else {
-      if (sets.length % 4 === 0) return this.props.longBreakTime;
+      if (sets.length % 2 === 0) return this.props.longBreakTime;
       else return this.props.shortBreakTime;
     }
   };

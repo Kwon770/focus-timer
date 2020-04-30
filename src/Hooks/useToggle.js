@@ -5,7 +5,6 @@ export default (defaultValue) => {
 
   const onClick = () => {
     setValue(!value);
-    // console.log(value);
   };
 
   return { value, onClick };
