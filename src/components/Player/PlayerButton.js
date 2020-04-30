@@ -59,7 +59,7 @@ const Button = styled.div`
   width: 70px;
   height: 70px;
   color: ${(props) =>
-    props.isPlay ? props.theme.hlColor : props.theme.disColor};
+    props.isPlay ? props.theme.highLightColor : props.theme.disColor};
   font-size: 20px;
   padding-right: 5px;
 `;

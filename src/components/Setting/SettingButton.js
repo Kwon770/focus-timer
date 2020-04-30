@@ -25,5 +25,5 @@ const Button = styled.div`
   left: ${(props) => (props.isStudy ? "10px" : "85px")};
   transition: left 0.6s ease-in-out;
   color: ${(props) =>
-    props.isSettingClick ? props.theme.hlColor : props.theme.disColor};
+    props.isSettingClick ? props.theme.highLightColor : props.theme.disColor};
 `;

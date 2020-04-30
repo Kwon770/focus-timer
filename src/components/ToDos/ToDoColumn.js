@@ -85,7 +85,7 @@ const TitleInput = styled.input`
   margin: 0;
   padding: 4px 0px;
   border: none;
-  border-bottom: 1px solid #bdc3c7;
+  border-bottom: 1px solid #7f8c8d;
   text-align: start;
   font-weight: 700;
   font-size: 16px;
@@ -118,18 +118,18 @@ const EditButtonWrapper = styled.div`
 
 const EditButton = styled.div`
   color: ${(props) =>
-    props.isMode ? props.theme.hlColor : props.theme.disColor};
+    props.isMode ? props.theme.highLightColor : props.theme.disColor};
 `;
 
 const ProgressButton = styled.div`
-  color: ${(props) => props.theme.hlColor};
+  color: ${(props) => props.theme.highLightColor};
 `;
 
 const InformationWrapper = styled.div``;
 
 const ProgressIcon = styled.div`
   color: ${(props) =>
-    props.isSelected ? props.theme.hlColor : props.theme.disColor};
+    props.isSelected ? props.theme.highLightColor : props.theme.disColor};
 `;
 
 const List = styled.li`

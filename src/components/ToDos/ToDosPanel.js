@@ -112,7 +112,7 @@ const Title_Wrapper = styled.div`
 
 const EditButton = styled.div`
   color: ${(props) =>
-    props.isEditMode ? props.theme.hlColor : props.theme.disColor};
+    props.isEditMode ? props.theme.highLightColor : props.theme.disColor};
   position: absolute;
   top: 25px;
   right: 27px;

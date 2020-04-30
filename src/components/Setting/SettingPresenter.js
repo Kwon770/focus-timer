@@ -1,5 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faRedoAlt,
+  faMoon,
+  faAppleAlt,
+  faStopwatch,
+  faBurn,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SettingPresenter({
   nightMode,
@@ -12,66 +21,76 @@ export default function SettingPresenter({
 }) {
   return (
     <Panel>
-      <ButtonColumn>
-        <ButtonConatiner>
-          <Title>Clock Mode</Title>
-          <Button {...nightMode}>
-            Night Mode
+      <TopButtonsWrapper>
+        <FontAwesomeIcon icon={faChevronLeft} />
+        <FontAwesomeIcon icon={faRedoAlt} />
+      </TopButtonsWrapper>
+      <ButtonsWrapper>
+        <ButtonsColumn>
+          <ButtonWrapper>
+            <Button {...nightMode}>
+              <FontAwesomeIcon icon={faMoon} />
+            </Button>
+            <ButtonTitle>night mode</ButtonTitle>
             <DescriptionPanel Left>Dark UI for night</DescriptionPanel>
-          </Button>
-        </ButtonConatiner>
-        <ButtonConatiner>
-          <Title>Time Mode</Title>
-          <Button {...pomodoro}>
-            Pomodoro
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <Button {...pomodoro}>
+              <FontAwesomeIcon icon={faAppleAlt} />
+            </Button>
+            <ButtonTitle>pomodoro</ButtonTitle>
             <DescriptionPanel>
               1 long focus after 4 short focus with break
             </DescriptionPanel>
-          </Button>
-        </ButtonConatiner>
-      </ButtonColumn>
-      <ButtonColumn>
-        <ButtonConatiner>
-          <Title>Timer Mode</Title>
-          <Button {...autoStart}>
-            Timer Auto Start
+          </ButtonWrapper>
+        </ButtonsColumn>
+        <ButtonsColumn>
+          <ButtonWrapper>
+            <Button {...autoStart}>
+              <FontAwesomeIcon icon={faStopwatch} />
+            </Button>
+            <ButtonTitle>auto start</ButtonTitle>
             <DescriptionPanel Left>
               If focus or break is done, start next timer automatically
             </DescriptionPanel>
-          </Button>
-          <Button {...overCount}>
-            Over Counting
-            <DescriptionPanel Left>
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <Button {...overCount}>
+              <FontAwesomeIcon icon={faBurn} />
+            </Button>
+            <ButtonTitle>over count</ButtonTitle>
+            <DescriptionPanel>
               If you don't press next Button, It will count time till you press
             </DescriptionPanel>
-          </Button>
-        </ButtonConatiner>
-        <ButtonConatiner>
-          <Title>Time Setting</Title>
-          <Button input>
-            Focus Time
-            <TimeInput {...focusTimeInput} />
-            <DescriptionPanel>
-              Time to focus on what you do (minute)
-            </DescriptionPanel>
-          </Button>
-          <Button input>
-            Short break Time
+          </ButtonWrapper>
+        </ButtonsColumn>
+        <ButtonsColumn>
+          <ButtonWrapper>
+            <ButtonTitle>short break time</ButtonTitle>
             <TimeInput {...shortBreakTimeInput} />
             <DescriptionPanel>
               Short break time after repeated focus (minute)
             </DescriptionPanel>
-          </Button>
-          <Button input>
-            Long Break Time
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <ButtonTitle>long break time</ButtonTitle>
             <TimeInput {...longBreakTimeInput} />
             <DescriptionPanel>
               Long break time after 2 repeated focus (4 repeated with Pomodoro)
               (minute)
             </DescriptionPanel>
-          </Button>
-        </ButtonConatiner>
-      </ButtonColumn>
+          </ButtonWrapper>
+        </ButtonsColumn>
+        <ButtonsColumn Single>
+          <ButtonWrapper>
+            <ButtonTitle>focus time</ButtonTitle>
+            <TimeInput {...focusTimeInput} />
+            <DescriptionPanel>
+              Time to focus on what you do (minute)
+            </DescriptionPanel>
+          </ButtonWrapper>
+        </ButtonsColumn>
+      </ButtonsWrapper>
     </Panel>
   );
 }
@@ -82,17 +101,17 @@ const DescriptionPanel = styled.div`
   display: none;
   position: absolute;
   top: 0;
-  ${(props) => (props.Left ? "right: 155px;" : "left: 155px;")}
+  ${(props) => (props.Left ? "right: 160px;" : "left: 160px;")}
   padding: 10px 20px;
 `;
 
-const TimeInput = styled.input.attrs((props) => ({ type: `number` }))`
-  width: 35px;
+const TimeInput = styled.input.attrs({ type: `number` })`
+  width: 50px;
   margin-top: 6px;
   margin-bottom: 0;
   padding: 5px 0px;
   border: none;
-  border-bottom: 1px solid #bdc3c7;
+  border-bottom: 1px solid #7f8c8d;
   text-align: center;
   font-weight: 300;
   font-size: 15px;
@@ -100,38 +119,56 @@ const TimeInput = styled.input.attrs((props) => ({ type: `number` }))`
   background-color: ${(props) => props.theme.panelBgColor};
 `;
 
-const Button = styled.h4`
+const Button = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 35px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    props.value ? props.theme.highLightColor : props.theme.lightDisabledColor};
+  color: ${(props) =>
+    props.value ? props.theme.panelBgColor : props.theme.darkDisabledColor};
+`;
+
+const ButtonTitle = styled.div`
+  margin-top: 5px;
+`;
+
+const ButtonWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  width: 119px;
-  margin-bottom: ${(props) => (props.input ? "10px" : "23px")};
-  font-weight: 300;
-  color: ${(props) =>
-    props.value ? props.theme.hlColor : props.theme.panelFontColor};
+  width: 130px;
+  margin-bottom: 10px;
 
   &:hover > ${DescriptionPanel} {
     display: block;
   }
 `;
 
-const Title = styled.h3`
-  font-weight: 400;
-  color: ${(props) => props.theme.panelFontColor};
+const ButtonsColumn = styled.div`
+  width: 100%;
+  padding: 5px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: ${(props) => (props.Single ? "flex-start" : "space-around")};
 `;
 
-const ButtonConatiner = styled.div`
+const ButtonsWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 `;
 
-const ButtonColumn = styled.div`
-  display: flex;
-  justify-content: space-around;
+const TopButtonsWrapper = styled.div`
+  ${(props) => props.theme.topButtonsWrapper}
 `;
 
 const Panel = styled.div`
@@ -141,7 +178,6 @@ const Panel = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  padding: 20px;
   margin-top: -200px;
   margin-left: -150px;
 `;

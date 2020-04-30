@@ -3,8 +3,9 @@ const BUTTON_RADIUS = "35px";
 const SHADOW = "rgba(0, 0, 0, 0.27) 0 10px 20px";
 
 export const focusLight = {
-  hlColor: "#ff8f70",
-  disColor: "#bdc3c7",
+  highLightColor: "#ff8f70",
+  lightDisabledColor: "#ecf0f1",
+  darkDisabledColor: "#7f8c8d",
   bgFocusColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
   bgBreakColor: "linear-gradient(to right, #2193b0, #6dd5ed)",
   fontColor: "white",
@@ -15,6 +16,11 @@ export const focusLight = {
   border-radius: ${PANEL_RADIUS};
   background-color: white;
   color: #5A6381;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -24,11 +30,20 @@ export const focusLight = {
   display: flex;
   align-items: center;
   justify-content: center;
+  `,
+  topButtonsWrapper: `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 15px;
+  color: #7f8c8d;
   `,
 };
 export const breakLight = {
-  hlColor: "#40B4CE",
-  disColor: "#bdc3c7",
+  highLightColor: "#40B4CE",
+  lightDisabledColor: "#ecf0f1",
+  darkDisabledColor: "#7f8c8d",
   bgFocusColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
   bgBreakColor: "linear-gradient(to right, #2193b0, #6dd5ed)",
   fontColor: "white",
@@ -39,6 +54,11 @@ export const breakLight = {
   border-radius: ${PANEL_RADIUS};
   background-color: white;
   color: #5A6381;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -48,12 +68,21 @@ export const breakLight = {
   display: flex;
   align-items: center;
   justify-content: center;
+  `,
+  topButtonsWrapper: `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 15px;
+  color: #7f8c8d;
   `,
 };
 
 export const focusDark = {
-  hlColor: "#8A0E00",
-  disColor: "#bdc3c7",
+  highLightColor: "#8A0E00",
+  lightDisabledColor: "#7f8c8d",
+  darkDisabledColor: "#ecf0f1",
   bgFocusColor: "linear-gradient(to right, #1F1C18, #8E0E00)",
   bgBreakColor: "linear-gradient(to right, #0F2027, #2C5364)",
   fontColor: "#ecf0f1",
@@ -64,6 +93,11 @@ export const focusDark = {
   border-radius: ${PANEL_RADIUS};
   background-color: #1F1B17;
   color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -74,10 +108,19 @@ export const focusDark = {
   align-items: center;
   justify-content: center;
   `,
+  topButtonsWrapper: `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 15px;
+  color: #ecf0f1;
+  `,
 };
 export const breakDark = {
-  hlColor: "#2B5262",
-  disColor: "#bdc3c7",
+  highLightColor: "#2B5262",
+  lightDisabledColor: "#7f8c8d",
+  darkDisabledColor: "#ecf0f1",
   bgFocusColor: "linear-gradient(to right, #1F1C18, #8E0E00)",
   bgBreakColor: "linear-gradient(to right, #0F2027, #2C5364)",
   fontColor: "#ecf0f1",
@@ -88,6 +131,11 @@ export const breakDark = {
   border-radius: ${PANEL_RADIUS};
   background-color: #0E2027;
   color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -97,5 +145,13 @@ export const breakDark = {
   display: flex;
   align-items: center;
   justify-content: center;
+  `,
+  topButtonsWrapper: `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 15px;
+  color: #ecf0f1;
   `,
 };

@@ -19,7 +19,7 @@ export default function PlayerPanel(props) {
   const playlist = useToggle(false);
   return (
     <Panel>
-      <TopButtonWrapper>
+      <TopButtonsWrapper>
         <FontAwesomeIcon
           icon={faChevronLeft}
           onClick={props.togglePlayerButton}
@@ -29,7 +29,7 @@ export default function PlayerPanel(props) {
         ) : (
           <FontAwesomeIcon icon={faBars} {...playlist} />
         )}
-      </TopButtonWrapper>
+      </TopButtonsWrapper>
       {playlist.value ? (
         <Main>
           <PlaylistWrapper>
@@ -145,13 +145,8 @@ const TitleWrapper = styled.div`
   align-items: center;
 `;
 
-const TopButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 16px 15px;
-  color: ${(props) => props.theme.disColor};
+const TopButtonsWrapper = styled.div`
+  ${(props) => props.theme.topButtonsWrapper}
 `;
 
 const Main = styled.main`
@@ -168,9 +163,4 @@ const Panel = styled.div`
   margin-left: -150px;
   height: 440px;
   width: 300px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
 `;

@@ -23,7 +23,7 @@ export const AddingColumn = forwardRef((props, ref) => (
 
 const PlusIcon = styled.div`
   color: ${(props) =>
-    props.isInput ? props.theme.hlColor : props.theme.disColor};
+    props.isInput ? props.theme.highLightColor : props.theme.disColor};
 `;
 
 const TitleInput = styled.input`
