@@ -30,6 +30,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.checkLastDate();
+    this.ApplyTheme();
   }
 
   state = {
@@ -119,7 +120,7 @@ export default class App extends Component {
     this.reallocateToDos(newToDos);
   };
 
-  applyTheme = () => {
+  ApplyTheme = () => {
     this.setState({
       theme: this.state.isNightMode
         ? this.state.isFocus
@@ -166,7 +167,7 @@ export default class App extends Component {
 
   ToggleNightMode = () => {
     this.setState({ isNightMode: !this.state.isNightMode }, () =>
-      this.applyTheme()
+      this.ApplyTheme()
     );
   };
 
@@ -212,7 +213,7 @@ export default class App extends Component {
           longBreakTime={longBreakTime}
           toggleIsFocus={this._toggleIsFocus}
           changeIsStudy={this.changeIsStudy}
-          applyTheme={this.applyTheme}
+          ApplyTheme={this.ApplyTheme}
           addFocusedTime={this.addFocusedTime}
         />
         {isSettingClick ? (

@@ -106,7 +106,7 @@ export default class TimerPresenter extends React.Component {
     if (this.props.isAutoStart) {
       this.StartTimer();
     }
-    this.props.applyTheme();
+    this.props.ApplyTheme();
   };
 
   GetBreakTime = (sets = this.state.sets) => {
