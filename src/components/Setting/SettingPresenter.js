@@ -8,7 +8,6 @@ import {
   faAppleAlt,
   faStopwatch,
   faBurn,
-  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function SettingPresenter({
@@ -28,15 +27,14 @@ export default function SettingPresenter({
   return (
     <Panel>
       <TopButtonsWrapper>
-        <FontAwesomeIcon icon={faChevronLeft} onClick={ToggleSettingPanel} />
-        <TopRightButtonsWrapper>
-          <FontAwesomeIcon
-            icon={faRedoAlt}
-            onClick={ResetOptions}
-            style={{ marginRight: 15 }}
-          />
-          <FontAwesomeIcon icon={faSave} onClick={SaveOptions} />
-        </TopRightButtonsWrapper>
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          onClick={() => {
+            ToggleSettingPanel();
+            SaveOptions();
+          }}
+        />
+        <FontAwesomeIcon icon={faRedoAlt} onClick={ResetOptions} />
       </TopButtonsWrapper>
       <ButtonsWrapper>
         <ButtonsColumn>
@@ -153,7 +151,7 @@ const Button = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${(props) =>
-    props.value ? props.theme.highLightColor : props.theme.darkDisabledColor};
+    props.value ? props.theme.highLightColor : props.theme.lightDisabledColor};
   color: ${(props) =>
     props.value ? props.theme.panelBgColor : props.theme.darkDisabledColor};
 `;
@@ -189,12 +187,6 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-`;
-
-const TopRightButtonsWrapper = styled.div`
-  display: flex;
-  justify-content: center;
   align-items: center;
 `;
 

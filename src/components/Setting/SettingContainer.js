@@ -11,7 +11,7 @@ const FOCUS_TIME = "focusTime";
 const SHORT_BREAK_TIME = "shortBreakTime";
 const LONG_BREAK_TIME = "longBreakTime";
 
-export default (props) => {
+export default ({ ToggleNightMode, ToggleSettingPanel }) => {
   // night mode > props / else > hooks (const)
   // time input > input / else > toggle
 
@@ -28,7 +28,6 @@ export default (props) => {
   );
 
   const ChangePomodoroTime = () => {
-    // console.log("change > " + pomodoro.value);
     if (!pomodoro.value) {
       focusTime.onChange({ target: { value: 30 } });
       shortBreakTime.onChange({ target: { value: 5 } });
@@ -50,7 +49,10 @@ export default (props) => {
   };
 
   const ResetOptions = () => {
-    if (nightMode.value) nightMode.onClick();
+    if (nightMode.value) {
+      nightMode.onClick();
+      ToggleNightMode();
+    }
     if (autoStart.value) autoStart.onClick();
     if (overCount.value) overCount.onClick();
     if (!pomodoro.value) pomodoro.onClick();
@@ -65,8 +67,8 @@ export default (props) => {
         ChangePomodoroTime={ChangePomodoroTime}
         ResetOptions={ResetOptions}
         SaveOptions={SaveOptions}
-        ToggleSettingPanel={props.ToggleSettingPanel}
-        ToggleNightMode={props.ToggleNightMode}
+        ToggleSettingPanel={ToggleSettingPanel}
+        ToggleNightMode={ToggleNightMode}
         nightMode={nightMode}
         autoStart={autoStart}
         overCount={overCount}
