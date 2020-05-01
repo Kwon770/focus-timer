@@ -23,7 +23,7 @@ export const AddingColumn = forwardRef((props, ref) => (
 
 const PlusIcon = styled.div`
   color: ${(props) =>
-    props.isInput ? props.theme.highLightColor : props.theme.disColor};
+    props.isInput ? props.theme.highLightColor : props.theme.darkDisabledColor};
 `;
 
 const TitleInput = styled.input`
@@ -36,7 +36,7 @@ const TitleInput = styled.input`
   font-weight: 700;
   background-color: ${(props) => props.theme.panelBgColor};
   ::placeholder {
-    color: ${(props) => props.theme.disColor};
+    color: ${(props) => props.theme.darkDisabledColor};
     font-size: 17px;
     font-weight: 700;
   }

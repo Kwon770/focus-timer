@@ -27,5 +27,7 @@ const Button = styled.div`
   padding: 0px 15px;
   font-weight: 600;
   color: ${(props) =>
-    props.isToDoClick ? props.theme.highLightColor : props.theme.disColor};
+    props.isToDoClick
+      ? props.theme.highLightColor
+      : props.theme.darkDisabledColor};
 `;

@@ -102,7 +102,7 @@ const ElementWrapper = styled.div`
 const Time = styled.h5`
   margin: 7px 0px;
   font-weight: 400;
-  color: ${(props) => props.theme.disColor};
+  color: ${(props) => props.theme.darkDisabledColor};
 `;
 
 const Title = styled.h4`
@@ -118,7 +118,7 @@ const EditButtonWrapper = styled.div`
 
 const EditButton = styled.div`
   color: ${(props) =>
-    props.isMode ? props.theme.highLightColor : props.theme.disColor};
+    props.isMode ? props.theme.highLightColor : props.theme.darkDisabledColor};
 `;
 
 const ProgressButton = styled.div`
@@ -129,7 +129,9 @@ const InformationWrapper = styled.div``;
 
 const ProgressIcon = styled.div`
   color: ${(props) =>
-    props.isSelected ? props.theme.highLightColor : props.theme.disColor};
+    props.isSelected
+      ? props.theme.highLightColor
+      : props.theme.darkDisabledColor};
 `;
 
 const List = styled.li`

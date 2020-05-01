@@ -128,7 +128,7 @@ const ThumbnailWrapper = styled.div`
 `;
 
 const Author = styled.span`
-  color: ${(props) => props.theme.disColor};
+  color: ${(props) => props.theme.darkDisabledColor};
   font-size: 12px;
   margin-top: 2px;
 `;

@@ -38,7 +38,7 @@ const ButtonOverlay = styled.div`
   width: 70px;
   height: 70px;
   background-color: rgba(0, 0, 0, 0);
-  color: ${(props) => props.theme.disColor};
+  color: ${(props) => props.theme.darkDisabledColor};
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -59,7 +59,7 @@ const Button = styled.div`
   width: 70px;
   height: 70px;
   color: ${(props) =>
-    props.isPlay ? props.theme.highLightColor : props.theme.disColor};
+    props.isPlay ? props.theme.highLightColor : props.theme.darkDisabledColor};
   font-size: 20px;
   padding-right: 5px;
 `;

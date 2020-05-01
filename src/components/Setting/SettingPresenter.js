@@ -153,7 +153,7 @@ const Button = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${(props) =>
-    props.value ? props.theme.highLightColor : props.theme.lightDisabledColor};
+    props.value ? props.theme.highLightColor : props.theme.darkDisabledColor};
   color: ${(props) =>
     props.value ? props.theme.panelBgColor : props.theme.darkDisabledColor};
 `;
