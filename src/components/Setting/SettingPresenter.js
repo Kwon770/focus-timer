@@ -10,7 +10,7 @@ import {
   faBurn,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function SettingPresenter({
+export default ({
   ChangePomodoroTime,
   ResetOptions,
   SaveOptions,
@@ -23,7 +23,7 @@ export default function SettingPresenter({
   focusTime,
   shortBreakTime,
   longBreakTime,
-}) {
+}) => {
   return (
     <Panel>
       <TopButtonsWrapper>
@@ -116,7 +116,7 @@ export default function SettingPresenter({
       </ButtonsWrapper>
     </Panel>
   );
-}
+};
 
 const DescriptionPanel = styled.div`
   ${(props) => props.theme.panel}

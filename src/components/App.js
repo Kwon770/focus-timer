@@ -203,7 +203,6 @@ export default class App extends Component {
         <Timer
           ref={this.Timer}
           isMenu={isSettingClick || isToDoClick || isPlayerClick}
-          isNightMode={isNightMode}
           isPomodoro={isPomodoro}
           isAutoStart={isAutoStart}
           isOverCount={isOverCount}
