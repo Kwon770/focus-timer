@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
-import TodaySetCounter from "../TodaySetCounter";
+import {
+  faPlay,
+  faPause,
+  faStop,
+  faPlayCircle,
+  faPauseCircle,
+  faStopCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import TodaySetCounter from "./TodaySetCounter";
 
 export default class TimerPresenter extends React.Component {
   constructor(props) {
@@ -11,7 +18,7 @@ export default class TimerPresenter extends React.Component {
       intervalTimer: null,
       minute: this.ConvertToTimeFormat(this.props.focusTime),
       second: "00",
-      sets: [[], []],
+      sets: [[]],
     };
   }
 
@@ -30,13 +37,13 @@ export default class TimerPresenter extends React.Component {
         </TimerWrapper>
         <TimerButtonWrapper>
           <TimerButton onClick={this._handlePlay}>
-            <FontAwesomeIcon icon={faPlay} size="5x" color="white" />
+            <FontAwesomeIcon icon={faPlayCircle} size="5x" color="white" />
           </TimerButton>
           <TimerButton onClick={this._handlePause}>
-            <FontAwesomeIcon icon={faPause} size="5x" color="white" />
+            <FontAwesomeIcon icon={faPauseCircle} size="5x" color="white" />
           </TimerButton>
           <TimerButton onClick={this._handleStop}>
-            <FontAwesomeIcon icon={faStop} size="5x" color="white" />
+            <FontAwesomeIcon icon={faStopCircle} size="5x" color="white" />
           </TimerButton>
         </TimerButtonWrapper>
       </Main>
@@ -147,7 +154,7 @@ const TimerButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 20px;
 `;
 
 const TimerButton = styled.button`
