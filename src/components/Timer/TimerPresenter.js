@@ -78,7 +78,6 @@ const TimerButton = styled.button`
   &:focus {
     outline: none !important;
     outline-offset: none !important;
-}
   }
 `;
 

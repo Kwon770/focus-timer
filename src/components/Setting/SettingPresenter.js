@@ -29,9 +29,9 @@ export default ({
       <TopButtonsWrapper>
         <FontAwesomeIcon
           icon={faChevronLeft}
-          onClick={() => {
+          onClick={async () => {
+            await SaveOptions();
             ToggleSettingPanel();
-            SaveOptions();
           }}
         />
         <FontAwesomeIcon icon={faRedoAlt} onClick={ResetOptions} />

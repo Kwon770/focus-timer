@@ -151,20 +151,17 @@ class App extends Component {
   };
 
   ToggleSettingPanel = () => {
-    // Close panel
-    this.setState({ isSettingClick: !this.state.isSettingClick });
+    this.setState({ isSettingClick: !this.state.isSettingClick }, async () => {
+      if (!this.state.isSettingClick) {
+        await this.ReloadOptions();
 
-    // Load updated Options after panel is closed
-    if (!this.state.isSettingClick) this.ReloadOptions();
-
-    // Load updated time to timer
-    if (this.state.isSettingClick) {
-      if (this.state.isFocus) {
-        this.props.setTimer(this.state.focusTime, 0);
-      } else {
-        this.props.setTimer(this.getBreakTime(), 0);
+        if (this.state.isFocus) {
+          this.props.setTimer(this.state.focusTime, 0);
+        } else {
+          this.props.setTimer(this.getBreakTime(), 0);
+        }
       }
-    }
+    });
   };
 
   ToggleNightMode = () => {

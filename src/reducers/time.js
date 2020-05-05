@@ -3,7 +3,6 @@ const SET_MINUTE = "SET_MINUTE";
 const SET_SECOND = "SET_SECOND";
 
 export const setTimer = (min, sec) => {
-  console.log(min + " / " + sec);
   return {
     type: SET_TIMER,
     min,
