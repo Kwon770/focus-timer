@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { actionCreators } from "../store";
 import GlobalStyles from "../Styles/GlobalStyles";
 import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "../Styles/theme";
@@ -20,10 +22,9 @@ const FOCUS_TIME = "focusTime";
 const SHORT_BREAK_TIME = "shortBreakTime";
 const LONG_BREAK_TIME = "longBreakTime";
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
-    this.Timer = React.createRef();
     // load saved data and apply time setting
     this.loadToDos();
   }
@@ -31,6 +32,7 @@ export default class App extends Component {
   componentDidMount() {
     this.checkLastDate();
     this.ApplyTheme();
+    this.loadTime();
   }
 
   state = {
@@ -80,7 +82,7 @@ export default class App extends Component {
         newToDos.push(toDo);
       });
       this.reallocateToDos(newToDos);
-      this.Timer.current.ClearSets();
+      this.props.clearSets();
       localStorage.setItem("LocalDate", todayDate);
     }
   };
@@ -158,9 +160,9 @@ export default class App extends Component {
     // Load updated time to timer
     if (this.state.isSettingClick) {
       if (this.state.isFocus) {
-        this.Timer.current.SetTimer(this.state.focusTime, 0);
+        this.props.setTimer(this.state.focusTime, 0);
       } else {
-        this.Timer.current.SetTimer(this.Timer.current.GetBreakTime(), 0);
+        this.props.setTimer(this.getBreakTime(), 0);
       }
     }
   };
@@ -177,6 +179,24 @@ export default class App extends Component {
 
   changeIsStudy = (bool) => {
     this.setState({ isStudy: bool });
+  };
+
+  getBreakTime = () => {
+    if (this.state.isPomodoro) {
+      if (this.props.sets.length % 4 === 0) return this.state.longBreakTime;
+      else return this.state.shortBreakTime;
+    } else {
+      if (this.props.sets.length % 2 === 0) return this.state.longBreakTime;
+      else return this.state.shortBreakTime;
+    }
+  };
+
+  loadTime = () => {
+    if (this.state.isFocus) {
+      this.props.setTimer(this.state.focusTime, 0);
+    } else {
+      this.props.setTimer(this.getBreakTime, 0);
+    }
   };
 
   render() {
@@ -214,6 +234,7 @@ export default class App extends Component {
           changeIsStudy={this.changeIsStudy}
           ApplyTheme={this.ApplyTheme}
           addFocusedTime={this.addFocusedTime}
+          getBreakTime={this.getBreakTime}
         />
         {isSettingClick ? (
           <Setting
@@ -276,3 +297,16 @@ const ButtonConatiner = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+function mapStateToProps(state, ownProps) {
+  return { time: state.time, sets: state.sets };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    setTimer: (min, sec) => dispatch(actionCreators.setTimer(min, sec)),
+    clearSets: () => dispatch(actionCreators.clearSets()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

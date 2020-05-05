@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrutch, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
-const ConvertToTimeFormat = (time, fullFormat) => {
+const convertToTimeFormat = (time, fullFormat) => {
   const hour = Math.floor(time / 60);
   const min = time % 60;
   if (fullFormat) {
@@ -36,7 +36,7 @@ export const ToDoColumn = forwardRef((props, ref) => (
           <Title>{props.name}</Title>
         )}
         <Time>{`
-        ${ConvertToTimeFormat(props.todayTime, true)} (${ConvertToTimeFormat(
+        ${convertToTimeFormat(props.todayTime, true)} (${convertToTimeFormat(
           props.totalTime,
           false
         )})`}</Time>

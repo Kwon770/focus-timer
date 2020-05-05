@@ -15,33 +15,38 @@ export default ({
   isFocus,
   isMenu,
   focusTime,
-  StartTimer,
-  RemoveTimer,
-  SetTimer,
+  startTimer,
+  removeTimer,
+  setTimer,
 }) => {
   const HandlePlay = () => {
-    StartTimer();
+    startTimer();
   };
 
   const HandlePause = () => {
-    RemoveTimer();
+    removeTimer();
   };
 
   const HandleStop = () => {
     // focusTime int
-    RemoveTimer();
-    SetTimer(focusTime, 0);
+    removeTimer();
+    setTimer(focusTime, 0);
+  };
+
+  const convertToTimeFormat = (number) => {
+    if (number < 10 && number > -10) return "0" + String(Math.abs(number));
+    else return String(Math.abs(number));
   };
 
   return (
     <Main isMenu={isMenu} isFocus={isFocus}>
       <TimerWrapper>
         <TodaySetCounter sets={sets} />
-        <DigitalTimer>{minute}</DigitalTimer>
+        <DigitalTimer>{convertToTimeFormat(minute)}</DigitalTimer>
         <DigitalTimer>
           '<DigitalTimerDot>'</DigitalTimerDot>
         </DigitalTimer>
-        <DigitalTimer>{second}</DigitalTimer>
+        <DigitalTimer>{convertToTimeFormat(second)}</DigitalTimer>
       </TimerWrapper>
       <TimerButtonWrapper>
         <TimerButton onClick={HandlePlay}>
@@ -63,12 +68,18 @@ const TimerButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  z-index: 5;
 `;
 
 const TimerButton = styled.button`
   background-color: rgba(0, 0, 0, 0);
   border: none;
   margin: 0px 15px;
+  &:focus {
+    outline: none !important;
+    outline-offset: none !important;
+}
+  }
 `;
 
 const DigitalTimer = styled.span`

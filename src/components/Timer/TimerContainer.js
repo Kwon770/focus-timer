@@ -1,115 +1,106 @@
 import React from "react";
+import { connect } from "react-redux";
+import { actionCreators } from "../../store";
 import useSet from "../../Hooks/useSet";
 import TimerPresenter from "./TimerPresenter";
 
-export default ({
+function TimerContainer({
   isMenu,
-  isPomodoro,
   isAutoStart,
   isOverCount,
   isFocus,
   focusTime,
-  shortBreakTime,
-  longBreakTime,
   toggleIsFocus,
   changeIsStudy,
   ApplyTheme,
   addFocusedTime,
-}) => {
-  const ConvertToTimeFormat = (number) => {
-    if (number < 10 && number > -10) return "0" + String(Math.abs(number));
-    else return String(Math.abs(number));
-  };
-
+  getBreakTime,
+  time,
+  setTimer,
+  setMinute,
+  sets,
+  addSet,
+}) {
   const intervalTimer = useSet(null);
-  const minute = useSet(ConvertToTimeFormat(focusTime));
-  const second = useSet("00");
-  const sets = useSet([]);
 
-  const ClearSets = () => {
-    sets.setValue([]);
-  };
+  const startTimer = () => {
+    if (intervalTimer.value != null) return;
 
-  const SetTimer = (min, sec) => {
-    minute.setValue(ConvertToTimeFormat(min));
-    second.setValue(ConvertToTimeFormat(sec));
-  };
-
-  const StartTimer = () => {
-    if (intervalTimer != null) return;
-
-    let time = parseInt(minute) * 60 + parseInt(second);
+    let timeValue = time.minute * 60 + time.second;
     const timer = setInterval(() => {
-      const min = time < 0 ? Math.ceil(time / 60) : Math.floor(time / 60);
-      const sec = time % 60;
-      SetTimer(min, sec);
+      timeValue--;
 
-      if (time < 0) minute.setValue("-" + minute);
+      const min =
+        timeValue < 0 ? Math.ceil(timeValue / 60) : Math.floor(timeValue / 60);
+      const sec = timeValue % 60;
+      setTimer(min, sec);
 
-      time--;
-
-      if (time < 0 && (!isOverCount || !isFocus)) {
+      if (timeValue < 0 && (!isOverCount || !isFocus)) {
         // timeout event
         clearInterval(timer);
         intervalTimer.setValue(null);
-        FinishTimer();
+        finishTimer();
       }
     }, 1000);
     intervalTimer.setValue(timer);
     changeIsStudy(true);
   };
 
-  const RemoveTimer = () => {
-    clearInterval(intervalTimer);
+  const removeTimer = () => {
+    clearInterval(intervalTimer.value);
     intervalTimer.setValue(null);
     // lively ;;
-    addFocusedTime(focusTime - minute.value);
+    addFocusedTime(focusTime - time.minute);
     //
     changeIsStudy(false);
   };
 
-  const FinishTimer = () => {
+  const finishTimer = () => {
     if (isFocus) {
       // Finish focus
-      sets.setValue(sets.value.push([]));
+      addSet();
 
       toggleIsFocus();
       changeIsStudy(false);
       addFocusedTime(focusTime);
-      SetTimer(GetBreakTime(sets.value), 0);
+      setTimer(getBreakTime(), 0);
     } else {
       // Finish break
       toggleIsFocus();
-      SetTimer(focusTime, 0);
+      setTimer(focusTime, 0);
     }
 
     if (isAutoStart) {
-      StartTimer();
+      startTimer();
     }
     ApplyTheme();
   };
 
-  const GetBreakTime = (_sets = sets.value) => {
-    if (isPomodoro) {
-      if (_sets.length % 4 === 0) return longBreakTime;
-      else return shortBreakTime;
-    } else {
-      if (_sets.length % 2 === 0) return longBreakTime;
-      else return shortBreakTime;
-    }
-  };
-
   return (
     <TimerPresenter
-      minute={minute.value}
-      second={second.value}
-      sets={sets.value}
+      minute={time.minute}
+      second={time.second}
+      sets={sets}
       isMenu={isMenu}
       isFocus={isFocus}
       focusTime={focusTime}
-      StartTimer={StartTimer}
-      RemoveTimer={RemoveTimer}
-      SetTimer={SetTimer}
+      startTimer={startTimer}
+      removeTimer={removeTimer}
+      setTimer={setTimer}
     />
   );
-};
+}
+
+function mapStateToProps(state, ownProps) {
+  return { time: state.time, sets: state.sets };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    setTimer: (min, sec) => dispatch(actionCreators.setTimer(min, sec)),
+    setMinute: (min) => dispatch(actionCreators.setMinute(min)),
+    addSet: () => dispatch(actionCreators.addSet()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimerContainer);
