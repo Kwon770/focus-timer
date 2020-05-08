@@ -28,7 +28,6 @@ export default ({
   };
 
   const HandleStop = () => {
-    // focusTime int
     removeTimer();
     setTimer(focusTime, 0);
   };

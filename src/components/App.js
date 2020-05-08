@@ -5,9 +5,8 @@ import GlobalStyles from "../Styles/GlobalStyles";
 import styled, { ThemeProvider } from "styled-components";
 import { breakDark, focusDark, breakLight, focusLight } from "../Styles/theme";
 import Timer from "./Timer";
-import Player from "./Player/Player";
 import PlayerButton from "./Player/PlayerButton";
-import PlayerPanel from "./Player/PlayerPanel";
+import Player from "./Player";
 import SettingButton from "./Setting/SettingButton";
 import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
@@ -58,11 +57,7 @@ class App extends Component {
     longBreakTime: JSON.parse(localStorage.getItem(LONG_BREAK_TIME)),
   };
 
-  playPrevSong = () => {};
-
-  playNextSong = () => {};
-
-  togglePlay = () => {
+  toggleIsPlay = () => {
     this.setState({ isPlay: !this.state.isPlay });
   };
 
@@ -202,7 +197,6 @@ class App extends Component {
       theme,
       isSettingClick,
       isToDoClick,
-      isNightMode,
       isAutoStart,
       isOverCount,
       isStudy,
@@ -250,18 +244,12 @@ class App extends Component {
         ) : (
           ""
         )}
-        {isPlayerClick ? (
-          <PlayerPanel
-            isPlay={isPlay}
-            tooglePlay={this.togglePlay}
-            togglePlayerButton={this.togglePlayerButton}
-            playNextSong={this.playNextSong}
-            playPrevSong={this.playPrevSong}
-          />
-        ) : (
-          ""
-        )}
-        <Player />
+        <Player
+          isPlay={isPlay}
+          isPlayerClick={isPlayerClick}
+          toggleIsPlay={this.toggleIsPlay}
+          togglePlayerButton={this.togglePlayerButton}
+        />
         <ButtonConatiner>
           <PlayerButton
             isPlay={isPlay}
