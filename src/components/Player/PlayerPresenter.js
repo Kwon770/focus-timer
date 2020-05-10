@@ -13,8 +13,6 @@ import {
   faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-// https://coderwall.com/p/nihgwq/get-a-thumbnail-from-a-youtube-video
-
 export default ({
   title,
   author,
@@ -112,6 +110,9 @@ const Button = styled.div`
   box-shadow: rgba(0, 0, 0, 0.27) 0 10px 20px;
   color: ${(props) => props.theme.panelFontColor};
   font-size: 22px;
+  &:hover {
+    background-color: ${(props) => props.theme.lightDisabledColor};
+  }
 `;
 
 const Thumbnail = styled.div`

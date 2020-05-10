@@ -30,4 +30,7 @@ const Button = styled.div`
     props.isToDoClick
       ? props.theme.highLightColor
       : props.theme.darkDisabledColor};
+  &:hover {
+    background-color: ${(props) => props.theme.lightDisabledColor};
+  }
 `;

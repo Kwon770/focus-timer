@@ -49,13 +49,13 @@ export default ({
       </TimerWrapper>
       <TimerButtonWrapper>
         <TimerButton onClick={HandlePlay}>
-          <FontAwesomeIcon icon={faPlayCircle} size="5x" color="white" />
+          <FontAwesomeIcon icon={faPlayCircle} size="5x" />
         </TimerButton>
         <TimerButton onClick={HandlePause}>
-          <FontAwesomeIcon icon={faPauseCircle} size="5x" color="white" />
+          <FontAwesomeIcon icon={faPauseCircle} size="5x" />
         </TimerButton>
         <TimerButton onClick={HandleStop}>
-          <FontAwesomeIcon icon={faStopCircle} size="5x" color="white" />
+          <FontAwesomeIcon icon={faStopCircle} size="5x" />
         </TimerButton>
       </TimerButtonWrapper>
     </Main>
@@ -77,6 +77,10 @@ const TimerButton = styled.button`
   &:focus {
     outline: none !important;
     outline-offset: none !important;
+  }
+  color: ${(props) => props.theme.fontColor};
+  &:hover {
+    color: ${(props) => props.theme.lightDisabledColor};
   }
 `;
 

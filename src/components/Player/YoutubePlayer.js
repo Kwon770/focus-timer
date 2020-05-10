@@ -22,7 +22,6 @@ export default forwardRef((props, ref) => {
     },
 
     pauseMusic() {
-      console.log(myRef.current);
       myRef.current.internalPlayer.pauseVideo();
     },
   }));

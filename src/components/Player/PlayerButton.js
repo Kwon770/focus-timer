@@ -62,4 +62,7 @@ const Button = styled.div`
     props.isPlay ? props.theme.highLightColor : props.theme.darkDisabledColor};
   font-size: 20px;
   padding-right: 5px;
+  &:hover {
+    background-color: ${(props) => props.theme.lightDisabledColor};
+  }
 `;
