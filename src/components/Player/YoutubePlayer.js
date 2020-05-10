@@ -8,7 +8,7 @@ import YouTube from "react-youtube";
 import styled from "styled-components";
 
 export default forwardRef((props, ref) => {
-  const [music, setMusic] = useState("K3Qzzggn--s");
+  const [music, setMusic] = useState(props.getCurrentSong());
   const myRef = useRef();
 
   useImperativeHandle(ref, () => ({
@@ -34,7 +34,12 @@ export default forwardRef((props, ref) => {
   };
   return (
     <YoutubeWrapper>
-      <YouTube ref={myRef} videoId={music} opts={opts} />
+      <YouTube
+        ref={myRef}
+        videoId={music}
+        opts={opts}
+        onEnd={() => props.playNextSong()}
+      />
     </YoutubeWrapper>
   );
 });

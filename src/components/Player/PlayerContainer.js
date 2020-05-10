@@ -23,11 +23,11 @@ export default ({
   };
 
   const playPrevSong = () => {
-    playerRef.current.changeMusic(getNextSong());
+    playerRef.current.changeMusic(getPrevSong());
   };
 
   const playNextSong = () => {
-    playerRef.current.changeMusic(getPrevSong());
+    playerRef.current.changeMusic(getNextSong());
   };
 
   const togglePlay = () => {
@@ -41,7 +41,11 @@ export default ({
 
   return (
     <>
-      <YoutubePlayer ref={playerRef} />
+      <YoutubePlayer
+        ref={playerRef}
+        getCurrentSong={getCurrentSong}
+        playNextSong={playNextSong}
+      />
       {isPlayerClick ? (
         <PlayerPresenter
           isPlay={isPlay}
