@@ -10,7 +10,6 @@ import styled from "styled-components";
 export default forwardRef((props, ref) => {
   const [music, setMusic] = useState(props.getCurrentSong());
   const myRef = useRef();
-  let p;
 
   useImperativeHandle(ref, () => ({
     changeMusic(id) {
@@ -19,6 +18,8 @@ export default forwardRef((props, ref) => {
 
     playMusic() {
       myRef.current.internalPlayer.playVideo();
+      myRef.current.internalPlayer.unMute();
+      myRef.current.internalPlayer.setVolume(45);
     },
 
     pauseMusic() {
@@ -40,6 +41,10 @@ export default forwardRef((props, ref) => {
         videoId={music}
         opts={opts}
         onEnd={() => props.playNextSong()}
+        onReady={(e) => {
+          e.target.unMute();
+          e.target.setVolume(45);
+        }}
       />
     </YoutubeWrapper>
   );
