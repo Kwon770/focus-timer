@@ -4,6 +4,7 @@ import PlayerPresenter from "./PlayerPresenter";
 import {
   videoIdlist,
   getTheme,
+  getThemeIdx,
   getCurrentSong,
   getPrevSong,
   getNextSong,
@@ -80,6 +81,7 @@ export default ({
           togglePlayerButton={togglePlayerButton}
           videoIdlist={videoIdlist}
           openCurSong={openCurSong}
+          getThemeIdx={getThemeIdx}
           changeTheme={changeTheme}
           playNextSong={playNextSong}
           playPrevSong={playPrevSong}

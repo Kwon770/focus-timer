@@ -22,6 +22,7 @@ export default ({
   togglePlayerButton,
   videoIdlist,
   openCurSong,
+  getThemeIdx,
   changeTheme,
   playNextSong,
   playPrevSong,
@@ -41,7 +42,10 @@ export default ({
         <Main>
           <PlaylistWrapper>
             {Object.keys(videoIdlist).map((theme, index) => (
-              <PlayerlistElement onClick={() => changeTheme(index)}>
+              <PlayerlistElement
+                onClick={() => changeTheme(index)}
+                isSelected={index === getThemeIdx()}
+              >
                 {theme}
               </PlayerlistElement>
             ))}
@@ -81,7 +85,8 @@ export default ({
 };
 
 const PlayerlistElement = styled.li`
-  color: ${(props) => props.theme.panelFontColor};
+  color: ${(props) =>
+    props.isSelected ? props.theme.highLightColor : props.theme.panelFontColor};
   margin-bottom: 15px;
   user-select: none;
 `;

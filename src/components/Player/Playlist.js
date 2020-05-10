@@ -7,6 +7,10 @@ export const videoIdlist = {
 let theme = 0;
 let song = 0;
 
+export const getThemeIdx = () => {
+  return theme;
+};
+
 export const getTheme = (idx) => {
   theme = idx;
   song = 0;
