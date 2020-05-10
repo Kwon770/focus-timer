@@ -16,8 +16,11 @@ import {
 // https://coderwall.com/p/nihgwq/get-a-thumbnail-from-a-youtube-video
 
 export default ({
+  title,
+  author,
+  thumbnail,
   isPlay,
-  toggleIsPlay,
+  togglePlay,
   togglePlayerButton,
   videoIdlist,
   changeTheme,
@@ -48,8 +51,8 @@ export default ({
       ) : (
         <Main>
           <TitleWrapper>
-            <Name>ASMR</Name>
-            <Author>Soup Asmr</Author>
+            <Name>{title}</Name>
+            <Author>{author}</Author>
           </TitleWrapper>
           <ThumbnailWrapper>
             <FontAwesomeIcon
@@ -57,7 +60,7 @@ export default ({
               size="2x"
               onClick={playPrevSong}
             />
-            <Thumbnail />
+            <Thumbnail url={thumbnail} />
             <FontAwesomeIcon
               icon={faAngleRight}
               size="2x"
@@ -66,8 +69,8 @@ export default ({
           </ThumbnailWrapper>
         </Main>
       )}
-      <Wave fill="#EFEFF8" paused={isPlay} />
-      <Button onClick={toggleIsPlay}>
+      <Wave fill="#EFEFF8" paused={!isPlay} />
+      <Button onClick={togglePlay}>
         {isPlay ? (
           <FontAwesomeIcon icon={faPause} />
         ) : (
@@ -109,7 +112,7 @@ const Button = styled.div`
 `;
 
 const Thumbnail = styled.div`
-  background-image: url("https://img.youtube.com/vi/K3Qzzggn--s/0.jpg");
+  background-image: url(${(props) => props.url});
   background-size: cover;
   background-position: center;
   width: 110px;

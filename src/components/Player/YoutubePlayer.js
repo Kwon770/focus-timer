@@ -10,6 +10,7 @@ import styled from "styled-components";
 export default forwardRef((props, ref) => {
   const [music, setMusic] = useState(props.getCurrentSong());
   const myRef = useRef();
+  let p;
 
   useImperativeHandle(ref, () => ({
     changeMusic(id) {
@@ -17,11 +18,12 @@ export default forwardRef((props, ref) => {
     },
 
     playMusic() {
-      myRef.current.playVideo();
+      myRef.current.internalPlayer.playVideo();
     },
 
     pauseMusic() {
-      myRef.current.pauseVideo();
+      console.log(myRef.current);
+      myRef.current.internalPlayer.pauseVideo();
     },
   }));
 
