@@ -84,6 +84,8 @@ export default ({
 
 const PlayerlistElement = styled.li`
   color: ${(props) => props.theme.panelFontColor};
+  margin-bottom: 15px;
+  user-select: none;
 `;
 
 const PlaylistWrapper = styled.ul`
@@ -92,7 +94,7 @@ const PlaylistWrapper = styled.ul`
   width: 100%;
   height: 100%;
   margin: 0;
-  /* padding: 0px 10px; */
+  padding: 0px 10px;
 `;
 
 const Button = styled.div`
@@ -134,11 +136,13 @@ const Author = styled.span`
   color: ${(props) => props.theme.darkDisabledColor};
   font-size: 12px;
   margin-top: 2px;
+  text-align: center;
 `;
 
 const Name = styled.span`
   color: ${(props) => props.theme.panelFontColor};
   font-size: 15px;
+  text-align: center;
 `;
 
 const TitleWrapper = styled.div`
@@ -164,6 +168,6 @@ const Panel = styled.div`
   margin-top: -200px;
   left: 50%;
   margin-left: -150px;
-  height: 440px;
+  padding: 20px;
   width: 300px;
 `;

@@ -85,6 +85,7 @@ const DigitalTimer = styled.span`
   font-size: 140px;
   font-weight: 300;
   position: relative;
+  user-select: none;
 `;
 
 const DigitalTimerDot = styled.span`
@@ -94,6 +95,7 @@ const DigitalTimerDot = styled.span`
   position: absolute;
   top: 65px;
   left: 0;
+  user-select: none;
 `;
 
 const TimerWrapper = styled.div`
