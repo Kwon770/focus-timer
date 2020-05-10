@@ -23,6 +23,7 @@ export default ({
   togglePlay,
   togglePlayerButton,
   videoIdlist,
+  openCurSong,
   changeTheme,
   playNextSong,
   playPrevSong,
@@ -60,7 +61,7 @@ export default ({
               size="2x"
               onClick={playPrevSong}
             />
-            <Thumbnail url={thumbnail} />
+            <Thumbnail url={thumbnail} onClick={openCurSong} />
             <FontAwesomeIcon
               icon={faAngleRight}
               size="2x"

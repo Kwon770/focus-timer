@@ -20,6 +20,10 @@ export default ({
   const [author, setAuthor] = useState();
   const [thumbnail, setThumbnail] = useState();
 
+  const openCurSong = () => {
+    window.open("https://www.youtube.com/watch?v=" + getCurrentSong());
+  };
+
   const getSongInformation = (id) => {
     const jUrl =
       "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + id;
@@ -75,6 +79,7 @@ export default ({
           togglePlay={togglePlay}
           togglePlayerButton={togglePlayerButton}
           videoIdlist={videoIdlist}
+          openCurSong={openCurSong}
           changeTheme={changeTheme}
           playNextSong={playNextSong}
           playPrevSong={playPrevSong}
