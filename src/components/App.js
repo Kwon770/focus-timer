@@ -12,6 +12,7 @@ import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
 
+const PLAY = "play";
 const TODOS_LS = "todosLocalStorage";
 const NIGHT_MODE = "nightMode";
 const AUTO_START = "autoStart";
@@ -26,6 +27,7 @@ class App extends Component {
     super(props);
     // load saved data and apply time setting
     this.loadToDos();
+    localStorage.setItem(PLAY, JSON.stringify(true));
   }
 
   componentDidMount() {
@@ -40,7 +42,7 @@ class App extends Component {
     isStudy: false,
     // Player
     isPlayerClick: false,
-    isPlay: true,
+    isPlay: JSON.parse(localStorage.getItem(PLAY)),
     // ToDos
     isToDoClick: false,
     curDo: null,
@@ -58,7 +60,9 @@ class App extends Component {
   };
 
   toggleIsPlay = () => {
-    this.setState({ isPlay: !this.state.isPlay });
+    this.setState({ isPlay: !this.state.isPlay }, () =>
+      localStorage.setItem(PLAY, JSON.stringify(this.state.isPlay))
+    );
   };
 
   togglePlayerButton = () => {
