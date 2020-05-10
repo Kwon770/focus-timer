@@ -25,12 +25,6 @@ const SHORT_BREAK_TIME = "shortBreakTime";
 const LONG_BREAK_TIME = "longBreakTime";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    // load saved data and apply time setting
-    this.loadToDos();
-  }
-
   componentDidMount() {
     this.checkLastDate();
     this.ApplyTheme();
@@ -48,7 +42,7 @@ class App extends Component {
     isToDoClick: false,
     curDo: JSON.parse(localStorage.getItem(CUR_DO)),
     curDoId: JSON.parse(localStorage.getItem(CUR_DO_ID)),
-    toDos: [],
+    toDos: JSON.parse(localStorage.getItem(TODOS_LS)),
     // Settings
     isSettingClick: false,
     isNightMode: JSON.parse(localStorage.getItem(NIGHT_MODE)),
@@ -76,7 +70,7 @@ class App extends Component {
     const todayDate = date.getMonth() + "." + date.getDate();
     if (lastDate !== todayDate) {
       let newToDos = [];
-      this.state.toDos.map((toDo) => {
+      this.state.toDos.forEach((toDo) => {
         toDo.todayTime = 0;
         toDo.isDone = false;
         newToDos.push(toDo);
@@ -89,17 +83,10 @@ class App extends Component {
 
   saveToDos = () => {
     let savingToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.state.toDos.forEach((toDo) => {
       if (toDo.isButton === false) savingToDos.push(toDo);
     });
     localStorage.setItem(TODOS_LS, JSON.stringify(savingToDos));
-  };
-
-  loadToDos = () => {
-    const loadedToDos = localStorage.getItem(TODOS_LS);
-    if (loadedToDos !== null) {
-      this.state.toDos = JSON.parse(loadedToDos);
-    }
   };
 
   setCurDo = (curDo, curDoId) => {
@@ -112,7 +99,7 @@ class App extends Component {
 
   addFocusedTime = (time) => {
     let newToDos = [];
-    this.state.toDos.map((toDo) => {
+    this.state.toDos.forEach((toDo) => {
       if (toDo.id === this.state.curDoId) {
         toDo.todayTime += time;
         toDo.totalTime += time;

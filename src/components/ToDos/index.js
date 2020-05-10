@@ -11,7 +11,7 @@ export default class ToDosPresenter extends React.Component {
 
   addToDo = (name) => {
     let newToDos = [];
-    this.props.toDos.map((toDo) => {
+    this.props.toDos.forEach((toDo) => {
       toDo.isSelected = false;
       newToDos.push(toDo);
     });
@@ -29,7 +29,7 @@ export default class ToDosPresenter extends React.Component {
 
   deleteToDo = (id) => {
     let newToDos = [];
-    this.props.toDos.map((toDo) => {
+    this.props.toDos.forEach((toDo) => {
       if (toDo.id !== id) newToDos.push(toDo);
     });
     this.props.reallocateToDos(newToDos);
@@ -37,7 +37,7 @@ export default class ToDosPresenter extends React.Component {
 
   editToDo = (id) => {
     let newToDos = [];
-    this.props.toDos.map((toDo) => {
+    this.props.toDos.forEach((toDo) => {
       if (toDo.id === id) {
         toDo.isEdit = true;
       } else if (toDo.isEdit) {
@@ -50,7 +50,7 @@ export default class ToDosPresenter extends React.Component {
 
   changeToDo = (id, name) => {
     let newToDos = [];
-    this.props.toDos.map((toDo) => {
+    this.props.toDos.forEach((toDo) => {
       if (toDo.id === id) {
         toDo.name = name;
         toDo.isEdit = false;
@@ -62,7 +62,7 @@ export default class ToDosPresenter extends React.Component {
 
   selectToDo = (id) => {
     let newToDos = [];
-    this.props.toDos.map((toDo) => {
+    this.props.toDos.forEach((toDo) => {
       if (toDo.id === id) {
         localStorage.setItem(CUR_DO, JSON.stringify(toDo.name));
         localStorage.setItem(CUR_DO_ID, JSON.stringify(toDo.id));
@@ -80,7 +80,7 @@ export default class ToDosPresenter extends React.Component {
 
   toggleToDoProgress = (id) => {
     let newToDos = [];
-    this.props.toDos.map((toDo) => {
+    this.props.toDos.forEach((toDo) => {
       if (toDo.id === id) {
         toDo.isDone = !toDo.isDone;
       }
@@ -92,14 +92,14 @@ export default class ToDosPresenter extends React.Component {
   toggleEditMode = () => {
     let newToDos = [];
     if (this.state.isEditMode) {
-      this.props.toDos.map((toDo) => newToDos.push(toDo));
+      this.props.toDos.forEach((toDo) => newToDos.push(toDo));
       newToDos.splice(0, 1);
     } else {
       newToDos.push({
         id: 123456789,
         isButton: true,
       });
-      this.props.toDos.map((toDo) => {
+      this.props.toDos.forEach((toDo) => {
         toDo.isEdit = false;
         newToDos.push(toDo);
       });

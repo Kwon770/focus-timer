@@ -46,14 +46,14 @@ export default function ToDosPanel(props) {
 
   return (
     <Panel>
-      <Title_Wrapper>
+      <TitleWrapper>
         <FontAwesomeIcon icon={faClipboard} style={{ marginRight: 10 }} />
         Todo
-      </Title_Wrapper>
+      </TitleWrapper>
       <EditButton isEditMode={isEditMode} onClick={toggleEditMode}>
         <FontAwesomeIcon icon={faPen} />
       </EditButton>
-      <List_Conatiner>
+      <ListConatiner>
         <FlipMove enterAnimation="fade" leaveAnimation="fade">
           {toDos.map((toDo) => {
             if (toDo.isButton) {
@@ -84,12 +84,12 @@ export default function ToDosPanel(props) {
             }
           })}
         </FlipMove>
-      </List_Conatiner>
+      </ListConatiner>
     </Panel>
   );
 }
 
-const List_Conatiner = styled.ul`
+const ListConatiner = styled.ul`
   list-style: none;
   overflow-y: scroll;
   display: flex;
@@ -102,7 +102,7 @@ const List_Conatiner = styled.ul`
   margin-bottom: 10px;
 `;
 
-const Title_Wrapper = styled.div`
+const TitleWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   font-size: 25px;
