@@ -1,6 +1,9 @@
 import React from "react";
 import Panel from "./ToDosPanel";
 
+const CUR_DO = "curDo";
+const CUR_DO_ID = "curDoId";
+
 export default class ToDosPresenter extends React.Component {
   state = {
     isEditMode: false,
@@ -61,6 +64,8 @@ export default class ToDosPresenter extends React.Component {
     let newToDos = [];
     this.props.toDos.map((toDo) => {
       if (toDo.id === id) {
+        localStorage.setItem(CUR_DO, JSON.stringify(toDo.name));
+        localStorage.setItem(CUR_DO_ID, JSON.stringify(toDo.id));
         this.props.setCurDo(toDo.name, toDo.id);
         toDo.isSelected = true;
         newToDos.splice(0, 0, toDo);

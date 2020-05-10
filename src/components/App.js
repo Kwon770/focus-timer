@@ -14,6 +14,8 @@ import ToDosPanel from "./ToDos";
 
 const PLAY = "play";
 const TODOS_LS = "todosLocalStorage";
+const CUR_DO = "curDo";
+const CUR_DO_ID = "curDoId";
 const NIGHT_MODE = "nightMode";
 const AUTO_START = "autoStart";
 const OVER_COUNT = "overCount";
@@ -27,7 +29,6 @@ class App extends Component {
     super(props);
     // load saved data and apply time setting
     this.loadToDos();
-    localStorage.setItem(PLAY, JSON.stringify(true));
   }
 
   componentDidMount() {
@@ -45,8 +46,8 @@ class App extends Component {
     isPlay: JSON.parse(localStorage.getItem(PLAY)),
     // ToDos
     isToDoClick: false,
-    curDo: null,
-    curDoId: null,
+    curDo: JSON.parse(localStorage.getItem(CUR_DO)),
+    curDoId: JSON.parse(localStorage.getItem(CUR_DO_ID)),
     toDos: [],
     // Settings
     isSettingClick: false,
