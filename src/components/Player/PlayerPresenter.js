@@ -19,6 +19,8 @@ export default ({
   isPlay,
   toggleIsPlay,
   togglePlayerButton,
+  videoIdlist,
+  changeTheme,
   playNextSong,
   playPrevSong,
 }) => {
@@ -36,17 +38,11 @@ export default ({
       {playlist.value ? (
         <Main>
           <PlaylistWrapper>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
-            <PlayerlistElement>123</PlayerlistElement>
+            {Object.keys(videoIdlist).map((theme, index) => (
+              <PlayerlistElement onClick={() => changeTheme(index)}>
+                {theme}
+              </PlayerlistElement>
+            ))}
           </PlaylistWrapper>
         </Main>
       ) : (

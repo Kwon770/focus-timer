@@ -25,11 +25,6 @@ export default forwardRef((props, ref) => {
     },
   }));
 
-  const a = () => {
-    console.log(myRef);
-    myRef.current.internalPlayer.pauseVideo();
-  };
-
   const opts = {
     height: "0",
     width: "0",

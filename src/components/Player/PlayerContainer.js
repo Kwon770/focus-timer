@@ -1,6 +1,13 @@
 import React, { useRef } from "react";
 import YoutubePlayer from "./YoutubePlayer";
 import PlayerPresenter from "./PlayerPresenter";
+import {
+  videoIdlist,
+  getTheme,
+  getCurrentSong,
+  getPrevSong,
+  getNextSong,
+} from "./Playlist";
 
 export default ({
   isPlay,
@@ -10,12 +17,17 @@ export default ({
 }) => {
   const playerRef = useRef();
 
+  const changeTheme = (idx) => {
+    getTheme(idx);
+    playerRef.current.changeMusic(getCurrentSong());
+  };
+
   const playPrevSong = () => {
-    playerRef.current.changeMusic("dTwj7PhpY9M");
+    playerRef.current.changeMusic(getNextSong());
   };
 
   const playNextSong = () => {
-    playerRef.current.changeMusic("dTwj7PhpY9M");
+    playerRef.current.changeMusic(getPrevSong());
   };
 
   const togglePlay = () => {
@@ -35,6 +47,8 @@ export default ({
           isPlay={isPlay}
           toggleIsPlay={togglePlay}
           togglePlayerButton={togglePlayerButton}
+          videoIdlist={videoIdlist}
+          changeTheme={changeTheme}
           playNextSong={playNextSong}
           playPrevSong={playPrevSong}
         />
