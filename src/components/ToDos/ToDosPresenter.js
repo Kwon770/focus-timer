@@ -7,19 +7,17 @@ import { faClipboard } from "@fortawesome/free-regular-svg-icons";
 import { AddingColumn } from "./AddingColumn";
 import { ToDoColumn } from "./ToDoColumn";
 
-export default function ToDosPanel(props) {
-  const {
-    isEditMode,
-    toDos,
-    addToDo,
-    deleteToDo,
-    editToDo,
-    changeToDo,
-    selectToDo,
-    toggleToDoProgress,
-    toggleEditMode,
-  } = props;
-
+export default ({
+  isEditMode,
+  toDos,
+  addToDo,
+  deleteToDo,
+  editToDo,
+  changeToDo,
+  selectToDo,
+  toggleToDoProgress,
+  toggleEditMode,
+}) => {
   const [isAddInput, setIsAddInput] = useState(false);
   const [addInput, setAddInput] = useState("");
   const [changeInput, setChangeInput] = useState("");
@@ -87,7 +85,7 @@ export default function ToDosPanel(props) {
       </ListConatiner>
     </Panel>
   );
-}
+};
 
 const ListConatiner = styled.ul`
   list-style: none;
