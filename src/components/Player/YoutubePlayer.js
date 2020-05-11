@@ -7,6 +7,8 @@ import React, {
 import YouTube from "react-youtube";
 import styled from "styled-components";
 
+const PLAY = "play";
+
 export default forwardRef((props, ref) => {
   const [music, setMusic] = useState(props.getCurrentSong());
   const myRef = useRef();
@@ -44,6 +46,9 @@ export default forwardRef((props, ref) => {
         onReady={(e) => {
           e.target.unMute();
           e.target.setVolume(45);
+          if (JSON.parse(localStorage.getItem(PLAY))) {
+            e.target.playVideo();
+          }
         }}
       />
     </YoutubeWrapper>
