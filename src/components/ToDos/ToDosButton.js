@@ -6,7 +6,11 @@ import { faCrutch } from "@fortawesome/free-solid-svg-icons";
 export default function ToDosButton(props) {
   return (
     <Button
-      onClick={props.toggleToDo}
+      onClick={() => {
+        if (!props.isStudy) {
+          props.toggleToDo();
+        }
+      }}
       isToDoClick={props.isToDoClick}
       isStudy={props.isStudy}
     >
@@ -21,7 +25,7 @@ const Button = styled.div`
   position: absolute;
   z-index: 1;
   top: 10px;
-  left: ${(props) => (props.isStudy ? "5px" : "150px")};
+  left: ${(props) => (props.isStudy ? "85px" : "150px")};
   transition: left 0.6s ease-in-out;
   height: 50px;
   padding: 0px 15px;
@@ -31,6 +35,9 @@ const Button = styled.div`
       ? props.theme.highLightColor
       : props.theme.darkDisabledColor};
   &:hover {
-    background-color: ${(props) => props.theme.lightDisabledColor};
+    background-color: ${(props) =>
+      props.isStudy
+        ? props.theme.panelBgColor
+        : props.theme.lightDisabledColor};
   }
 `;
