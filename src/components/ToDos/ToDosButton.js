@@ -7,12 +7,12 @@ export default function ToDosButton(props) {
   return (
     <Button
       onClick={() => {
-        if (!props.isStudy) {
+        if (!props.isProgress) {
           props.toggleToDo();
         }
       }}
       isToDoClick={props.isToDoClick}
-      isStudy={props.isStudy}
+      isProgress={props.isProgress}
     >
       <FontAwesomeIcon icon={faCrutch} style={{ marginRight: 10 }} />
       {props.curDo}
@@ -25,7 +25,7 @@ const Button = styled.div`
   position: absolute;
   z-index: 1;
   top: 10px;
-  left: ${(props) => (props.isStudy ? "85px" : "150px")};
+  left: ${(props) => (props.isProgress ? "85px" : "150px")};
   transition: left 0.6s ease-in-out;
   height: 50px;
   padding: 0px 15px;
@@ -36,7 +36,7 @@ const Button = styled.div`
       : props.theme.darkDisabledColor};
   &:hover {
     background-color: ${(props) =>
-      props.isStudy
+      props.isProgress
         ? props.theme.panelBgColor
         : props.theme.lightDisabledColor};
   }

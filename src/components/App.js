@@ -48,7 +48,7 @@ class App extends Component {
   state = {
     theme: focusLight,
     isFocus: true,
-    isStudy: false,
+    isProgress: false,
     // Player
     isPlayerClick: false,
     isPlay: JSON.parse(localStorage.getItem(PLAY)),
@@ -175,8 +175,8 @@ class App extends Component {
     this.setState({ isFocus: !this.state.isFocus });
   };
 
-  changeIsStudy = (bool) => {
-    this.setState({ isStudy: bool });
+  changeIsProgress = (bool) => {
+    this.setState({ isProgress: bool });
   };
 
   getBreakTime = () => {
@@ -205,7 +205,7 @@ class App extends Component {
       isToDoClick,
       isAutoStart,
       isOverCount,
-      isStudy,
+      isProgress,
       isPomodoro,
       focusTime,
       shortBreakTime,
@@ -228,7 +228,7 @@ class App extends Component {
           shortBreakTime={shortBreakTime}
           longBreakTime={longBreakTime}
           toggleIsFocus={this._toggleIsFocus}
-          changeIsStudy={this.changeIsStudy}
+          changeIsProgress={this.changeIsProgress}
           ApplyTheme={this.ApplyTheme}
           addFocusedTime={this.addFocusedTime}
           getBreakTime={this.getBreakTime}
@@ -266,12 +266,12 @@ class App extends Component {
             curDo={curDo}
             toggleToDo={this.toggleToDo}
             isToDoClick={isToDoClick}
-            isStudy={isStudy}
+            isProgress={isProgress}
           />
           <SettingButton
             isSettingClick={isSettingClick}
             ToggleSettingPanel={this.ToggleSettingPanel}
-            isStudy={isStudy}
+            isProgress={isProgress}
           />
         </ButtonConatiner>
       </ThemeProvider>

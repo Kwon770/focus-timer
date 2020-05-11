@@ -8,7 +8,7 @@ export default function SettingButton(props) {
     <Button
       onClick={props.ToggleSettingPanel}
       isSettingClick={props.isSettingClick}
-      isStudy={props.isStudy}
+      isProgress={props.isProgress}
     >
       <FontAwesomeIcon icon={faCog} />
     </Button>
@@ -22,7 +22,7 @@ const Button = styled.div`
   top: 10px;
   width: 50px;
   height: 50px;
-  left: ${(props) => (props.isStudy ? "10px" : "85px")};
+  left: ${(props) => (props.isProgress ? "10px" : "85px")};
   transition: left 0.6s ease-in-out;
   color: ${(props) =>
     props.isSettingClick

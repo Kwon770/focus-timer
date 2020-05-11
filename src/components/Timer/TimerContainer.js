@@ -11,7 +11,7 @@ function TimerContainer({
   isFocus,
   focusTime,
   toggleIsFocus,
-  changeIsStudy,
+  changeIsProgress,
   ApplyTheme,
   addFocusedTime,
   getBreakTime,
@@ -42,7 +42,7 @@ function TimerContainer({
       }
     }, 1000);
     intervalTimer.setValue(timer);
-    changeIsStudy(true);
+    changeIsProgress(true);
   };
 
   const removeTimer = () => {
@@ -51,7 +51,7 @@ function TimerContainer({
     // lively ;;
     addFocusedTime(focusTime - time.minute);
     //
-    changeIsStudy(false);
+    changeIsProgress(false);
   };
 
   const finishTimer = () => {
@@ -60,7 +60,7 @@ function TimerContainer({
       addSet();
 
       toggleIsFocus();
-      changeIsStudy(false);
+      changeIsProgress(false);
       addFocusedTime(focusTime);
       setTimer(getBreakTime(), 0);
     } else {
