@@ -14,7 +14,12 @@ export const clearSets = () => {
   };
 };
 
-export function sets(state = JSON.parse(localStorage.getItem(SETS)), action) {
+export function sets(
+  state = localStorage.getItem(SETS) === null
+    ? []
+    : JSON.parse(localStorage.getItem(SETS)),
+  action
+) {
   switch (action.type) {
     case ADD:
       const newSets = [...state, []];

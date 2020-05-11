@@ -12,6 +12,7 @@ import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
 
+const SETS = "sets";
 const LOCAL_DATE = "localDate";
 const PLAY = "play";
 const TODOS_LS = "todosLocalStorage";
@@ -26,23 +27,14 @@ const SHORT_BREAK_TIME = "shortBreakTime";
 const LONG_BREAK_TIME = "longBreakTime";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.checkLocalStorage();
+  }
   componentDidMount() {
     this.checkLastDate();
-    this.ApplyTheme();
     this.loadTime();
-    // console.log(JSON.parse(localStorage.getItem("sets")));
-    // localStorage.setItem("sets", JSON.stringify([]));
-    // localStorage.setItem(PLAY, JSON.stringify(true));
-    // localStorage.setItem(CUR_DO, JSON.stringify(""));
-    // localStorage.setItem(CUR_DO_ID, JSON.stringify(""));
-    // localStorage.setItem(TODOS_LS, JSON.stringify([]));
-    // localStorage.setItem(NIGHT_MODE, JSON.stringify(true));
-    // localStorage.setItem(AUTO_START, JSON.stringify(true));
-    // localStorage.setItem(OVER_COUNT, JSON.stringify(true));
-    // localStorage.setItem(POMODORO, JSON.stringify(true));
-    // localStorage.setItem(FOCUS_TIME, JSON.stringify(1));
-    // localStorage.setItem(SHORT_BREAK_TIME, JSON.stringify(1));
-    // localStorage.setItem(LONG_BREAK_TIME, JSON.stringify(1));
+    this.ApplyTheme();
   }
 
   state = {
@@ -66,6 +58,66 @@ class App extends Component {
     focusTime: JSON.parse(localStorage.getItem(FOCUS_TIME)),
     shortBreakTime: JSON.parse(localStorage.getItem(SHORT_BREAK_TIME)),
     longBreakTime: JSON.parse(localStorage.getItem(LONG_BREAK_TIME)),
+  };
+
+  checkLocalStorage = () => {
+    if (localStorage.getItem(SETS) === null) {
+      localStorage.setItem(SETS, JSON.stringify([[]]));
+    }
+    if (localStorage.getItem(LOCAL_DATE) === null) {
+      const date = new Date();
+      localStorage.setItem(
+        LOCAL_DATE,
+        JSON.stringify(date.getMonth() + "." + date.getDate())
+      );
+    }
+    if (localStorage.getItem(PLAY) === null) {
+      localStorage.setItem(PLAY, JSON.stringify(true));
+    }
+    if (localStorage.getItem(CUR_DO) === null) {
+      localStorage.setItem(CUR_DO, JSON.stringify("Code"));
+    }
+    if (localStorage.getItem(CUR_DO_ID) === null) {
+      localStorage.setItem(CUR_DO_ID, JSON.stringify(1589183103335));
+    }
+    if (localStorage.getItem(TODOS_LS) === null) {
+      localStorage.setItem(
+        TODOS_LS,
+        JSON.stringify([
+          {
+            id: 1589183103335,
+            isButton: false,
+            isSelected: true,
+            name: "Code",
+            totalTime: 1,
+            todayTime: 1,
+            isDone: false,
+            isEdit: false,
+          },
+        ])
+      );
+    }
+    if (localStorage.getItem(NIGHT_MODE) === null) {
+      localStorage.setItem(NIGHT_MODE, JSON.stringify(false));
+    }
+    if (localStorage.getItem(AUTO_START) === null) {
+      localStorage.setItem(AUTO_START, JSON.stringify(false));
+    }
+    if (localStorage.getItem(OVER_COUNT) === null) {
+      localStorage.setItem(OVER_COUNT, JSON.stringify(false));
+    }
+    if (localStorage.getItem(POMODORO) === null) {
+      localStorage.setItem(POMODORO, JSON.stringify(true));
+    }
+    if (localStorage.getItem(FOCUS_TIME) === null) {
+      localStorage.setItem(FOCUS_TIME, JSON.stringify(30));
+    }
+    if (localStorage.getItem(SHORT_BREAK_TIME) === null) {
+      localStorage.setItem(SHORT_BREAK_TIME, JSON.stringify(5));
+    }
+    if (localStorage.getItem(LONG_BREAK_TIME) === null) {
+      localStorage.setItem(LONG_BREAK_TIME, JSON.stringify(15));
+    }
   };
 
   toggleIsPlay = () => {
