@@ -2,6 +2,7 @@
   "name": "focus-timer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kwon770.github.io/focus-timer",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
@@ -23,11 +24,15 @@
     "styled-flex-component": "^3.0.0",
     "styled-reset": "^4.1.4"
   },
+  "resolutions": {
+    "@babel/preset-env": "7.5.5"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build&&gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }
