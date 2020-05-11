@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from "redux";
-import { time, setTimer, setMinute, setSecond } from "./reducers/time";
-import { sets, addSet, clearSets } from "./reducers/sets";
+import { time, setTimer, setMinute, setSecond } from "./Reducers/time";
+import { sets, addSet, clearSets } from "./Reducers/sets";
 
 const store = createStore(combineReducers({ time, sets }));
 

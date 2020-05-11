@@ -12,6 +12,7 @@ import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
 
+const LOCAL_DATE = "localDate";
 const PLAY = "play";
 const TODOS_LS = "todosLocalStorage";
 const CUR_DO = "curDo";
@@ -29,6 +30,17 @@ class App extends Component {
     this.checkLastDate();
     this.ApplyTheme();
     this.loadTime();
+    // localStorage.setItem(PLAY, JSON.stringify(true));
+    // localStorage.setItem(CUR_DO, JSON.stringify(""));
+    // localStorage.setItem(CUR_DO_ID, JSON.stringify(""));
+    // localStorage.setItem(TODOS_LS, JSON.stringify([]));
+    // localStorage.setItem(NIGHT_MODE, JSON.stringify(true));
+    // localStorage.setItem(AUTO_START, JSON.stringify(true));
+    // localStorage.setItem(OVER_COUNT, JSON.stringify(true));
+    // localStorage.setItem(POMODORO, JSON.stringify(true));
+    // localStorage.setItem(FOCUS_TIME, JSON.stringify(1));
+    // localStorage.setItem(SHORT_BREAK_TIME, JSON.stringify(1));
+    // localStorage.setItem(LONG_BREAK_TIME, JSON.stringify(1));
   }
 
   state = {
@@ -65,10 +77,10 @@ class App extends Component {
   };
 
   checkLastDate = () => {
-    const lastDate = localStorage.getItem("LastDate");
+    const lastDate = localStorage.getItem(LOCAL_DATE);
     const date = new Date();
-    const todayDate = date.getMonth() + "." + date.getDate();
-    if (lastDate !== todayDate) {
+    const curDate = date.getMonth() + "." + date.getDate();
+    if (lastDate !== curDate) {
       let newToDos = [];
       this.state.toDos.forEach((toDo) => {
         toDo.todayTime = 0;
@@ -77,7 +89,7 @@ class App extends Component {
       });
       this.reallocateToDos(newToDos);
       this.props.clearSets();
-      localStorage.setItem("LocalDate", todayDate);
+      localStorage.setItem(LOCAL_DATE, curDate);
     }
   };
 

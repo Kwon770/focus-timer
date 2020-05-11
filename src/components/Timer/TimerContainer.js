@@ -17,7 +17,6 @@ function TimerContainer({
   getBreakTime,
   time,
   setTimer,
-  setMinute,
   sets,
   addSet,
 }) {
