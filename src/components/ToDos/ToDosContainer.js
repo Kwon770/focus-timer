@@ -4,7 +4,7 @@ import ToDosPresenter from "./ToDosPresenter";
 const CUR_DO = "curDo";
 const CUR_DO_ID = "curDoId";
 
-export default ({ toDos, reallocateToDos, setCurDo }) => {
+export default ({ toDos, toggleToDo, setCurDo, reallocateToDos }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const addToDo = (name) => {
@@ -109,6 +109,7 @@ export default ({ toDos, reallocateToDos, setCurDo }) => {
   return (
     <ToDosPresenter
       toDos={toDos}
+      toggleToDo={toggleToDo}
       addToDo={addToDo}
       deleteToDo={deleteToDo}
       isEditMode={isEditMode}

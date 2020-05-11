@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import FlipMove from "react-flip-move";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faClipboard } from "@fortawesome/free-regular-svg-icons";
+import { faChevronLeft, faPen } from "@fortawesome/free-solid-svg-icons";
 import { AddingColumn } from "./AddingColumn";
 import { ToDoColumn } from "./ToDoColumn";
 
 export default ({
-  isEditMode,
+  toggleToDo,
   toDos,
+  isEditMode,
   addToDo,
   deleteToDo,
   editToDo,
@@ -44,13 +44,12 @@ export default ({
 
   return (
     <Panel>
-      <TitleWrapper>
-        <FontAwesomeIcon icon={faClipboard} style={{ marginRight: 10 }} />
-        Todo
-      </TitleWrapper>
-      <EditButton isEditMode={isEditMode} onClick={toggleEditMode}>
-        <FontAwesomeIcon icon={faPen} />
-      </EditButton>
+      <TopButtonsWrapper>
+        <FontAwesomeIcon icon={faChevronLeft} onClick={toggleToDo} />
+        <EditButton isEditMode={isEditMode} onClick={toggleEditMode}>
+          <FontAwesomeIcon icon={faPen} />
+        </EditButton>
+      </TopButtonsWrapper>
       <ListConatiner>
         <FlipMove enterAnimation="fade" leaveAnimation="fade">
           {toDos.map((toDo) => {
@@ -96,16 +95,6 @@ const ListConatiner = styled.ul`
   justify-content: flex-start;
   width: 100%;
   margin: 0px;
-  margin-top: 25px;
-  margin-bottom: 10px;
-`;
-
-const TitleWrapper = styled.div`
-  align-items: center;
-  justify-content: space-around;
-  font-size: 25px;
-  font-weight: 600;
-  color: ${(props) => props.theme.panelFontColor};
 `;
 
 const EditButton = styled.div`
@@ -113,12 +102,12 @@ const EditButton = styled.div`
     props.isEditMode
       ? props.theme.highLightColor
       : props.theme.darkDisabledColor};
-  position: absolute;
-  top: 25px;
-  right: 27px;
   padding: 0px 4px;
-  font-size: 20px;
   background-color: ${(props) => props.theme.panelBgColor};
+`;
+
+const TopButtonsWrapper = styled.div`
+  ${(props) => props.theme.topButtonsWrapper}
 `;
 
 const Panel = styled.div`

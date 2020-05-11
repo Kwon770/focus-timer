@@ -121,7 +121,7 @@ class App extends Component {
     });
   };
 
-  _toggleToDo = () => {
+  toggleToDo = () => {
     this.setState({ isToDoClick: !this.state.isToDoClick });
   };
 
@@ -229,6 +229,7 @@ class App extends Component {
         )}
         {isToDoClick ? (
           <ToDosPanel
+            toggleToDo={this.toggleToDo}
             setCurDo={this.setCurDo}
             reallocateToDos={this.reallocateToDos}
             toDos={this.state.toDos}
@@ -249,7 +250,7 @@ class App extends Component {
           />
           <ToDosButton
             curDo={curDo}
-            toggleToDo={this._toggleToDo}
+            toggleToDo={this.toggleToDo}
             isToDoClick={isToDoClick}
             isStudy={isStudy}
           />
