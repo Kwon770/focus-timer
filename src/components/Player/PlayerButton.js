@@ -19,7 +19,7 @@ export default function PlayerButton(props) {
           <FontAwesomeIcon icon={faItunesNote} size="2x" />
         </IconWrapper>
         {isOverlay ? (
-          <ButtonOverlay>
+          <ButtonOverlay isPlayerClick={props.isPlayerClick}>
             <FontAwesomeIcon icon={faBars} size="2x" />
           </ButtonOverlay>
         ) : (
@@ -38,7 +38,10 @@ const ButtonOverlay = styled.div`
   width: 70px;
   height: 70px;
   background-color: rgba(0, 0, 0, 0);
-  color: ${(props) => props.theme.darkDisabledColor};
+  color: ${(props) =>
+    props.isPlayerClick
+      ? props.theme.highLightColor
+      : props.theme.darkDisabledColor};
   font-size: 20px;
   display: flex;
   align-items: center;

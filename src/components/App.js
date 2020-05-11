@@ -75,7 +75,11 @@ class App extends Component {
   };
 
   togglePlayerButton = () => {
-    this.setState({ isPlayerClick: !this.state.isPlayerClick });
+    this.setState({
+      isPlayerClick: !this.state.isPlayerClick,
+      isToDoClick: false,
+      isSettingClick: false,
+    });
   };
 
   checkLastDate = () => {
@@ -136,7 +140,11 @@ class App extends Component {
   };
 
   toggleToDo = () => {
-    this.setState({ isToDoClick: !this.state.isToDoClick });
+    this.setState({
+      isToDoClick: !this.state.isToDoClick,
+      isPlayerClick: false,
+      isSettingClick: false,
+    });
   };
 
   ReloadOptions = () => {
@@ -152,17 +160,24 @@ class App extends Component {
   };
 
   ToggleSettingPanel = () => {
-    this.setState({ isSettingClick: !this.state.isSettingClick }, async () => {
-      if (!this.state.isSettingClick) {
-        await this.ReloadOptions();
+    this.setState(
+      {
+        isSettingClick: !this.state.isSettingClick,
+        isPlayerClick: false,
+        isToDoClick: false,
+      },
+      async () => {
+        if (!this.state.isSettingClick) {
+          await this.ReloadOptions();
 
-        if (this.state.isFocus) {
-          this.props.setTimer(this.state.focusTime, 0);
-        } else {
-          this.props.setTimer(this.getBreakTime(), 0);
+          if (this.state.isFocus) {
+            this.props.setTimer(this.state.focusTime, 0);
+          } else {
+            this.props.setTimer(this.getBreakTime(), 0);
+          }
         }
       }
-    });
+    );
   };
 
   ToggleNightMode = () => {
@@ -199,20 +214,23 @@ class App extends Component {
 
   render() {
     const {
-      curDo,
       theme,
-      isSettingClick,
+      isFocus,
+      isProgress,
+      // Playe
+      isPlayerClick,
+      isPlay,
+      // ToDo
       isToDoClick,
+      curDo,
+      // Setting
+      isSettingClick,
       isAutoStart,
       isOverCount,
-      isProgress,
       isPomodoro,
       focusTime,
       shortBreakTime,
       longBreakTime,
-      isFocus,
-      isPlay,
-      isPlayerClick,
     } = this.state;
     return (
       <ThemeProvider theme={theme}>
@@ -260,6 +278,7 @@ class App extends Component {
         <ButtonConatiner>
           <PlayerButton
             isPlay={isPlay}
+            isPlayerClick={isPlayerClick}
             togglePlayerButton={this.togglePlayerButton}
           />
           <ToDosButton
