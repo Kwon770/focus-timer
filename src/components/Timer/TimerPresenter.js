@@ -117,7 +117,7 @@ const Main = styled.main`
   width: 100%;
   height: 100%;
   background: ${(props) =>
-    props.isFocus ? props.theme.bgFocusColor : props.theme.bgBreakColor};
+    props.isFocus ? props.theme.focusBgColor : props.theme.breakBgColor};
   ${(props) => (props.isMenu ? "filter: blur(3px)" : "")};
   ${(props) => (props.isMenu ? "-webkit-filter: blur(3px)" : "")};
 `;
