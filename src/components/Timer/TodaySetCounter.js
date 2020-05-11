@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function TodaySetCounter(props) {
   return (
     <SetWrapper>
-      {props.sets.forEach((set, index) => {
+      {props.sets.map((set, index) => {
         if (index < 8) {
           return <Set key={index} />;
         } else if (index === 8) {
@@ -21,8 +21,6 @@ const SetWrapper = styled.ul`
   position: absolute;
   left: 0;
   top: -20px;
-  max-width: 400px;
-  /* overflow-wrap: break-word; */
   list-style: none;
   display: flex;
   justify-content: center;

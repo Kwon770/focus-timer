@@ -1,6 +1,6 @@
 const ADD = "ADD";
 const CLEAR = "CLEAR";
-const LOAD = "LOAD";
+const SETS = "sets";
 
 export const addSet = () => {
   return {
@@ -14,20 +14,15 @@ export const clearSets = () => {
   };
 };
 
-export const loadSets = () => {
-  return {
-    type: LOAD,
-  };
-};
-
-export function sets(state = [], action) {
+export function sets(state = JSON.parse(localStorage.getItem(SETS)), action) {
   switch (action.type) {
     case ADD:
-      return [...state, []];
+      const newSets = [...state, []];
+      localStorage.setItem(SETS, JSON.stringify(newSets));
+      return newSets;
     case CLEAR:
+      localStorage.setItem(SETS, JSON.stringify([]));
       return [];
-    case LOAD:
-      return;
     default:
       return state;
   }

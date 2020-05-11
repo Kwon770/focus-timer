@@ -31,7 +31,7 @@ export default forwardRef((props, ref) => {
     height: "0",
     width: "0",
     playerVars: {
-      autoplay: 1,
+      autoplay: 0, //
     },
   };
   return (

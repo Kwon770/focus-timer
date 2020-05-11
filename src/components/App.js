@@ -30,6 +30,8 @@ class App extends Component {
     this.checkLastDate();
     this.ApplyTheme();
     this.loadTime();
+    // console.log(JSON.parse(localStorage.getItem("sets")));
+    // localStorage.setItem("sets", JSON.stringify([]));
     // localStorage.setItem(PLAY, JSON.stringify(true));
     // localStorage.setItem(CUR_DO, JSON.stringify(""));
     // localStorage.setItem(CUR_DO_ID, JSON.stringify(""));
