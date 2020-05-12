@@ -8,6 +8,10 @@ import YouTube from "react-youtube";
 import styled from "styled-components";
 
 const PLAY = "play";
+window.YTConfig = {
+  host: "https://www.youtube.com",
+};
+// response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
 
 export default forwardRef((props, ref) => {
   const [music, setMusic] = useState(props.getCurrentSong());
