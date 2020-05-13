@@ -48,9 +48,10 @@ function TimerContainer({
   const removeTimer = () => {
     clearInterval(intervalTimer.value);
     intervalTimer.setValue(null);
-    // lively ;;
-    addFocusedTime(focusTime - time.minute);
-    //
+    if (isFocus) {
+      // Change to apply lively ?
+      addFocusedTime(focusTime - time.minute);
+    }
     changeIsProgress(false);
   };
 
@@ -86,6 +87,7 @@ function TimerContainer({
       startTimer={startTimer}
       removeTimer={removeTimer}
       setTimer={setTimer}
+      getBreakTime={getBreakTime}
     />
   );
 }

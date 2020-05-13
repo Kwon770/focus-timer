@@ -18,6 +18,7 @@ export default ({
   startTimer,
   removeTimer,
   setTimer,
+  getBreakTime,
 }) => {
   const HandlePlay = () => {
     startTimer();
@@ -29,7 +30,11 @@ export default ({
 
   const HandleStop = () => {
     removeTimer();
-    setTimer(focusTime, 0);
+    if (isFocus) {
+      setTimer(focusTime, 0);
+    } else {
+      setTimer(getBreakTime(), 0);
+    }
   };
 
   const convertToTimeFormat = (number) => {

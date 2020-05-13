@@ -37,7 +37,7 @@ export default forwardRef((props, ref) => {
     height: "0",
     width: "0",
     playerVars: {
-      autoplay: 0, //
+      autoplay: 1,
     },
   };
   return (
@@ -46,12 +46,12 @@ export default forwardRef((props, ref) => {
         ref={myRef}
         videoId={music}
         opts={opts}
-        onEnd={() => props.playNextSong()}
+        onEnd={props.playNextSong}
         onReady={(e) => {
           e.target.unMute();
           e.target.setVolume(45);
-          if (JSON.parse(localStorage.getItem(PLAY))) {
-            e.target.playVideo();
+          if (!JSON.parse(localStorage.getItem(PLAY))) {
+            e.target.pauseVideo();
           }
         }}
       />
