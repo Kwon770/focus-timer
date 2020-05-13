@@ -5,6 +5,8 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ toggleNoticeClick }) => {
   const content1 = `
+** New feature will update asap to be better
+
   - Even you are on break step, 
   timer will remember when you
   restart broswer
