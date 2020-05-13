@@ -47,8 +47,8 @@ class App extends Component {
     isFocus: JSON.parse(localStorage.getItem(FOCUS)),
     isProgress: false,
     // Notice Information
-    isNoticeClick: false,
-    isInformationClick: false,
+    isNoticeClick: true, //
+    isInformationClick: false, //
     // Player
     isPlayerClick: false,
     isPlay: JSON.parse(localStorage.getItem(PLAY)),
@@ -315,7 +315,13 @@ class App extends Component {
         <GlobalStyles />
         <Timer
           ref={this.Timer}
-          isMenu={isSettingClick || isToDoClick || isPlayerClick}
+          isMenu={
+            isSettingClick ||
+            isToDoClick ||
+            isPlayerClick ||
+            isInformationClick ||
+            isNoticeClick
+          }
           isPomodoro={isPomodoro}
           isAutoStart={isAutoStart}
           isOverCount={isOverCount}

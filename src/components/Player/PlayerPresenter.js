@@ -169,11 +169,7 @@ const Main = styled.main`
 
 const Panel = styled.div`
   ${(props) => props.theme.panel}
-  position: absolute;
-  top: 50%;
   margin-top: -200px;
-  left: 50%;
   margin-left: -150px;
-  padding: 20px;
   width: 300px;
 `;

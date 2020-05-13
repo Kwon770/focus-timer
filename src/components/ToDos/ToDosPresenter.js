@@ -112,11 +112,7 @@ const TopButtonsWrapper = styled.div`
 
 const Panel = styled.div`
   ${(props) => props.theme.panel}
-  padding: 20px;
-  position: absolute;
-  top: 50%;
   margin-top: -200px;
-  left: 50%;
   margin-left: -150px;
   width: 300px;
   max-height: 380px;

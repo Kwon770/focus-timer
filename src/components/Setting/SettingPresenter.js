@@ -198,9 +198,6 @@ const Panel = styled.div`
   ${(props) => props.theme.panel}
   width: 300px;
   height: 450px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   margin-top: -200px;
   margin-left: -150px;
 `;

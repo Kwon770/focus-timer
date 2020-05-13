@@ -21,6 +21,9 @@ export const focusLight = {
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -59,6 +62,9 @@ export const breakLight = {
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -98,6 +104,9 @@ export const focusDark = {
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   `,
   button: `
   box-shadow: ${SHADOW};
@@ -136,6 +145,9 @@ export const breakDark = {
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   `,
   button: `
   box-shadow: ${SHADOW};
