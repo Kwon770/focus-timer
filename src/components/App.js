@@ -31,6 +31,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.checkLocalStorage();
+    // localStorage.setItem(
+    //   TODOS_LS,
+    //   JSON.stringify([
+    //     {
+    //       id: 1589183103335,
+    //       isButton: false,
+    //       isSelected: true,
+    //       name: "Code",
+    //       totalTime: 70,
+    //       todayTime: 10,
+    //       isDone: false,
+    //       isEdit: false,
+    //     },
+    //   ])
+    // );
   }
   componentDidMount() {
     this.checkLastDate();
@@ -90,8 +105,8 @@ class App extends Component {
             isButton: false,
             isSelected: true,
             name: "Code",
-            totalTime: 1,
-            todayTime: 1,
+            totalTime: 70,
+            todayTime: 10,
             isDone: false,
             isEdit: false,
           },

@@ -40,12 +40,15 @@ export default ({ ToggleNightMode, ToggleSettingPanel }) => {
     localStorage.setItem(AUTO_START, JSON.stringify(autoStart.value));
     localStorage.setItem(OVER_COUNT, JSON.stringify(overCount.value));
     localStorage.setItem(POMODORO, JSON.stringify(pomodoro.value));
-    localStorage.setItem(FOCUS_TIME, JSON.stringify(focusTime.value));
+    localStorage.setItem(FOCUS_TIME, JSON.stringify(Number(focusTime.value)));
     localStorage.setItem(
       SHORT_BREAK_TIME,
-      JSON.stringify(shortBreakTime.value)
+      JSON.stringify(Number(shortBreakTime.value))
     );
-    localStorage.setItem(LONG_BREAK_TIME, JSON.stringify(longBreakTime.value));
+    localStorage.setItem(
+      LONG_BREAK_TIME,
+      JSON.stringify(Number(longBreakTime.value))
+    );
   };
 
   const ResetOptions = () => {

@@ -19,7 +19,10 @@ export const ToDoColumn = forwardRef((props, ref) => (
     <ElementWrapper>
       <ProgressIcon
         isSelected={props.isSelected}
-        onClick={() => props.selectToDo(props.id)}
+        onClick={() => {
+          props.selectToDo(props.id);
+          console.log(props);
+        }}
       >
         <FontAwesomeIcon
           icon={faCrutch}
