@@ -31,21 +31,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.checkLocalStorage();
-    // localStorage.setItem(
-    //   TODOS_LS,
-    //   JSON.stringify([
-    //     {
-    //       id: 1589183103335,
-    //       isButton: false,
-    //       isSelected: true,
-    //       name: "Code",
-    //       totalTime: 70,
-    //       todayTime: 10,
-    //       isDone: false,
-    //       isEdit: false,
-    //     },
-    //   ])
-    // );
   }
   componentDidMount() {
     this.checkLastDate();
@@ -278,7 +263,7 @@ class App extends Component {
     if (this.state.isFocus) {
       this.props.setTimer(this.state.focusTime, 0);
     } else {
-      this.props.setTimer(this.getBreakTime, 0);
+      this.props.setTimer(this.getBreakTime(), 0);
     }
   };
 

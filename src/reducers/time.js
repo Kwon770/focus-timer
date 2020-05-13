@@ -10,13 +10,6 @@ export const setTimer = (min, sec) => {
   };
 };
 
-export const setMinute = (min) => {
-  return {
-    type: SET_MINUTE,
-    min,
-  };
-};
-
 export const setSecond = (sec) => {
   return {
     type: SET_SECOND,

@@ -99,7 +99,6 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     setTimer: (min, sec) => dispatch(actionCreators.setTimer(min, sec)),
-    setMinute: (min) => dispatch(actionCreators.setMinute(min)),
     addSet: () => dispatch(actionCreators.addSet()),
   };
 }
