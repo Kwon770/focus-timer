@@ -19,7 +19,7 @@ export default ({
   thumbnail,
   isPlay,
   togglePlay,
-  togglePlayerButton,
+  togglePlayerClick,
   videoIdlist,
   openCurSong,
   getThemeIdx,
@@ -31,7 +31,7 @@ export default ({
   return (
     <Panel>
       <TopButtonsWrapper>
-        <FontAwesomeIcon icon={faChevronLeft} onClick={togglePlayerButton} />
+        <FontAwesomeIcon icon={faChevronLeft} onClick={togglePlayerClick} />
         {playlist.value ? (
           <FontAwesomeIcon icon={faItunesNote} {...playlist} />
         ) : (

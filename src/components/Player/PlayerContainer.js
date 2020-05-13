@@ -10,12 +10,7 @@ import {
   getNextSong,
 } from "./Playlist";
 
-export default ({
-  isPlay,
-  isPlayerClick,
-  toggleIsPlay,
-  togglePlayerButton,
-}) => {
+export default ({ isPlay, isPlayerClick, toggleIsPlay, togglePlayerClick }) => {
   const playerRef = useRef();
   const [title, setTitle] = useState();
   const [author, setAuthor] = useState();
@@ -78,7 +73,7 @@ export default ({
           thumbnail={thumbnail}
           isPlay={isPlay}
           togglePlay={togglePlay}
-          togglePlayerButton={togglePlayerButton}
+          togglePlayerClick={togglePlayerClick}
           videoIdlist={videoIdlist}
           openCurSong={openCurSong}
           getThemeIdx={getThemeIdx}

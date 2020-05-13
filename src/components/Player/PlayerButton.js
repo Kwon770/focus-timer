@@ -11,7 +11,7 @@ export default function PlayerButton(props) {
     <>
       <Button
         isPlay={props.isPlay}
-        onClick={props.togglePlayerButton}
+        onClick={props.togglePlayerClick}
         onMouseOver={() => setIsOverlay(true)}
         onMouseLeave={() => setIsOverlay(false)}
       >

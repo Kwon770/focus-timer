@@ -14,8 +14,8 @@ export default ({
   ChangePomodoroTime,
   ResetOptions,
   SaveOptions,
-  ToggleSettingPanel,
-  ToggleNightMode,
+  toggleSettingClick,
+  toggleNightMode,
   nightMode,
   autoStart,
   overCount,
@@ -31,7 +31,7 @@ export default ({
           icon={faChevronLeft}
           onClick={async () => {
             await SaveOptions();
-            ToggleSettingPanel();
+            toggleSettingClick();
           }}
         />
         <FontAwesomeIcon icon={faRedoAlt} onClick={ResetOptions} />
@@ -42,7 +42,7 @@ export default ({
             <Button
               value={nightMode.value}
               onClick={() => {
-                ToggleNightMode();
+                toggleNightMode();
                 nightMode.onClick();
               }}
             >

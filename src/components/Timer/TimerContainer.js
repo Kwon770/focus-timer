@@ -12,7 +12,7 @@ function TimerContainer({
   focusTime,
   toggleIsFocus,
   changeIsProgress,
-  ApplyTheme,
+  applyTheme,
   addFocusedTime,
   getBreakTime,
   time,
@@ -73,7 +73,7 @@ function TimerContainer({
     if (isAutoStart) {
       startTimer();
     }
-    ApplyTheme();
+    applyTheme();
   };
 
   return (

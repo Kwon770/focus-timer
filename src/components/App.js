@@ -8,9 +8,13 @@ import Timer from "./Timer";
 import PlayerButton from "./Player/PlayerButton";
 import Player from "./Player";
 import SettingButton from "./Setting/SettingButton";
-import Setting from "./Setting";
+import SettingPanel from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
+import NoticeButton from "./Information/NoticeButton";
+import NotivePanel from "./Information/NoticePanel";
+import InformationButton from "./Information/InformationButton";
+import InformationPanel from "./Information/InformationPanel";
 
 const FOCUS = "focus";
 const SETS = "sets";
@@ -35,13 +39,16 @@ class App extends Component {
   componentDidMount() {
     this.checkLastDate();
     this.loadTime();
-    this.ApplyTheme();
+    this.applyTheme();
   }
 
   state = {
     theme: focusLight,
     isFocus: JSON.parse(localStorage.getItem(FOCUS)),
     isProgress: false,
+    // Notice Information
+    isNoticeClick: false,
+    isInformationClick: false,
     // Player
     isPlayerClick: false,
     isPlay: JSON.parse(localStorage.getItem(PLAY)),
@@ -121,20 +128,6 @@ class App extends Component {
     }
   };
 
-  toggleIsPlay = () => {
-    this.setState({ isPlay: !this.state.isPlay }, () =>
-      localStorage.setItem(PLAY, JSON.stringify(this.state.isPlay))
-    );
-  };
-
-  togglePlayerButton = () => {
-    this.setState({
-      isPlayerClick: !this.state.isPlayerClick,
-      isToDoClick: false,
-      isSettingClick: false,
-    });
-  };
-
   checkLastDate = () => {
     const lastDate = localStorage.getItem(LOCAL_DATE);
     const date = new Date();
@@ -150,6 +143,40 @@ class App extends Component {
       this.props.clearSets();
       localStorage.setItem(LOCAL_DATE, curDate);
     }
+  };
+
+  applyTheme = () => {
+    this.setState({
+      theme: this.state.isNightMode
+        ? this.state.isFocus
+          ? focusDark
+          : breakDark
+        : this.state.isFocus
+        ? focusLight
+        : breakLight,
+    });
+  };
+
+  toggleNoticeClick = () => {
+    this.setState({ isNoticeClick: !this.state.isNoticeClick });
+  };
+
+  toggleInformationClick = () => {
+    this.setState({ isInformationClick: !this.state.isInformationClick });
+  };
+
+  toggleIsPlay = () => {
+    this.setState({ isPlay: !this.state.isPlay }, () =>
+      localStorage.setItem(PLAY, JSON.stringify(this.state.isPlay))
+    );
+  };
+
+  togglePlayerClick = () => {
+    this.setState({
+      isPlayerClick: !this.state.isPlayerClick,
+      isToDoClick: false,
+      isSettingClick: false,
+    });
   };
 
   saveToDos = () => {
@@ -180,18 +207,6 @@ class App extends Component {
     this.reallocateToDos(newToDos);
   };
 
-  ApplyTheme = () => {
-    this.setState({
-      theme: this.state.isNightMode
-        ? this.state.isFocus
-          ? focusDark
-          : breakDark
-        : this.state.isFocus
-        ? focusLight
-        : breakLight,
-    });
-  };
-
   toggleToDo = () => {
     this.setState({
       isToDoClick: !this.state.isToDoClick,
@@ -203,45 +218,6 @@ class App extends Component {
       if (toDo.isButton === false) savingToDos.push(toDo);
     });
     this.reallocateToDos(savingToDos);
-  };
-
-  ReloadOptions = () => {
-    this.setState({
-      isNightMode: JSON.parse(localStorage.getItem(NIGHT_MODE)),
-      isAutoStart: JSON.parse(localStorage.getItem(AUTO_START)),
-      isOverCount: JSON.parse(localStorage.getItem(OVER_COUNT)),
-      isPomodoro: JSON.parse(localStorage.getItem(POMODORO)),
-      focusTime: JSON.parse(localStorage.getItem(FOCUS_TIME)),
-      shortBreakTime: JSON.parse(localStorage.getItem(SHORT_BREAK_TIME)),
-      longBreakTime: JSON.parse(localStorage.getItem(LONG_BREAK_TIME)),
-    });
-  };
-
-  ToggleSettingPanel = () => {
-    this.setState(
-      {
-        isSettingClick: !this.state.isSettingClick,
-        isPlayerClick: false,
-        isToDoClick: false,
-      },
-      async () => {
-        if (!this.state.isSettingClick) {
-          await this.ReloadOptions();
-
-          if (this.state.isFocus) {
-            this.props.setTimer(this.state.focusTime, 0);
-          } else {
-            this.props.setTimer(this.getBreakTime(), 0);
-          }
-        }
-      }
-    );
-  };
-
-  ToggleNightMode = () => {
-    this.setState({ isNightMode: !this.state.isNightMode }, () =>
-      this.ApplyTheme()
-    );
   };
 
   toggleIsFocus = () => {
@@ -272,12 +248,54 @@ class App extends Component {
     }
   };
 
+  reloadOptions = () => {
+    this.setState({
+      isNightMode: JSON.parse(localStorage.getItem(NIGHT_MODE)),
+      isAutoStart: JSON.parse(localStorage.getItem(AUTO_START)),
+      isOverCount: JSON.parse(localStorage.getItem(OVER_COUNT)),
+      isPomodoro: JSON.parse(localStorage.getItem(POMODORO)),
+      focusTime: JSON.parse(localStorage.getItem(FOCUS_TIME)),
+      shortBreakTime: JSON.parse(localStorage.getItem(SHORT_BREAK_TIME)),
+      longBreakTime: JSON.parse(localStorage.getItem(LONG_BREAK_TIME)),
+    });
+  };
+
+  toggleSettingClick = () => {
+    this.setState(
+      {
+        isSettingClick: !this.state.isSettingClick,
+        isPlayerClick: false,
+        isToDoClick: false,
+      },
+      async () => {
+        if (!this.state.isSettingClick) {
+          await this.reloadOptions();
+
+          if (this.state.isFocus) {
+            this.props.setTimer(this.state.focusTime, 0);
+          } else {
+            this.props.setTimer(this.getBreakTime(), 0);
+          }
+        }
+      }
+    );
+  };
+
+  toggleNightMode = () => {
+    this.setState({ isNightMode: !this.state.isNightMode }, () =>
+      this.applyTheme()
+    );
+  };
+
   render() {
     const {
       theme,
       isFocus,
       isProgress,
-      // Playe
+      // Notice Information
+      isNoticeClick,
+      isInformationClick,
+      // Player
       isPlayerClick,
       isPlay,
       // ToDo
@@ -307,14 +325,14 @@ class App extends Component {
           longBreakTime={longBreakTime}
           toggleIsFocus={this.toggleIsFocus}
           changeIsProgress={this.changeIsProgress}
-          ApplyTheme={this.ApplyTheme}
+          applyTheme={this.applyTheme}
           addFocusedTime={this.addFocusedTime}
           getBreakTime={this.getBreakTime}
         />
         {isSettingClick ? (
-          <Setting
-            ToggleNightMode={this.ToggleNightMode}
-            ToggleSettingPanel={this.ToggleSettingPanel}
+          <SettingPanel
+            toggleNightMode={this.toggleNightMode}
+            toggleSettingClick={this.toggleSettingClick}
           />
         ) : (
           ""
@@ -329,17 +347,23 @@ class App extends Component {
         ) : (
           ""
         )}
+        {isNoticeClick ? (
+          <NotivePanel toggleNoticeClick={this.toggleNoticeClick} />
+        ) : (
+          ""
+        )}
+        {isInformationClick ? <InformationPanel /> : ""}
         <Player
           isPlay={isPlay}
           isPlayerClick={isPlayerClick}
           toggleIsPlay={this.toggleIsPlay}
-          togglePlayerButton={this.togglePlayerButton}
+          togglePlayerClick={this.togglePlayerClick}
         />
-        <ButtonConatiner>
+        <ButtonConatiner Left>
           <PlayerButton
             isPlay={isPlay}
             isPlayerClick={isPlayerClick}
-            togglePlayerButton={this.togglePlayerButton}
+            togglePlayerClick={this.togglePlayerClick}
           />
           <ToDosButton
             curDo={curDo}
@@ -349,8 +373,14 @@ class App extends Component {
           />
           <SettingButton
             isSettingClick={isSettingClick}
-            ToggleSettingPanel={this.ToggleSettingPanel}
+            toggleSettingClick={this.toggleSettingClick}
             isProgress={isProgress}
+          />
+        </ButtonConatiner>
+        <ButtonConatiner Right>
+          <NoticeButton toggleNoticeClick={this.toggleNoticeClick} />
+          <InformationButton
+            toggleInformationClick={this.toggleInformationClick}
           />
         </ButtonConatiner>
       </ThemeProvider>
@@ -360,8 +390,8 @@ class App extends Component {
 
 const ButtonConatiner = styled.div`
   position: absolute;
-  left: 20px;
-  top: 15px;
+  ${(props) =>
+    props.Left ? "left:15px; top: 15px;" : "right: 55px; top: 35px;"}
   height: 50px;
   width: 10px;
   display: flex;
