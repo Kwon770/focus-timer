@@ -198,6 +198,11 @@ class App extends Component {
       isPlayerClick: false,
       isSettingClick: false,
     });
+    let savingToDos = [];
+    this.state.toDos.forEach((toDo) => {
+      if (toDo.isButton === false) savingToDos.push(toDo);
+    });
+    this.reallocateToDos(savingToDos);
   };
 
   ReloadOptions = () => {

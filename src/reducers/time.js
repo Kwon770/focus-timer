@@ -1,5 +1,4 @@
 const SET_TIMER = "SET_TIMER";
-const SET_MINUTE = "SET_MINUTE";
 const SET_SECOND = "SET_SECOND";
 
 export const setTimer = (min, sec) => {

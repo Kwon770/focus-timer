@@ -6,7 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 export const AddingColumn = forwardRef((props, ref) => (
   <List ref={ref}>
     <ElementWrapper>
-      <PlusIcon isInput={props.isInput} onClick={props.tryAdding}>
+      <PlusIcon isInput={props.isInput} onClick={props.addNewToDo}>
         <FontAwesomeIcon
           icon={faPlus}
           style={{ marginRight: 15, fontSize: 20 }}

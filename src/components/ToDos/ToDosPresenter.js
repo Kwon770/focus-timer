@@ -10,7 +10,7 @@ export default ({
   toggleToDo,
   toDos,
   isEditMode,
-  addToDo,
+  applyNewToDo,
   deleteToDo,
   editToDo,
   changeToDo,
@@ -34,9 +34,9 @@ export default ({
     }
   };
 
-  const tryAdding = () => {
+  const addNewToDo = () => {
     if (isAddInput) {
-      addToDo(addInput);
+      applyNewToDo(addInput);
       setAddInput("");
       setIsAddInput(false);
     }
@@ -57,7 +57,7 @@ export default ({
               return (
                 <AddingColumn
                   key={toDo.id}
-                  tryAdding={tryAdding}
+                  addNewToDo={addNewToDo}
                   toggleInputAdd={toggleInputAdd}
                   input={addInput}
                   isInput={isAddInput}

@@ -7,7 +7,7 @@ const CUR_DO_ID = "curDoId";
 export default ({ toDos, toggleToDo, setCurDo, reallocateToDos }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const addToDo = (name) => {
+  const applyNewToDo = (name) => {
     let newToDos = [];
     toDos.forEach((toDo) => {
       toDo.isSelected = false;
@@ -90,15 +90,18 @@ export default ({ toDos, toggleToDo, setCurDo, reallocateToDos }) => {
   const toggleEditMode = () => {
     let newToDos = [];
     if (isEditMode) {
-      toDos.forEach((toDo) => newToDos.push(toDo));
-      newToDos.splice(0, 1);
+      toDos
+        .filter((toDo) => toDo.isButton === false)
+        .forEach((toDo) => {
+          toDo.isEdit = false;
+          newToDos.push(toDo);
+        });
     } else {
       newToDos.push({
         id: 123456789,
         isButton: true,
       });
       toDos.forEach((toDo) => {
-        toDo.isEdit = false;
         newToDos.push(toDo);
       });
     }
@@ -110,7 +113,7 @@ export default ({ toDos, toggleToDo, setCurDo, reallocateToDos }) => {
     <ToDosPresenter
       toDos={toDos}
       toggleToDo={toggleToDo}
-      addToDo={addToDo}
+      applyNewToDo={applyNewToDo}
       deleteToDo={deleteToDo}
       isEditMode={isEditMode}
       editToDo={editToDo}
