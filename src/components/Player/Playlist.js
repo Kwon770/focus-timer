@@ -1,10 +1,5 @@
 export const videoIdlist = {
-  "Slow Tempo Music": [
-    "MGGMszebZHU",
-    "eyha_YQFKWw",
-    "K3Qzzggn--s",
-    "dTwj7PhpY9M",
-  ],
+  "Slow Tempo Music": ["K3Qzzggn--s", "dTwj7PhpY9M"],
   "Real Cafe Sound / Asmr": ["sJgNGkfYsH0", "y-jzBmL_X8o&t=1136s"],
   "Lofi Beats": ["5qap5aO4i9A", "DWcJFNfaw9c"],
 };

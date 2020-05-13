@@ -12,6 +12,7 @@ import Setting from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
 
+const FOCUS = "focus";
 const SETS = "sets";
 const LOCAL_DATE = "localDate";
 const PLAY = "play";
@@ -39,7 +40,7 @@ class App extends Component {
 
   state = {
     theme: focusLight,
-    isFocus: true,
+    isFocus: JSON.parse(localStorage.getItem(FOCUS)),
     isProgress: false,
     // Player
     isPlayerClick: false,
@@ -238,8 +239,10 @@ class App extends Component {
     );
   };
 
-  _toggleIsFocus = () => {
-    this.setState({ isFocus: !this.state.isFocus });
+  toggleIsFocus = () => {
+    this.setState({ isFocus: !this.state.isFocus }, () =>
+      localStorage.setItem(FOCUS, JSON.stringify(this.state.isFocus))
+    );
   };
 
   changeIsProgress = (bool) => {
@@ -297,7 +300,7 @@ class App extends Component {
           focusTime={focusTime}
           shortBreakTime={shortBreakTime}
           longBreakTime={longBreakTime}
-          toggleIsFocus={this._toggleIsFocus}
+          toggleIsFocus={this.toggleIsFocus}
           changeIsProgress={this.changeIsProgress}
           ApplyTheme={this.ApplyTheme}
           addFocusedTime={this.addFocusedTime}
