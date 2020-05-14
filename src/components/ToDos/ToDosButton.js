@@ -30,6 +30,7 @@ const Button = styled.div`
   height: 50px;
   padding: 0px 15px;
   font-weight: 600;
+  user-select: none;
   color: ${(props) =>
     props.isToDoClick
       ? props.theme.highLightColor
