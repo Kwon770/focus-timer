@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/focus-timer/precache-manifest.3353f7310e9cf12e6d7bbac59c8e7c72.js"
+  "/focus-timer/precache-manifest.46114d49bfeb93ce9494cb32dabc6247.js"
 );
 
 self.addEventListener('message', (event) => {
