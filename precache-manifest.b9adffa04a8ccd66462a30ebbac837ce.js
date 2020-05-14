@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "78f0517de652eeda3d52c1acf350a70b",
+    "revision": "bcb8e301862c96aaf4a342b58e54878e",
     "url": "/focus-timer/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/focus-timer/static/js/2.4108904f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "716fc573fc3b7f156e97",
-    "url": "/focus-timer/static/js/main.c88d6bc0.chunk.js"
+    "revision": "ab82dafbf9bcc70851ae",
+    "url": "/focus-timer/static/js/main.50d02cbf.chunk.js"
   },
   {
     "revision": "1645ca867893b2285bff",
