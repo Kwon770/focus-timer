@@ -73,6 +73,9 @@ class App extends Component {
     if (localStorage.getItem(PREV_NOTICE_ID) === null) {
       localStorage.setItem(PREV_NOTICE_ID, JSON.stringify("0.0.0"));
     }
+    if (localStorage.getItem(FOCUS) === null) {
+      localStorage.setItem(FOCUS, JSON.stringify(true));
+    }
     if (localStorage.getItem(SETS) === null) {
       localStorage.setItem(SETS, JSON.stringify([[]]));
     }
