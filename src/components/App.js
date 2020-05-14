@@ -11,12 +11,11 @@ import SettingButton from "./Setting/SettingButton";
 import SettingPanel from "./Setting";
 import ToDosButton from "./ToDos/ToDosButton";
 import ToDosPanel from "./ToDos";
-import NoticeButton from "./Information/NoticeButton";
-import NotivePanel from "./Information/NoticePanel";
-import InformationButton from "./Information/InformationButton";
-import InformationPanel from "./Information/InformationPanel";
+import NoticeButton from "./NoticeButton";
+import NoticePanel from "./NoticePanel";
 
 const FOCUS = "focus";
+const PREV_NOTICE_ID = "prevNoticeId";
 const SETS = "sets";
 const LOCAL_DATE = "localDate";
 const PLAY = "play";
@@ -38,8 +37,9 @@ class App extends Component {
   }
   componentDidMount() {
     this.checkLastDate();
-    this.loadTime();
     this.applyTheme();
+    this.loadTime();
+    this.showNotice();
   }
 
   state = {
@@ -48,7 +48,8 @@ class App extends Component {
     isProgress: false,
     // Notice Information
     isNoticeClick: false, //
-    isInformationClick: false, //
+    prevNotiveId: JSON.parse(localStorage.getItem(PREV_NOTICE_ID)),
+    curNotiveId: "0.0.1",
     // Player
     isPlayerClick: false,
     isPlay: JSON.parse(localStorage.getItem(PLAY)),
@@ -69,6 +70,9 @@ class App extends Component {
   };
 
   checkLocalStorage = () => {
+    if (localStorage.getItem(PREV_NOTICE_ID) === null) {
+      localStorage.setItem(PREV_NOTICE_ID, JSON.stringify("0.0.0"));
+    }
     if (localStorage.getItem(SETS) === null) {
       localStorage.setItem(SETS, JSON.stringify([[]]));
     }
@@ -157,13 +161,41 @@ class App extends Component {
     });
   };
 
+  // NOTICE
+
   toggleNoticeClick = () => {
     this.setState({ isNoticeClick: !this.state.isNoticeClick });
   };
 
-  toggleInformationClick = () => {
-    this.setState({ isInformationClick: !this.state.isInformationClick });
+  showNotice = () => {
+    if (this.state.curNotiveId !== this.state.prevNotiveId) {
+      this.toggleNoticeClick();
+    }
   };
+
+  toggleNotice = async () => {
+    if (this.state.prevNotiveId === this.state.curNotiveId) {
+      await this.setState({ prevNotiveId: "0.0.0" }, () =>
+        localStorage.setItem(
+          PREV_NOTICE_ID,
+          JSON.stringify(this.state.prevNotiveId)
+        )
+      );
+    } else {
+      await this.setState({ prevNotiveId: this.state.curNotiveId }, () =>
+        localStorage.setItem(
+          PREV_NOTICE_ID,
+          JSON.stringify(this.state.prevNotiveId)
+        )
+      );
+    }
+  };
+
+  getNoticeState = () => {
+    return this.state.curNotiveId === this.state.prevNotiveId;
+  };
+
+  // PLAYER
 
   toggleIsPlay = () => {
     this.setState({ isPlay: !this.state.isPlay }, () =>
@@ -178,6 +210,8 @@ class App extends Component {
       isSettingClick: false,
     });
   };
+
+  // TODO
 
   saveToDos = () => {
     let savingToDos = [];
@@ -194,6 +228,8 @@ class App extends Component {
   reallocateToDos = (newToDos) => {
     this.setState({ toDos: newToDos }, () => this.saveToDos());
   };
+
+  // TIMER
 
   addFocusedTime = (time) => {
     let newToDos = [];
@@ -248,6 +284,8 @@ class App extends Component {
     }
   };
 
+  // SETTING
+
   reloadOptions = () => {
     this.setState({
       isNightMode: JSON.parse(localStorage.getItem(NIGHT_MODE)),
@@ -294,7 +332,6 @@ class App extends Component {
       isProgress,
       // Notice Information
       isNoticeClick,
-      isInformationClick,
       // Player
       isPlayerClick,
       isPlay,
@@ -316,11 +353,7 @@ class App extends Component {
         <Timer
           ref={this.Timer}
           isMenu={
-            isSettingClick ||
-            isToDoClick ||
-            isPlayerClick ||
-            isInformationClick ||
-            isNoticeClick
+            isSettingClick || isToDoClick || isPlayerClick || isNoticeClick
           }
           isPomodoro={isPomodoro}
           isAutoStart={isAutoStart}
@@ -354,11 +387,14 @@ class App extends Component {
           ""
         )}
         {isNoticeClick ? (
-          <NotivePanel toggleNoticeClick={this.toggleNoticeClick} />
+          <NoticePanel
+            toggleNoticeClick={this.toggleNoticeClick}
+            toggleNotice={this.toggleNotice}
+            getNoticeState={this.getNoticeState}
+          />
         ) : (
           ""
         )}
-        {isInformationClick ? <InformationPanel /> : ""}
         <Player
           isPlay={isPlay}
           isPlayerClick={isPlayerClick}
@@ -385,9 +421,6 @@ class App extends Component {
         </ButtonConatiner>
         <ButtonConatiner Right>
           <NoticeButton toggleNoticeClick={this.toggleNoticeClick} />
-          <InformationButton
-            toggleInformationClick={this.toggleInformationClick}
-          />
         </ButtonConatiner>
       </ThemeProvider>
     );
