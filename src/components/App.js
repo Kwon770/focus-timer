@@ -35,12 +35,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.checkLocalStorage();
-    // localStorage.setItem(TIME, JSON.stringify(30));
-    this.loadTime();
+    this.applyTheme();
   }
   componentDidMount() {
     this.checkLastDate();
-    this.applyTheme();
+    this.loadTime();
     this.showNotice();
   }
 
@@ -283,11 +282,7 @@ class App extends Component {
 
   loadTime = () => {
     if (localStorage.getItem(TIME) === null) {
-      if (this.state.isFocus) {
-        this.props.setTimer(this.state.focusTime * 60);
-      } else {
-        this.props.setTimer(this.getBreakTime() * 60);
-      }
+      this.props.setTimer(1800);
     } else {
       this.props.setTimer(JSON.parse(localStorage.getItem(TIME)));
     }
