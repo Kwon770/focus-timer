@@ -2,13 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faSquare, faCheckSquare } from "@fortawesome/free-regular-svg-icons";
+import {
+  faSquare,
+  faCheckSquare,
+  faQuestionCircle,
+} from "@fortawesome/free-regular-svg-icons";
 
 export default ({ toggleNoticeClick, toggleNotice, getNoticeState }) => {
   return (
     <Panel>
       <TopButtonsWrapper>
         <FontAwesomeIcon icon={faChevronLeft} onClick={toggleNoticeClick} />
+        <FontAwesomeIcon
+          icon={faQuestionCircle}
+          size="2x"
+          // onClick={toggleNoticeClick}
+        />
       </TopButtonsWrapper>
       <Notice>
         <Title>📌 Notice</Title>
