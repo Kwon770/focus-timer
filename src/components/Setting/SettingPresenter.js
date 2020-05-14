@@ -124,7 +124,7 @@ const DescriptionPanel = styled.div`
   display: none;
   position: absolute;
   top: 0;
-  ${(props) => (props.Left ? "right: 160px;" : "left: 160px;")}
+  ${(props) => (props.Left ? "left: -230px;" : "left: 160px;")}
   padding: 10px 20px;
 `;
 
