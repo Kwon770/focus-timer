@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/focus-timer/static/js/main.41191a7f.chunk.js",
-    "main.js.map": "/focus-timer/static/js/main.41191a7f.chunk.js.map",
+    "main.js": "/focus-timer/static/js/main.c88d6bc0.chunk.js",
+    "main.js.map": "/focus-timer/static/js/main.c88d6bc0.chunk.js.map",
     "runtime-main.js": "/focus-timer/static/js/runtime-main.6d3e637e.js",
     "runtime-main.js.map": "/focus-timer/static/js/runtime-main.6d3e637e.js.map",
     "static/js/2.4108904f.chunk.js": "/focus-timer/static/js/2.4108904f.chunk.js",
     "static/js/2.4108904f.chunk.js.map": "/focus-timer/static/js/2.4108904f.chunk.js.map",
     "index.html": "/focus-timer/index.html",
-    "precache-manifest.46114d49bfeb93ce9494cb32dabc6247.js": "/focus-timer/precache-manifest.46114d49bfeb93ce9494cb32dabc6247.js",
+    "precache-manifest.d7cd4214035fc0187043bc524a2b0078.js": "/focus-timer/precache-manifest.d7cd4214035fc0187043bc524a2b0078.js",
     "service-worker.js": "/focus-timer/service-worker.js",
     "static/js/2.4108904f.chunk.js.LICENSE.txt": "/focus-timer/static/js/2.4108904f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6d3e637e.js",
     "static/js/2.4108904f.chunk.js",
-    "static/js/main.41191a7f.chunk.js"
+    "static/js/main.c88d6bc0.chunk.js"
   ]
 }
