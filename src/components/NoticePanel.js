@@ -27,15 +27,15 @@ export default ({ toggleNoticeClick, toggleNotice, getNoticeState }) => {
         </Column>
         <Title>🚀 New Feature</Title>
         <Column>
-          - Even you are on break step, timer will remember when you restart
-          broswer
+          - Our timer will remember your last time and timer step even you close
+          timer while the timer is running!
         </Column>
-        <Column>- Notice and Instruction Panel is added ! </Column>
+        <Column>- Notice and Instruction Panel is added! </Column>
         <Title>🐞 Debug</Title>
-        <Column>- The time data of ToDo will work again !</Column>
-        <Column>- The ui of Todo will work right from now on!</Column>
-        <Column>- The problem in music play loop is fixed !</Column>
-        <Column>- The minor bug of timer is sloved !</Column>
+        <Column>- The time data of ToDo will work again!</Column>
+        <Column>- The UI of Todo will work right from now on!</Column>
+        <Column>- The problem in music play loop is fixed</Column>
+        <Column>- The minor bug of timer is sloved</Column>
         <Button state={getNoticeState()} onClick={toggleNotice}>
           {getNoticeState() ? (
             <FontAwesomeIcon icon={faCheckSquare} />
