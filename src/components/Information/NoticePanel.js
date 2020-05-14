@@ -4,52 +4,44 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ toggleNoticeClick }) => {
-  const notice = `
-  This is under development. Lot of change may 
-  be come. But Don't worry the losing your data.
-  `;
-
-  const feature = `
-  - Even you are on break step, timer will 
-    remember when you restart broswer
-  `;
-
-  const debug = `
-  - The time data of ToDo will work again !
-  - The ui of Todo will work right from now on!
-  - The problem in music play loop is fixed !
-  - The minor bug of timer is sloved!
-  `;
-
   return (
     <Panel>
       <TopButtonsWrapper>
         <FontAwesomeIcon icon={faChevronLeft} onClick={toggleNoticeClick} />
       </TopButtonsWrapper>
-      <Title>📌 Notice</Title>
       <Main>
-        <pre>{notice}</pre>
-      </Main>
-      <Title>🚀 New Feature</Title>
-      <Main>
-        <pre>{feature}</pre>
-      </Main>
-      <Title>🐞 Debug</Title>
-      <Main>
-        <pre>{debug}</pre>
+        <Title>📌 Notice</Title>
+        <Column>
+          This is under development. Lot of change may be come. But Don't worry
+          the losing your data.
+        </Column>
+        <Title>🚀 New Feature</Title>
+        <Column>
+          - Even you are on break step, timer will remember when you restart
+          broswer
+        </Column>
+        <Column>- Notice and Instruction Panel is added ! </Column>
+        <Title>🐞 Debug</Title>
+        <Column>- The time data of ToDo will work again !</Column>
+        <Column>- The ui of Todo will work right from now on!</Column>
+        <Column>- The problem in music play loop is fixed !</Column>
+        <Column>- The minor bug of timer is sloved !</Column>
       </Main>
     </Panel>
   );
 };
 
-const Main = styled.main`
+const Main = styled.main``;
+
+const Column = styled.div`
   width: 100%;
+  margin: 4px 0px;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   width: 100%;
   font-weight: 700;
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 
 const TopButtonsWrapper = styled.div`
