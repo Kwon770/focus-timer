@@ -47,7 +47,7 @@ class App extends Component {
     isFocus: JSON.parse(localStorage.getItem(FOCUS)),
     isProgress: false,
     // Notice Information
-    isNoticeClick: true, //
+    isNoticeClick: false, //
     isInformationClick: false, //
     // Player
     isPlayerClick: false,

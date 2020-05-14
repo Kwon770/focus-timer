@@ -4,15 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ toggleNoticeClick }) => {
-  const content1 = `
-** New feature will update asap to be better
-
-  - Even you are on break step, 
-  timer will remember when you
-  restart broswer
+  const notice = `
+  This is under development. Lot of change may 
+  be come. But Don't worry the losing your data.
   `;
 
-  const content2 = `
+  const feature = `
+  - Even you are on break step, timer will 
+    remember when you restart broswer
+  `;
+
+  const debug = `
   - The time data of ToDo will work again !
   - The ui of Todo will work right from now on!
   - The problem in music play loop is fixed !
@@ -24,13 +26,17 @@ export default ({ toggleNoticeClick }) => {
       <TopButtonsWrapper>
         <FontAwesomeIcon icon={faChevronLeft} onClick={toggleNoticeClick} />
       </TopButtonsWrapper>
+      <Title>📌 Notice</Title>
+      <Main>
+        <pre>{notice}</pre>
+      </Main>
       <Title>🚀 New Feature</Title>
       <Main>
-        <pre>{content1}</pre>
+        <pre>{feature}</pre>
       </Main>
       <Title>🐞 Debug</Title>
       <Main>
-        <pre>{content2}</pre>
+        <pre>{debug}</pre>
       </Main>
     </Panel>
   );
