@@ -14,6 +14,7 @@ import ToDosPanel from "./ToDos";
 import NoticeButton from "./NoticeButton";
 import NoticePanel from "./NoticePanel";
 
+const TIME = "time";
 const FOCUS = "focus";
 const PREV_NOTICE_ID = "prevNoticeId";
 const SETS = "sets";
@@ -34,11 +35,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.checkLocalStorage();
+    // localStorage.setItem(TIME, JSON.stringify(30));
+    this.loadTime();
   }
   componentDidMount() {
     this.checkLastDate();
     this.applyTheme();
-    this.loadTime();
     this.showNotice();
   }
 
@@ -280,10 +282,14 @@ class App extends Component {
   };
 
   loadTime = () => {
-    if (this.state.isFocus) {
-      this.props.setTimer(this.state.focusTime, 0);
+    if (localStorage.getItem(TIME) === null) {
+      if (this.state.isFocus) {
+        this.props.setTimer(this.state.focusTime * 60);
+      } else {
+        this.props.setTimer(this.getBreakTime() * 60);
+      }
     } else {
-      this.props.setTimer(this.getBreakTime(), 0);
+      this.props.setTimer(JSON.parse(localStorage.getItem(TIME)));
     }
   };
 
@@ -313,9 +319,9 @@ class App extends Component {
           await this.reloadOptions();
 
           if (this.state.isFocus) {
-            this.props.setTimer(this.state.focusTime, 0);
+            this.props.setTimer(this.state.focusTime * 60);
           } else {
-            this.props.setTimer(this.getBreakTime(), 0);
+            this.props.setTimer(this.getBreakTime() * 60);
           }
         }
       }
@@ -447,7 +453,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    setTimer: (min, sec) => dispatch(actionCreators.setTimer(min, sec)),
+    setTimer: (tm) => dispatch(actionCreators.setTimer(tm)),
     clearSets: () => dispatch(actionCreators.clearSets()),
   };
 }

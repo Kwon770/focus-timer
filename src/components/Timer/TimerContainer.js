@@ -25,16 +25,10 @@ function TimerContainer({
   const startTimer = () => {
     if (intervalTimer.value != null) return;
 
-    let timeValue = time.minute * 60 + time.second;
     const timer = setInterval(() => {
-      timeValue--;
+      setTimer(time--);
 
-      const min =
-        timeValue < 0 ? Math.ceil(timeValue / 60) : Math.floor(timeValue / 60);
-      const sec = timeValue % 60;
-      setTimer(min, sec);
-
-      if (timeValue < 0 && (!isOverCount || !isFocus)) {
+      if (time < 0 && (!isOverCount || !isFocus)) {
         // timeout event
         clearInterval(timer);
         intervalTimer.setValue(null);
@@ -63,11 +57,11 @@ function TimerContainer({
       toggleIsFocus();
       changeIsProgress(false);
       addFocusedTime(focusTime);
-      setTimer(getBreakTime(), 0);
+      setTimer(getBreakTime() * 60);
     } else {
       // Finish break
       toggleIsFocus();
-      setTimer(focusTime, 0);
+      setTimer(focusTime * 60);
     }
 
     if (isAutoStart) {
@@ -78,8 +72,7 @@ function TimerContainer({
 
   return (
     <TimerPresenter
-      minute={time.minute}
-      second={time.second}
+      time={time}
       sets={sets}
       isMenu={isMenu}
       isFocus={isFocus}
@@ -98,7 +91,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    setTimer: (min, sec) => dispatch(actionCreators.setTimer(min, sec)),
+    setTimer: (tm) => dispatch(actionCreators.setTimer(tm)),
     addSet: () => dispatch(actionCreators.addSet()),
   };
 }

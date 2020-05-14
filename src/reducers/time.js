@@ -1,25 +1,24 @@
 const SET_TIMER = "SET_TIMER";
-const SET_SECOND = "SET_SECOND";
+const TIME = "time";
 
-export const setTimer = (min, sec) => {
+export const setTimer = (tm) => {
   return {
     type: SET_TIMER,
-    min,
-    sec,
+    tm,
   };
 };
 
-export const setSecond = (sec) => {
-  return {
-    type: SET_SECOND,
-    sec,
-  };
-};
-
-export function time(state = { minute: 0, second: 0 }, action) {
+export function time(
+  state = localStorage.getItem(TIME) === null
+    ? 0
+    : JSON.parse(localStorage.getItem(TIME)),
+  action
+) {
   switch (action.type) {
     case SET_TIMER:
-      return { minute: action.min, second: action.sec };
+      state = action.tm;
+      localStorage.setItem(TIME, JSON.stringify(state));
+      return state;
     default:
       return state;
   }

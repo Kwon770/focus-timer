@@ -9,8 +9,7 @@ import {
 import TodaySetCounter from "./TodaySetCounter";
 
 export default ({
-  minute,
-  second,
+  time,
   sets,
   isFocus,
   isMenu,
@@ -31,9 +30,9 @@ export default ({
   const HandleStop = () => {
     removeTimer();
     if (isFocus) {
-      setTimer(focusTime, 0);
+      setTimer(focusTime * 60);
     } else {
-      setTimer(getBreakTime(), 0);
+      setTimer(getBreakTime() * 60);
     }
   };
 
@@ -46,11 +45,15 @@ export default ({
     <Main isMenu={isMenu} isFocus={isFocus}>
       <TimerWrapper>
         <TodaySetCounter sets={sets} />
-        <DigitalTimer>{convertToTimeFormat(minute)}</DigitalTimer>
+        <DigitalTimer>
+          {convertToTimeFormat(
+            time < 0 ? Math.ceil(time / 60) : Math.floor(time / 60)
+          )}
+        </DigitalTimer>
         <DigitalTimer>
           '<DigitalTimerDot>'</DigitalTimerDot>
         </DigitalTimer>
-        <DigitalTimer>{convertToTimeFormat(second)}</DigitalTimer>
+        <DigitalTimer>{convertToTimeFormat(time % 60)}</DigitalTimer>
       </TimerWrapper>
       <TimerButtonWrapper>
         <TimerButton onClick={HandlePlay}>
