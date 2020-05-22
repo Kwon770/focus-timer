@@ -1,5 +1,7 @@
 # Focus Timer 🔥
 
+https://kwon770.github.io/focus-timer/
+
 The web to help focusing with Timer, ToDo, White Noise
 
 **The data is saved to LocalStorage (web local)**
